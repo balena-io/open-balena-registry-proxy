@@ -24,8 +24,8 @@ const rewriteFn = async (path: string, req: any) => {
 	let service = imageReference[4] || "main";
 	let version = imageReference[6] || "latest";
 
-	if (!version || version === "latest") {
-		// TODO: lookup default fleet release via SDK
+	if (!version || version === "latest" || version === "current") {
+		version = await sdk.getTargetRelease(fleet);
 	}
 
 	console.debug(`fleet: ${fleet}`);
@@ -41,7 +41,7 @@ const rewriteFn = async (path: string, req: any) => {
 		return undefined;
 	}
 
-	// TODO: use the registry host instead of discarding it
+	// TODO: use the image location host instead of hardcoding the registry URL
 	const locationPath =
 		"/" + imageLocation.split("/").slice(1).join("/") + "/manifests/latest";
 
@@ -49,6 +49,7 @@ const rewriteFn = async (path: string, req: any) => {
 };
 
 const proxyOptions = {
+    // TODO: use the image location host instead of hardcoding the registry URL
 	target: REGISTRY_URL,
 	changeOrigin: true,
 	pathRewrite: async function (path: string, req: any) {
@@ -75,7 +76,7 @@ app.get("/info", (req, res, next) => {
 });
 
 // proxied endpoints
-app.use("/v2/*/*/*/*", registryProxy);
+app.use("/v2/", registryProxy);
 
 // start server
 app.listen(PORT, INTERFACE, () => {

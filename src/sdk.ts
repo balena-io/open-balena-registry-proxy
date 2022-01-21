@@ -1,6 +1,5 @@
 import { getSdk } from "balena-sdk";
 
-// Creates a new SDK instance using the default or the provided options
 const balena = getSdk({
 	apiUrl: process.env.BALENA_API_URL || "https://api.balena-cloud.com/",
 });
@@ -84,4 +83,36 @@ export const getImageLocation = async (
 	console.debug(`image location: ${location}`);
 
 	return location;
+};
+
+export const getTargetRelease = async (fleetSlug: string) => {
+	const applications = await balena.pine
+		.get({
+			resource: "application",
+			options: {
+				$select: 'id',
+				$expand: { should_be_running__release: { $select: 'raw_version' } },
+				$filter: {
+					slug: fleetSlug
+				}
+			},
+		})
+		.then((applications) => {
+			// console.debug(applications);
+			return applications;
+		})
+		.catch((err) => {
+			console.error(err);
+			return undefined;
+		});
+
+	if (!applications || applications.length !== 1) {
+		return undefined;
+	}
+
+	const version = applications[0].should_be_running__release[0]?.raw_version;
+
+	console.debug(`should_be_running__release: ${version}`);
+
+	return version;
 };
