@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+  proxy:
+    build: .
+    ports:
+      - 80:5000

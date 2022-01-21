@@ -1,0 +1,51 @@
+{
+  "name": "balena-registry-proxy",
+  "version": "1.0.0",
+  "description": "Proxied names for balena registry fleet images",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "check": "tsc --pretty --noEmit --diagnostics --project ./tsconfig.json",
+    "lint": "balena-lint src",
+    "lint:fix": "balena-lint --fix src",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node src/index.ts",
+    "start": "ts-node dist/index.js",
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balena-io-playground/balena-registry-proxy.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/balena-io-playground/balena-registry-proxy/issues"
+  },
+  "homepage": "https://github.com/balena-io-playground/balena-registry-proxy#readme",
+  "dependencies": {
+    "balena-sdk": "^16.12.1",
+    "express": "^4.17.2",
+    "http-proxy-middleware": "^2.0.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@balena/lint": "^6.2.0",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.2.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "balena-lint --fix"
+    ]
+  }
+}
