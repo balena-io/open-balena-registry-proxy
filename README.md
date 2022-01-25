@@ -17,12 +17,12 @@ flashing a device, downloading the project and pushing it via the [balena CLI](h
 
 ### Image Reference
 
-The expected image reference format is `<proxy>/<fleet-slug>/<service>/<release>[:tag]`.
+The expected image reference format is `<proxy>/<fleet//slug>/<service>/<release>[:tag]`.
 
 - `proxy` is the host:port where the proxy is running, such as `localhost:80` or `foobar.balena-devices.com`
-- `fleet-slug` is a balenaCloud fleet slug in the format `org/fleet`
-- `service` the fleet service image name, `main` is assumed if not provided
-- `release` the fleet release commit string, such as `current` or `b1678e01687d42ae9b2fe254543c7d18`
+- `fleet//slug` is a balenaCloud fleet slug in the format `org/fleet`
+- `service` the fleet service name, `main` is assumed if not provided
+- `release` the fleet release commit, such as `current` or `b1678e01687d42ae9b2fe254543c7d18`
 - `tag` is optional and is ignored
 
 ### Public Device URL
