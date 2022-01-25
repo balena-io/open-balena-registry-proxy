@@ -4,11 +4,30 @@ const balena = getSdk({
 	apiUrl: process.env.BALENA_API_URL || "https://api.balena-cloud.com/",
 });
 
-export const getImageLocation = async (repository: string, tag: string) => {
-	const fleet = repository.split("/").slice(0, 2).join("/");
-	const service = repository.split("/")[2] || "main";
-	const version = tag === "latest" ? await getTargetRelease(repository) || tag : tag
-	console.debug(`fleet: ${fleet}, service: ${service}, version: ${version}`)
+export const getImageLocation = async (repository: string) => {
+	
+	const repoRef = repository.split("/");
+	const org = repoRef.shift();
+	const fleet = repoRef.shift();
+	const service = repoRef.shift() || "main";
+	let release = repoRef.shift() || undefined;
+
+	if (!org || !fleet) {
+		return undefined;
+	}
+
+	const fleetSlug = [org, fleet].join('/');
+
+	if (!release || ["latest", "current"].includes(release)) {
+		release = await getTargetRelease(repository)
+	}
+
+	if (!release) {
+		return undefined;
+	}
+
+	// console.debug(`fleetSlug: ${fleetSlug}, service: ${service}, release: ${release}`);
+
 	const images = await balena.pine
 		.get({
 			resource: "image",
@@ -19,7 +38,7 @@ export const getImageLocation = async (repository: string, tag: string) => {
 					"is_a_build_of__service",
 				],
 				$expand: {
-					is_a_build_of__service: {},
+					is_a_build_of__service: {}
 				},
 				$filter: {
 					release_image: {
@@ -32,13 +51,13 @@ export const getImageLocation = async (repository: string, tag: string) => {
 											$alias: "ipor",
 											$expr: {
 												ipor: {
-													raw_version: version,
+													commit: release,
 													belongs_to__application: {
 														$any: {
 															$alias: "bta",
 															$expr: {
 																bta: {
-																	slug: fleet,
+																	slug: fleetSlug,
 																},
 															},
 														},
@@ -82,15 +101,25 @@ export const getImageLocation = async (repository: string, tag: string) => {
 };
 
 export const getTargetRelease = async (repository: string) => {
-	const fleet = repository.split("/").slice(0, 2).join("/");
+
+	const repoRef = repository.split("/");
+	const org = repoRef.shift();
+	const fleet = repoRef.shift();
+
+	if (!org || !fleet) {
+		return undefined;
+	}
+
+	const fleetSlug = [org, fleet].join('/');
+
 	const applications = await balena.pine
 		.get({
 			resource: "application",
 			options: {
 				$select: "id",
-				$expand: { should_be_running__release: { $select: "raw_version" } },
+				$expand: { should_be_running__release: { $select: "commit" } },
 				$filter: {
-					slug: fleet,
+					slug: fleetSlug,
 				},
 			},
 		})
@@ -107,5 +136,5 @@ export const getTargetRelease = async (repository: string) => {
 		return undefined;
 	}
 
-	return applications[0].should_be_running__release[0]?.raw_version;
+	return applications[0].should_be_running__release[0]?.commit;
 };

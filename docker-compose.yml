@@ -3,5 +3,6 @@ version: '2'
 services:
   proxy:
     build: .
+    # expose port 80 to work over public device URLs
     ports:
-      - 5000:5000
+      - 80:5000

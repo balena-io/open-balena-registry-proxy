@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  proxy:
+    build: .
+    environment:
+      PORT: 5000
+
+  docker:
+    image: docker:dind
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+    command: --insecure-registry proxy:5000 --tls=false
+    restart: "no"
+
+  client:
+    image: docker:latest
+    command: pull proxy:5000/balenalabs/balenasound/audio/latest
+    depends_on:
+      - proxy
+      - docker
+    restart: "on-failure"
