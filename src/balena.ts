@@ -97,6 +97,7 @@ export const getImageLocation = async (repository: string) => {
 		return undefined;
 	}
 
+	// TODO: cache these results
 	return images[0].is_stored_at__image_location;
 };
 
@@ -136,5 +137,6 @@ export const getTargetRelease = async (repository: string) => {
 		return undefined;
 	}
 
+	// TODO: cache these results
 	return applications[0].should_be_running__release[0]?.commit;
 };

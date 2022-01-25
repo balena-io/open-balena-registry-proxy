@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as morgan from "morgan";
 import * as proxy from "http-proxy-middleware";
-import * as sdk from "./balena";
+import * as balena from "./balena";
 
 const PORT = parseInt(process.env.PORT || "5000", 10);
 const INTERFACE = process.env.INTERFACE || "0.0.0.0";
@@ -34,7 +34,7 @@ const registryProxy = proxy.createProxyMiddleware({
 			return path;
 		}
 
-		const imageLocation = await sdk.getImageLocation(repository);
+		const imageLocation = await balena.getImageLocation(repository);
 
 		if (!imageLocation) {
 			console.error(`Failed to lookup fleet release: ${repository}`);
@@ -103,7 +103,7 @@ const authProxy = proxy.createProxyMiddleware({
 			return path;
 		}
 
-		const imageLocation = await sdk.getImageLocation(resourceName);
+		const imageLocation = await balena.getImageLocation(resourceName);
 
 		if (!imageLocation) {
 			console.error(`Failed to lookup fleet release: ${resourceName}`);
