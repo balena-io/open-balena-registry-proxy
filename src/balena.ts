@@ -4,11 +4,11 @@ const balena = getSdk({
 	apiUrl: process.env.BALENA_API_URL || "https://api.balena-cloud.com/",
 });
 
-export const getImageLocation = async (
-	fleetSlug: string,
-	serviceName: string,
-	rawVersion: string
-) => {
+export const getImageLocation = async (repository: string, tag: string) => {
+	const fleet = repository.split("/").slice(0, 2).join("/");
+	const service = repository.split("/")[2] || "main";
+	const version = tag === "latest" ? await getTargetRelease(repository) || tag : tag
+	console.debug(`fleet: ${fleet}, service: ${service}, version: ${version}`)
 	const images = await balena.pine
 		.get({
 			resource: "image",
@@ -32,13 +32,13 @@ export const getImageLocation = async (
 											$alias: "ipor",
 											$expr: {
 												ipor: {
-													raw_version: rawVersion,
+													raw_version: version,
 													belongs_to__application: {
 														$any: {
 															$alias: "bta",
 															$expr: {
 																bta: {
-																	slug: fleetSlug,
+																	slug: fleet,
 																},
 															},
 														},
@@ -57,7 +57,7 @@ export const getImageLocation = async (
 							$alias: "iabos",
 							$expr: {
 								iabos: {
-									service_name: serviceName,
+									service_name: service,
 								},
 							},
 						},
@@ -78,23 +78,20 @@ export const getImageLocation = async (
 		return undefined;
 	}
 
-	const location = images[0].is_stored_at__image_location;
-
-	console.debug(`image location: ${location}`);
-
-	return location;
+	return images[0].is_stored_at__image_location;
 };
 
-export const getTargetRelease = async (fleetSlug: string) => {
+export const getTargetRelease = async (repository: string) => {
+	const fleet = repository.split("/").slice(0, 2).join("/");
 	const applications = await balena.pine
 		.get({
 			resource: "application",
 			options: {
-				$select: 'id',
-				$expand: { should_be_running__release: { $select: 'raw_version' } },
+				$select: "id",
+				$expand: { should_be_running__release: { $select: "raw_version" } },
 				$filter: {
-					slug: fleetSlug
-				}
+					slug: fleet,
+				},
 			},
 		})
 		.then((applications) => {
@@ -110,9 +107,5 @@ export const getTargetRelease = async (fleetSlug: string) => {
 		return undefined;
 	}
 
-	const version = applications[0].should_be_running__release[0]?.raw_version;
-
-	console.debug(`should_be_running__release: ${version}`);
-
-	return version;
+	return applications[0].should_be_running__release[0]?.raw_version;
 };

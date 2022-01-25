@@ -4,4 +4,4 @@ services:
   proxy:
     build: .
     ports:
-      - 80:5000
+      - 5000:5000
