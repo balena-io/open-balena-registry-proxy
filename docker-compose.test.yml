@@ -16,8 +16,11 @@ services:
 
   client:
     image: docker:latest
-    command: pull proxy:5000/balenalabs/balenasound/audio/latest
+    entrypoint: time
+    command: docker pull proxy:5000/balenalabs/balenasound/audio/latest
     depends_on:
       - proxy
       - docker
     restart: "on-failure"
+    environment:
+      DOCKER_HOST: tcp://docker:2375
