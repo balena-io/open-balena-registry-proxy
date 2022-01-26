@@ -85,9 +85,9 @@ export const getImageLocation = memoizee(async (repository: string) => {
 				},
 			},
 		})
-		.then((images) => {
-			// console.debug(images);
-			return images;
+		.then((val) => {
+			// console.debug(val);
+			return val;
 		})
 		.catch((err) => {
 			console.error(err);
@@ -124,9 +124,9 @@ export const getTargetRelease = memoizee(async (repository: string) => {
 				},
 			},
 		})
-		.then((applications) => {
-			// console.debug(applications);
-			return applications;
+		.then((val) => {
+			// console.debug(val);
+			return val;
 		})
 		.catch((err) => {
 			console.error(err);
