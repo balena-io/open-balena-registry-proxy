@@ -1,10 +1,11 @@
 import { getSdk } from "balena-sdk";
+import * as memoizee from "memoizee";
 
 const balena = getSdk({
 	apiUrl: process.env.BALENA_API_URL || "https://api.balena-cloud.com/",
 });
 
-export const getImageLocation = async (repository: string) => {
+export const getImageLocation = memoizee(async (repository: string) => {
 	
 	const repoRef = repository.split("/");
 	const org = repoRef.shift();
@@ -84,9 +85,9 @@ export const getImageLocation = async (repository: string) => {
 				},
 			},
 		})
-		.then((images) => {
-			// console.debug(images);
-			return images;
+		.then((val) => {
+			// console.debug(val);
+			return val;
 		})
 		.catch((err) => {
 			console.error(err);
@@ -97,11 +98,10 @@ export const getImageLocation = async (repository: string) => {
 		return undefined;
 	}
 
-	// TODO: cache these results
 	return images[0].is_stored_at__image_location;
-};
+});
 
-export const getTargetRelease = async (repository: string) => {
+export const getTargetRelease = memoizee(async (repository: string) => {
 
 	const repoRef = repository.split("/");
 	const org = repoRef.shift();
@@ -124,9 +124,9 @@ export const getTargetRelease = async (repository: string) => {
 				},
 			},
 		})
-		.then((applications) => {
-			// console.debug(applications);
-			return applications;
+		.then((val) => {
+			// console.debug(val);
+			return val;
 		})
 		.catch((err) => {
 			console.error(err);
@@ -137,6 +137,5 @@ export const getTargetRelease = async (repository: string) => {
 		return undefined;
 	}
 
-	// TODO: cache these results
 	return applications[0].should_be_running__release[0]?.commit;
-};
+});
