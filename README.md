@@ -87,5 +87,4 @@ Please open an issue or submit a pull request with any features, fixes, or chang
 
 ## TODO
 
-- cache responses from the API as we make way too many calls currently
 - support for private fleets and docker login
