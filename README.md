@@ -107,4 +107,5 @@ Please open an issue or submit a pull request with any features, fixes, or chang
 
 ## TODO
 
+- add tests
 - experiment with support for private fleets and docker login
