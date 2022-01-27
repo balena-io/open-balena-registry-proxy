@@ -87,6 +87,19 @@ Run a containerized docker daemon, docker client, and the registry proxy.
 docker-compose -f docker-compose.test.yml up --build
 ```
 
+## How does it work?
+
+1. The docker/balena client performs an [API version check](https://docs.docker.com/registry/spec/api/#api-version-check) on the registry (via the proxy)
+2. The registry responds that we are indeed `v2` and provides a `www-authentication` header with instructions on how to authenticate via balena API
+3. The proxy intercepts the `www-authentication` header in the response and replaces the URL to the balena API with it's own (very sneaky proxy)
+4. The client requests an auth token from the API (actually the proxy now) for access to `/org/fleet/release` in the registry
+5. The proxy intercepts this auth request and asks the API where to find the image for `/org/fleet/release`
+6. The proxy forwards the auth request after substituting `/org/fleet/release` with `/v2/b1678e01687d42ae9b2fe254543c7d18` in the URL
+7. The API happily provides an auth token following the [Docker Registry v2 Authentication Specification](https://docs.docker.com/registry/spec/auth/token/)
+8. The client uses this new token to request a pull of image `/org/fleet/release` from the registry
+9. Again, the proxy intercepts this pull request and asks the API where to find the image for `/org/fleet/release` (hopefully this was cached)
+10. The proxy forwards the pull request after substituting `/org/fleet/release` with `/v2/b1678e01687d42ae9b2fe254543c7d18` in the URL
+
 ## Contributing
 
 Please open an issue or submit a pull request with any features, fixes, or changes.
