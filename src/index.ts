@@ -27,16 +27,17 @@ const registryProxy = proxy.createProxyMiddleware({
 		const method = imageRef.pop(); // 'manifests' or 'blobs'
 		const repository = imageRef.join("/"); // whatever is left should be the 2-4 depth repository path
 
-		if (!repository || !tag) {
-			// console.error(`Unhandled path format: ${url.pathname}`);
-			// console.debug(url.pathname.split("/"));
+		if (!version || !repository || !tag || !method) {
+			// this may be an API version check or other command, just forward it
+			// https://docs.docker.com/registry/spec/api/#api-version-check
 			return path;
 		}
 
 		const imageLocation = await balena.getImageLocation(repository);
 
 		if (!imageLocation) {
-			console.error(`Failed to lookup fleet release: ${repository}`);
+			console.error(`Failed find a matching release: ${repository}`);
+			// TODO: should we bail out here somehow and respond 404?
 			return path;
 		}
 
@@ -54,7 +55,9 @@ const registryProxy = proxy.createProxyMiddleware({
 		// remove the host prefix from the url parser href so we are left with the path and params
 		const newPath = url.href.replace(url.origin, "");
 
-		// console.debug(`Rewriting path: ${path} -> ${newPath}`);
+		console.debug("Rewriting path:");
+		console.debug(`<== ${path}`);
+		console.debug(`==> ${newPath}`);
 
 		return newPath;
 	},
@@ -79,15 +82,12 @@ const authProxy = proxy.createProxyMiddleware({
 	pathRewrite: async function (path, req) {
 		const url = new URL(`${HTTPS ? "https" : "http"}://${AUTH_HOST}${path}`);
 
-		// console.debug("Processing /auth URL...");
-		// console.debug(url);
-
 		// parse the scope parameter from the auth request
 		// https://docs.docker.com/registry/spec/auth/token/
 		const scope = url.searchParams.get("scope") || undefined;
 
 		if (!scope) {
-			console.error(`Unhandled auth params: ${url.searchParams.toString}`);
+			console.error("Forwarding unhandled auth request!");
 			return path;
 		}
 
@@ -98,14 +98,14 @@ const authProxy = proxy.createProxyMiddleware({
 		const resourceAction = scopeRef.shift(); // eg. 'pull'
 
 		if (!resourceName) {
-			console.error(`Unhandled auth params: ${url.searchParams.toString}`);
+			console.error("Forwarding unhandled auth request!");
 			return path;
 		}
 
 		const imageLocation = await balena.getImageLocation(resourceName);
 
 		if (!imageLocation) {
-			console.error(`Failed to lookup fleet release: ${resourceName}`);
+			console.error(`Failed find a matching release: ${resourceName}`);
 			return path;
 		}
 
@@ -121,7 +121,9 @@ const authProxy = proxy.createProxyMiddleware({
 		// remove the host prefix from the url parser href so we are left with the path and params
 		const newPath = url.href.replace(url.origin, "");
 
-		// console.debug(`Rewriting path: ${path} -> ${newPath}`);
+		console.debug("Rewriting path:");
+		console.debug(`<== ${path}`);
+		console.debug(`==> ${newPath}`);
 
 		return newPath;
 	},
@@ -129,9 +131,6 @@ const authProxy = proxy.createProxyMiddleware({
 
 // create express server
 const app = express();
-
-// add logging
-// app.use(morgan("dev"));
 
 // info endpoint
 app.get("/info", (req, res, next) => {
