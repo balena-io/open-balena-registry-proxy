@@ -10,8 +10,8 @@ export const getImageLocation = memoizee(async (repository: string) => {
 	const repoRef = repository.split("/");
 	const org = repoRef.shift();
 	const fleet = repoRef.shift();
-	let service = repoRef.shift() || undefined;
 	let release = repoRef.shift() || undefined;
+	const service = repoRef.shift() || undefined;
 
 	if (!org || !fleet) {
 		return undefined;
