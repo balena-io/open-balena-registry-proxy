@@ -11,7 +11,7 @@ export const getImageLocation = memoizee(async (repository: string) => {
 		const repoRef = repository.split("/");
 		const org = repoRef.shift();
 		const fleet = repoRef.shift();
-		const release = repoRef.shift() || undefined;
+		let release = repoRef.shift() || undefined;
 		const service = repoRef.shift() || undefined;
 
 		if (!org || !fleet) {
@@ -19,6 +19,10 @@ export const getImageLocation = memoizee(async (repository: string) => {
 		}
 
 		const fleetSlug = [org, fleet].join('/');
+
+		if (release == null || [`latest`, `current`, `default`, `pinned`].includes(release)) {
+			release = undefined;
+		}
 
 		console.debug(`fleetSlug: ${fleetSlug}, service: ${service}, release: ${release}`);
 

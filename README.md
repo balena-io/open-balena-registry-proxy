@@ -30,6 +30,7 @@ The `release` can take multiple formats, but `+` symbols are not supported in do
 - a final release version like `1.2.3` will pull the latest final release of that version (eg. `1.2.3+rev4`)
 - a draft release version like `1.2.3-1234567890`
 - any successful release commit like `b1678e01687d42ae9b2fe254543c7d18`
+- unset, `latest`, `current`, `default`, `pinned` are all aliases for the current pinned release
 
 ### Public Device URL
 
@@ -106,4 +107,4 @@ Please open an issue or submit a pull request with any features, fixes, or chang
 
 ## TODO
 
-- support for private fleets and docker login
+- experiment with support for private fleets and docker login
