@@ -21,9 +21,15 @@ The expected image reference format is `<proxy>/<fleet//slug>/<release>/<service
 
 - `proxy` is the host:port where the proxy is running, such as `localhost:80` or `foobar.balena-devices.com`
 - `fleet//slug` is a balenaCloud fleet slug in the format `org/fleet`
-- `release` (optional) the fleet release commit, such as `current` or `b1678e01687d42ae9b2fe254543c7d18`
+- `release` (optional) the fleet release, either the commit or the version
 - `service` (optional) if the fleet contains multiple services you can specify one here
 - `tag` is optional and is ignored
+
+The `release` can take multiple formats, but `+` symbols are not supported in docker paths so some assumptions are made for final releases.
+
+- a final release version like `1.2.3` will pull the latest final release of that version (eg. `1.2.3+rev4`)
+- a draft release version like `1.2.3-1234567890`
+- any successful release commit like `b1678e01687d42ae9b2fe254543c7d18`
 
 ### Public Device URL
 

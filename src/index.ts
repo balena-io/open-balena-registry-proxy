@@ -1,5 +1,4 @@
 import * as express from "express";
-import * as morgan from "morgan";
 import * as proxy from "http-proxy-middleware";
 import * as balena from "./balena";
 
