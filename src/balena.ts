@@ -10,7 +10,7 @@ export const getImageLocation = memoizee(async (repository: string) => {
 	const repoRef = repository.split("/");
 	const org = repoRef.shift();
 	const fleet = repoRef.shift();
-	const service = repoRef.shift() || "main";
+	let service = repoRef.shift() || undefined;
 	let release = repoRef.shift() || undefined;
 
 	if (!org || !fleet) {
@@ -20,14 +20,14 @@ export const getImageLocation = memoizee(async (repository: string) => {
 	const fleetSlug = [org, fleet].join('/');
 
 	if (!release || ["latest", "current"].includes(release)) {
-		release = await getTargetRelease(repository)
+		release = await getTargetRelease(fleetSlug)
 	}
 
 	if (!release) {
 		return undefined;
 	}
 
-	// console.debug(`fleetSlug: ${fleetSlug}, service: ${service}, release: ${release}`);
+	console.debug(`fleetSlug: ${fleetSlug}, service: ${service}, release: ${release}`);
 
 	const images = await balena.pine
 		.get({
@@ -72,7 +72,7 @@ export const getImageLocation = memoizee(async (repository: string) => {
 						},
 					},
 					status: "success",
-					is_a_build_of__service: {
+					...( service && { is_a_build_of__service: {
 						$any: {
 							$alias: "iabos",
 							$expr: {
@@ -81,7 +81,7 @@ export const getImageLocation = memoizee(async (repository: string) => {
 								},
 							},
 						},
-					},
+					}}),
 				},
 			},
 		})
@@ -94,24 +94,14 @@ export const getImageLocation = memoizee(async (repository: string) => {
 			return undefined;
 		});
 
-	if (!images || images.length !== 1) {
+	if (!images || images.length < 1) {
 		return undefined;
 	}
 
 	return images[0].is_stored_at__image_location;
 });
 
-export const getTargetRelease = memoizee(async (repository: string) => {
-
-	const repoRef = repository.split("/");
-	const org = repoRef.shift();
-	const fleet = repoRef.shift();
-
-	if (!org || !fleet) {
-		return undefined;
-	}
-
-	const fleetSlug = [org, fleet].join('/');
+export const getTargetRelease = memoizee(async (fleetSlug: string) => {
 
 	const applications = await balena.pine
 		.get({

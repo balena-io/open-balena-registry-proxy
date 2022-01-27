@@ -17,7 +17,7 @@ services:
   client:
     image: docker:latest
     entrypoint: time
-    command: docker pull proxy:5000/balenalabs/balenasound/audio/latest
+    command: docker pull proxy:5000/balenablocks/dashboard
     depends_on:
       - proxy
       - docker

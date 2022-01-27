@@ -30,11 +30,11 @@ The expected image reference format is `<proxy>/<fleet//slug>/<service>/<release
 Enable the public device URL in the dashboard remove the `https://` prefix for your proxy host.
 
 ```bash
-docker pull foobar.balena-devices.com/balenalabs/balenasound/audio/latest
+docker pull foobar.balena-devices.com/balenablocks/dashboard
 ```
 
 ```dockerfile
-FROM foobar.balena-devices.com/balenalabs/balenasound/audio/latest
+FROM foobar.balena-devices.com/balenablocks/dashboard
 ```
 
 ### Local Device IP
@@ -50,11 +50,11 @@ Add an entry similar to this to your [docker daemon configuration file](https://
 ```
 
 ```bash
-docker pull foobar.local:80/balenalabs/balenasound/audio/latest
+docker pull foobar.local:80/balenablocks/dashboard
 ```
 
 ```dockerfile
-FROM foobar.local:80/balenalabs/balenasound/audio/latest
+FROM foobar.local:80/balenablocks/dashboard
 ```
 
 ### Localhost
@@ -62,15 +62,15 @@ FROM foobar.local:80/balenalabs/balenasound/audio/latest
 You can also run this on your workstation with docker compose, and localhost is allowed as insecure by default.
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 ```bash
-docker pull localhost:80/balenalabs/balenasound/audio/latest
+docker pull localhost:80/balenablocks/dashboard
 ```
 
 ```dockerfile
-FROM localhost:80/balenalabs/balenasound/audio/latest
+FROM localhost:80/balenablocks/dashboard
 ```
 
 ## Testing
