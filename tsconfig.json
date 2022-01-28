@@ -1,9 +1,29 @@
 {
 	"compilerOptions": {
-	  "target": "es5",
-	  "module": "commonjs",
-	  "strict": true,
-	  "outDir": "dist",
-	  "sourceMap": true
-	}
+		"module": "commonjs",
+		"target": "es2021",
+		"outDir": "dist",
+		"strict": true,
+		"useUnknownInCatchVariables": false,
+		"noImplicitThis": false,
+		"strictFunctionTypes": false,
+		"strictPropertyInitialization": false,
+		"noUnusedParameters": true,
+		"noUnusedLocals": true,
+		"preserveConstEnums": true,
+		"removeComments": true,
+		"resolveJsonModule": true,
+		"sourceMap": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"bin/**/*.ts",
+		"src/**/*.ts",
+		"test/**/*.ts",
+		"typings/**/*.d.ts",
+		"*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

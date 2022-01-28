@@ -4,6 +4,9 @@ WORKDIR /usr/src/app
 
 COPY src *.json ./
 
-RUN npm ci && npm run build
+RUN npm ci --ignore-scripts && \
+    npm run build && \
+    npm prune --production && \
+    npm cache clean --force
 
 CMD [ "npm", "start" ]
