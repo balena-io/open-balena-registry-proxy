@@ -55,10 +55,7 @@ const registryProxy = proxy.createProxyMiddleware({
 		// remove the host prefix from the url parser href so we are left with the path and params
 		const newPath = url.href.replace(url.origin, '');
 
-		console.debug('Rewriting path:');
-		console.debug(`<== ${path}`);
-		console.debug(`==> ${newPath}`);
-
+		console.log(`[pathRewrite] ${newPath}`);
 		return newPath;
 	},
 	async onProxyRes(proxyRes, req, res) {
@@ -70,7 +67,7 @@ const registryProxy = proxy.createProxyMiddleware({
 				`${HTTPS ? 'https' : 'http'}://${AUTH_HOST}`,
 				`http://${req.headers.host}`,
 			);
-			// console.debug(proxyRes.headers);
+			console.log(`[onProxyRes] ${proxyRes.headers['www-authenticate']}`);
 		}
 	},
 });
@@ -121,10 +118,7 @@ const authProxy = proxy.createProxyMiddleware({
 		// remove the host prefix from the url parser href so we are left with the path and params
 		const newPath = url.href.replace(url.origin, '');
 
-		console.debug('Rewriting path:');
-		console.debug(`<== ${path}`);
-		console.debug(`==> ${newPath}`);
-
+		console.log(`[pathRewrite] ${newPath}`);
 		return newPath;
 	},
 });

@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/balena-io-playground/balena-registry-proxy#readme",
   "dependencies": {
-    "balena-sdk": "^16.12.1",
+    "balena-sdk": "^16.13.4",
     "express": "^4.17.2",
     "http-proxy-middleware": "^2.0.1",
     "memoizee": "^0.4.15",

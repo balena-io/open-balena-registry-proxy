@@ -28,11 +28,10 @@ export const getImageLocation = memoizee(
 				release = undefined;
 			}
 
-			console.debug(
-				`fleetSlug: ${fleetSlug}, service: ${service}, release: ${release}`,
-			);
+			// console.debug(
+			// 	`fleetSlug: ${fleetSlug}, service: ${service}, release: ${release}`,
+			// );
 
-			// @ts-expect-error
 			const [image] = await sdk.pine.get<Image>({
 				resource: 'image',
 				options: {
