@@ -60,10 +60,6 @@ Add an entry similar to this to your [docker daemon configuration file](https://
 docker pull foobar.local:80/balenablocks/dashboard
 ```
 
-```dockerfile
-FROM foobar.local:80/balenablocks/dashboard
-```
-
 ### Localhost
 
 You can also run this on your workstation with docker compose, and localhost is allowed as insecure by default.
@@ -74,18 +70,6 @@ docker-compose up --build
 
 ```bash
 docker pull localhost:80/balenablocks/dashboard
-```
-
-```dockerfile
-FROM localhost:80/balenablocks/dashboard
-```
-
-## Testing
-
-Run a containerized docker daemon, docker client, and the registry proxy.
-
-```bash
-docker-compose -f docker-compose.test.yml up --build
 ```
 
 ## How does it work?
