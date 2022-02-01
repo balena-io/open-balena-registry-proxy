@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import { getImageLocation } from './balena';
-import { config } from './config';
+import { auth, config } from './config';
 import { imageRefParser, scopeRefParser, repoRefParser } from './parse';
 
 const registryProxy = proxy.createProxyMiddleware({
@@ -62,7 +62,7 @@ const registryProxy = proxy.createProxyMiddleware({
 		if (proxyRes.headers['www-authenticate']) {
 			proxyRes.headers['www-authenticate'] = proxyRes.headers[
 				'www-authenticate'
-			].replace(`${config.apiUrl}`, `http://${req.headers.host}`);
+			].replace(`${auth.apiUrl}`, `http://${req.headers.host}`);
 			console.log(`[onProxyRes] ${proxyRes.headers['www-authenticate']}`);
 		}
 	},
@@ -70,10 +70,10 @@ const registryProxy = proxy.createProxyMiddleware({
 
 const authProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
-	target: `${config.apiUrl}`,
+	target: `${auth.apiUrl}`,
 	changeOrigin: true,
 	async pathRewrite(path, _req) {
-		const url = new URL(`${config.apiUrl}${path}`);
+		const url = new URL(`${auth.apiUrl}${path}`);
 
 		const scopeRequest = scopeRefParser(url.searchParams.get('scope') || '');
 

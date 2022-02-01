@@ -4,7 +4,7 @@ import { config, auth } from './config';
 import { Repository } from './parse';
 
 const sdk = getSdk({
-	apiUrl: config.apiUrl,
+	apiUrl: auth.apiUrl,
 });
 
 export const getImageLocation = memoizee(

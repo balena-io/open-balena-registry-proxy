@@ -15,9 +15,13 @@ flashing a device, downloading the project and pushing it via the [balena CLI](h
 
 ### Environment Variables
 
-| Name        | Description                                                                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `API_TOKEN` | (optional) Session token or API key to authenticate with the balenaCloud API (<https://www.balena.io/docs/learn/manage/account/#access-tokens>). |
+| Name            | Description                                                                                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `REGISTRY_URL`  | Upstream registry URL. The default is `https://registry2.balena-cloud.com`.                                                                      |
+| `API_URL`       | Upstream API URL used for authentication and fleet/image mapping. The default is `https://api.balena-cloud.com`.                                 |
+| `API_TOKEN`     | (optional) Session token or API key to authenticate with the balenaCloud API (<https://www.balena.io/docs/learn/manage/account/#access-tokens>). |
+| `API_USER`      | (optional) The balenaCloud username prefixed with `u_` associated with the token above. Only used for `npm run test`.                            |
+| `CACHE_MAX_AGE` | The maximum age of the cached API lookups. The default is `600` seconds.                                                                         |
 
 ## Usage
 
@@ -58,7 +62,7 @@ Add an entry similar to this to your [docker daemon configuration file](https://
 
 ```json
 {
-    "insecure-registries": ["mydevice.local:80"]
+	"insecure-registries": ["mydevice.local:80"]
 }
 ```
 
@@ -80,7 +84,7 @@ balena env add API_TOKEN --device 7cf02a6 "$API_TOKEN"
 # login to the registry via the proxy with your username prefixed by "_u"
 echo "$API_TOKEN" | docker login --username "u_myusername" --password-stdin mydevice.balena-devices.com
 
-# pull from private fleets 
+# pull from private fleets
 docker pull mydevice.balena-devices.com/myorg/myfleet
 ```
 
