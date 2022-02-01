@@ -100,8 +100,3 @@ docker pull mydevice.balena-devices.com/myorg/myfleet
 ## Contributing
 
 Please open an issue or submit a pull request with any features, fixes, or changes.
-
-## TODO
-
-- add tests
-- experiment with support for private fleets and docker login
