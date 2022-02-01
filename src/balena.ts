@@ -1,36 +1,29 @@
 import { getSdk, Image } from 'balena-sdk';
 import * as memoizee from 'memoizee';
+import { config, auth } from './config';
+import { Repository } from './parse';
 
 const sdk = getSdk({
-	apiUrl: process.env.BALENA_API_URL || 'https://api.balena-cloud.com/',
+	apiUrl: config.apiUrl,
 });
-const CACHE_MAX_AGE = parseInt(process.env.CACHE_MAX_AGE || '600', 10);
 
 export const getImageLocation = memoizee(
-	async (repository: string) => {
+	async (repoRef: Repository) => {
 		try {
-			const repoRef = repository.split('/');
-			const org = repoRef.shift();
-			const fleet = repoRef.shift();
-			let release = repoRef.shift() || undefined;
-			const service = repoRef.shift() || undefined;
+			if (auth.apiToken) {
+				await sdk.auth.loginWithToken(auth.apiToken);
+			}
 
-			if (!org || !fleet) {
+			if (!repoRef?.fleet) {
 				return undefined;
 			}
 
-			const fleetSlug = [org, fleet].join('/');
-
 			if (
-				release == null ||
-				[`latest`, `current`, `default`, `pinned`].includes(release)
+				repoRef.release == null ||
+				[`latest`, `current`, `default`, `pinned`].includes(repoRef.release)
 			) {
-				release = undefined;
+				repoRef.release = undefined;
 			}
-
-			// console.debug(
-			// 	`fleetSlug: ${fleetSlug}, service: ${service}, release: ${release}`,
-			// );
 
 			const [image] = await sdk.pine.get<Image>({
 				resource: 'image',
@@ -54,30 +47,38 @@ export const getImageLocation = memoizee(
 																$alias: 'bta',
 																$expr: {
 																	bta: {
-																		slug: fleetSlug,
+																		slug: repoRef.fleet,
 																	},
 																},
 															},
 														},
-														...(release == null && {
+														...(repoRef.release == null && {
 															should_be_running_on__application: {
 																$any: {
 																	$alias: 'sbroa',
 																	$expr: {
 																		sbroa: {
-																			slug: fleetSlug,
+																			slug: repoRef.fleet,
 																		},
 																	},
 																},
 															},
 														}),
 													},
-													...(release != null && {
+													...(repoRef.release != null && {
 														$or: [
-															{ ipor: { commit: release } },
-															{ ipor: { semver: release, is_final: true } },
+															{ ipor: { commit: repoRef.release } },
 															{
-																ipor: { raw_version: release, is_final: false },
+																ipor: {
+																	semver: repoRef.release,
+																	is_final: true,
+																},
+															},
+															{
+																ipor: {
+																	raw_version: repoRef.release,
+																	is_final: false,
+																},
 															},
 														],
 													}),
@@ -89,13 +90,13 @@ export const getImageLocation = memoizee(
 							},
 						},
 						status: 'success',
-						...(service != null && {
+						...(repoRef.service != null && {
 							is_a_build_of__service: {
 								$any: {
 									$alias: 'iabos',
 									$expr: {
 										iabos: {
-											service_name: service,
+											service_name: repoRef.service,
 										},
 									},
 								},
@@ -118,6 +119,6 @@ export const getImageLocation = memoizee(
 	{
 		promise: true,
 		primitive: true,
-		maxAge: CACHE_MAX_AGE * 1000,
+		maxAge: config.cacheMaxAge * 1000,
 	},
 );
