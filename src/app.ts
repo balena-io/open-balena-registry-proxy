@@ -2,36 +2,37 @@ import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import { getImageLocation } from './balena';
 import { config } from './config';
+import { imageRefParser, scopeRefParser, repoRefParser } from './parse';
 
 const registryProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
-	target: `${config.useHttps ? 'https' : 'http'}://${config.registryHost}`,
+	target: `${config.registryUrl}`,
 	changeOrigin: true,
 	async pathRewrite(path, _req) {
-		const url = new URL(
-			`${config.useHttps ? 'https' : 'http'}://${config.registryHost}${path}`,
-		);
+		const url = new URL(`${config.registryUrl}${path}`);
 
 		// pathname should be in the format
 		// /v2/org/fleet/service/release/method/tag
-		const imageRef = url.pathname.split('/');
-		imageRef.shift(); // drop the preceding empty element
+		const imageRequest = imageRefParser(url.pathname);
 
-		const version = imageRef.shift(); // should always be v2 for balenaCloud
-		const tag = imageRef.pop(); // we can't use the tag as each release has a unique repo
-		const method = imageRef.pop(); // 'manifests' or 'blobs'
-		const repository = imageRef.join('/'); // whatever is left should be the 2-4 depth repository path
-
-		if (!version || !repository || !tag || !method) {
+		if (
+			!imageRequest ||
+			!imageRequest.version ||
+			!imageRequest.repository ||
+			!imageRequest.tag ||
+			!imageRequest.method
+		) {
 			// this may be an API version check or other command, just forward it
 			// https://docs.docker.com/registry/spec/api/#api-version-check
 			return path;
 		}
 
-		const imageLocation = await getImageLocation(repository);
+		const imageLocation = await getImageLocation(imageRequest.repository);
 
 		if (!imageLocation) {
-			console.error(`Failed find a matching release: ${repository}`);
+			console.error(
+				`Failed to find a matching release: ${imageRequest.repository.slug}`,
+			);
 			// TODO: should we bail out here somehow and respond 404?
 			return path;
 		}
@@ -40,11 +41,14 @@ const registryProxy = proxy.createProxyMiddleware({
 		const imagePath = imageLocation.split('/').slice(1).join('/');
 
 		// update the path with the repository path retrieved from the api
-		url.pathname = url.pathname.replace(repository, imagePath);
+		url.pathname = url.pathname.replace(
+			imageRequest.repository.slug,
+			imagePath,
+		);
 
 		// if we are getting the manifest list the tag should always be "latest"
-		if (method === 'manifests') {
-			url.pathname = url.pathname.replace(tag, 'latest');
+		if (imageRequest.method === 'manifests') {
+			url.pathname = url.pathname.replace(imageRequest.tag, 'latest');
 		}
 
 		// remove the host prefix from the url parser href so we are left with the path and params
@@ -58,10 +62,7 @@ const registryProxy = proxy.createProxyMiddleware({
 		if (proxyRes.headers['www-authenticate']) {
 			proxyRes.headers['www-authenticate'] = proxyRes.headers[
 				'www-authenticate'
-			].replace(
-				`${config.useHttps ? 'https' : 'http'}://${config.authHost}`,
-				`http://${req.headers.host}`,
-			);
+			].replace(`${config.apiUrl}`, `http://${req.headers.host}`);
 			console.log(`[onProxyRes] ${proxyRes.headers['www-authenticate']}`);
 		}
 	},
@@ -69,37 +70,35 @@ const registryProxy = proxy.createProxyMiddleware({
 
 const authProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
-	target: `${config.useHttps ? 'https' : 'http'}://${config.authHost}`,
+	target: `${config.apiUrl}`,
 	changeOrigin: true,
 	async pathRewrite(path, _req) {
-		const url = new URL(
-			`${config.useHttps ? 'https' : 'http'}://${config.authHost}${path}`,
-		);
+		const url = new URL(`${config.apiUrl}${path}`);
 
-		// parse the scope parameter from the auth request
-		// https://docs.docker.com/registry/spec/auth/token/
-		const scope = url.searchParams.get('scope') || undefined;
+		const scopeRequest = scopeRefParser(url.searchParams.get('scope') || '');
 
-		if (!scope) {
-			console.error('Forwarding unhandled auth request!');
+		if (
+			!scopeRequest ||
+			!scopeRequest.name ||
+			!scopeRequest.type ||
+			!scopeRequest.action
+		) {
+			// console.error('Forwarding unhandled auth request!');
 			return path;
 		}
 
-		const scopeRef = scope.split(':');
+		const repoRef = repoRefParser(scopeRequest?.name);
 
-		const resourceType = scopeRef.shift(); // eg. 'repository'
-		const resourceName = scopeRef.shift(); // eg. 'org/fleet/service/release'
-		const resourceAction = scopeRef.shift(); // eg. 'pull'
-
-		if (!resourceName) {
-			console.error('Forwarding unhandled auth request!');
+		if (!repoRef) {
+			console.error(`Forwarding unhandled auth request!: ${scopeRequest.name}`);
 			return path;
 		}
 
-		const imageLocation = await getImageLocation(resourceName);
+		const imageLocation = await getImageLocation(repoRef);
 
 		if (!imageLocation) {
-			console.error(`Failed find a matching release: ${resourceName}`);
+			console.error(`Failed to find a matching release: ${scopeRequest.name}`);
+			// TODO: should we bail out here somehow and respond 404?
 			return path;
 		}
 
@@ -109,7 +108,7 @@ const authProxy = proxy.createProxyMiddleware({
 		// update the scope with the repository path retrieved from the api
 		url.searchParams.set(
 			'scope',
-			[resourceType, imagePath, resourceAction].join(':'),
+			[scopeRequest.type, imagePath, scopeRequest.action].join(':'),
 		);
 
 		// remove the host prefix from the url parser href so we are left with the path and params
@@ -122,11 +121,6 @@ const authProxy = proxy.createProxyMiddleware({
 
 // create express server
 export const app = express();
-
-// info endpoint
-app.get('/info', (_req, res, _next) => {
-	res.send('Pull images from balenaCloud container registry with fleet slugs!');
-});
 
 // proxied endpoints
 app.use('/v2', registryProxy);

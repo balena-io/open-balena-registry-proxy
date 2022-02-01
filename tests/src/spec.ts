@@ -1,13 +1,37 @@
 import * as Docker from 'dockerode';
 import { expect } from 'chai';
 import { app } from '../../src/app';
-import { config } from '../../src/config';
+import { config, auth, test } from '../../src/config';
+import { repoRefParser } from '../../src/parse';
 
 const docker = new Docker();
-const baseRef = `localhost:${config.listenPort}/balenablocks/dashboard`;
 
-const releases = [undefined, 'latest', 'current', 'default', 'pinned', '0.0.0'];
-const services = [undefined, 'dashboard'];
+const repo = repoRefParser(test.repository);
+const baseRef = `localhost:${config.listenPort}/${repo?.fleet}`;
+
+const releases = Array.from(
+	new Set([
+		undefined,
+		'latest',
+		'current',
+		'default',
+		'pinned',
+		repo?.release != null ? repo?.release : undefined,
+	]),
+);
+const services = Array.from(
+	new Set([undefined, repo?.service != null ? repo?.service : undefined]),
+);
+
+const options = {
+	...(auth.apiUsername &&
+		auth.apiToken && {
+			authconfig: {
+				username: auth.apiUsername,
+				password: auth.apiToken,
+			},
+		}),
+};
 
 describe('#image', () => {
 	const server = app.listen(config.listenPort);
@@ -28,7 +52,7 @@ describe('#image', () => {
 					// 	console.log(output);
 					// });
 
-					docker.pull(ref, function (err: any, stream: any) {
+					docker.pull(ref, options, function (err: any, stream: any) {
 						if (err) {
 							return done(err);
 						}

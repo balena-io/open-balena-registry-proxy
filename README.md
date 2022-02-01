@@ -13,6 +13,12 @@ You can one-click-deploy this project to balena using the button below:
 Alternatively, deployment can be carried out by manually creating a [balenaCloud account](https://dashboard.balena-cloud.com) and application,
 flashing a device, downloading the project and pushing it via the [balena CLI](https://github.com/balena-io/balena-cli).
 
+### Environment Variables
+
+| Name        | Description                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `API_TOKEN` | (optional) Session token or API key to authenticate with the balenaCloud API (<https://www.balena.io/docs/learn/manage/account/#access-tokens>). |
+
 ## Usage
 
 ### Image Reference
@@ -37,11 +43,11 @@ The `release` can take multiple formats, but `+` symbols are not supported in do
 Enable the public device URL in the dashboard remove the `https://` prefix for your proxy host.
 
 ```bash
-docker pull foobar.balena-devices.com/balenablocks/dashboard
+docker pull mydevice.balena-devices.com/balenablocks/dashboard
 ```
 
 ```dockerfile
-FROM foobar.balena-devices.com/balenablocks/dashboard
+FROM mydevice.balena-devices.com/balenablocks/dashboard
 ```
 
 ### Local Device IP
@@ -52,24 +58,30 @@ Add an entry similar to this to your [docker daemon configuration file](https://
 
 ```json
 {
-    "insecure-registries" : [ "foobar.local:80" ]
+    "insecure-registries": ["mydevice.local:80"]
 }
 ```
 
 ```bash
-docker pull foobar.local:80/balenablocks/dashboard
+docker pull mydevice.local:80/balenablocks/dashboard
 ```
 
-### Localhost
+### Private Fleets
 
-You can also run this on your workstation with docker compose, and localhost is allowed as insecure by default.
-
-```bash
-docker-compose up --build
-```
+Authenticating to private fleets only works if the proxy server has an API token with the same access rights as the logged in user.
 
 ```bash
-docker pull localhost:80/balenablocks/dashboard
+# get an API token from your balenaCloud dashboard
+API_TOKEN=********
+
+# set the API_TOKEN env var on your fleet/device where the proxy is running
+balena env add API_TOKEN --device 7cf02a6 "$API_TOKEN"
+
+# login to the registry via the proxy with your username prefixed by "_u"
+echo "$API_TOKEN" | docker login --username "u_myusername" --password-stdin mydevice.balena-devices.com
+
+# pull from private fleets 
+docker pull mydevice.balena-devices.com/myorg/myfleet
 ```
 
 ## How does it work?
