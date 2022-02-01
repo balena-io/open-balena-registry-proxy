@@ -29,7 +29,7 @@ export const getImageLocation = memoizee(
 				resource: 'image',
 				options: {
 					$top: 1,
-					$select: 'is_stored_at__image_location',
+					$select: ['is_stored_at__image_location', 'content_hash'],
 					$filter: {
 						release_image: {
 							$any: {
@@ -110,7 +110,8 @@ export const getImageLocation = memoizee(
 				},
 			});
 
-			// console.log('!!! returned', image);
+			// TODO: do we need to return 'is_stored_at__image_location@content_hash' ?
+			// eg. https://github.com/balena-os/balena-yocto-scripts/blob/master/automation/include/balena-api.inc#L755
 			return image?.is_stored_at__image_location;
 		} catch (err) {
 			console.error(err);
