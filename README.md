@@ -27,13 +27,13 @@ flashing a device, downloading the project and pushing it via the [balena CLI](h
 
 ### Image Reference
 
-The expected image reference format is `<proxy>/<fleet//slug>/<release>/<service>[:tag]`.
+The expected image reference format is `proxy:port/org/fleet/release?/service?[:tag]?`.
 
-- `proxy` is the host:port where the proxy is running, such as `localhost:80` or `foobar.balena-devices.com`
-- `fleet//slug` is a balenaCloud fleet slug in the format `org/fleet`
+- `proxy:port` is the host:port where the proxy is running, such as `localhost:80` or `foobar.balena-devices.com`
+- `org/fleet` is a balenaCloud fleet slug
 - `release` (optional) the fleet release, either the commit or the version
 - `service` (optional) if the fleet contains multiple services you can specify one here
-- `tag` is optional and is ignored
+- `:tag` is optional and is ignored
 
 The `release` can take multiple formats, but `+` symbols are not supported in docker paths so some assumptions are made for final releases.
 
@@ -62,7 +62,7 @@ Add an entry similar to this to your [docker daemon configuration file](https://
 
 ```json
 {
-	"insecure-registries": ["mydevice.local:80"]
+    "insecure-registries": ["mydevice.local:80"]
 }
 ```
 
