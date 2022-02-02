@@ -2,12 +2,12 @@ import * as Docker from 'dockerode';
 import { expect } from 'chai';
 import { app } from '../../src/app';
 import { config, auth, test } from '../../src/config';
-import { repoRefParser } from '../../src/parse';
+import { parseReleaseRef } from '../../src/parse';
 
 const docker = new Docker();
 
-const repo = repoRefParser(test.repository);
-const baseRef = `localhost:${config.listenPort}/${repo?.fleet}`;
+const releaseRef = parseReleaseRef(test.repository);
+const baseImage = `localhost:${config.listenPort}/${releaseRef?.fleet.slug}`;
 
 const releases = Array.from(
 	new Set([
@@ -16,11 +16,14 @@ const releases = Array.from(
 		'current',
 		'default',
 		'pinned',
-		repo?.release != null ? repo?.release : undefined,
+		releaseRef?.version != null ? releaseRef?.version : undefined,
 	]),
 );
 const services = Array.from(
-	new Set([undefined, repo?.service != null ? repo?.service : undefined]),
+	new Set([
+		undefined,
+		releaseRef?.service != null ? releaseRef?.service : undefined,
+	]),
 );
 
 const options = {
@@ -38,7 +41,7 @@ describe('#image', () => {
 
 	releases.forEach((release) => {
 		services.forEach((service) => {
-			const ref = [baseRef, release, release != null ? service : undefined]
+			const ref = [baseImage, release, release != null ? service : undefined]
 				.filter(Boolean)
 				.join('/');
 
@@ -47,19 +50,25 @@ describe('#image', () => {
 					this.timeout(4000);
 
 					// remove the image if it exists
-					// const image = docker.getImage(ref);
-					// image.remove({ force: true }, function (_err, output) {
-					// 	console.log(output);
-					// });
+					const image = docker.getImage(ref);
+					image.remove({ force: true }, function (err, output) {
+						if (err) {
+							console.error(err);
+						} else {
+							console.log(output);
+						}
+					});
 
 					docker.pull(ref, options, function (err: any, stream: any) {
 						if (err) {
+							console.error(err);
 							return done(err);
 						}
 						docker.modem.followProgress(stream, onFinished, onProgress);
 
 						function onFinished(error: any, output: any) {
 							if (error) {
+								console.error(err);
 								return done(error);
 							}
 							expect(output).to.be.a('array');

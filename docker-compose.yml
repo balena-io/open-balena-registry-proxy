@@ -6,5 +6,3 @@ services:
     # expose port 80 to work over public device URLs
     ports:
       - 80:5000
-    env_file:
-      - .env

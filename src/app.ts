@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
-import { getImageLocation } from './balena';
+import { lookupReleaseImage } from './balena';
 import { auth, config } from './config';
-import { imageRefParser, scopeRefParser, repoRefParser } from './parse';
+import { parseImageRequest, parseScopeRequest } from './parse';
 
 const registryProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
@@ -11,44 +11,30 @@ const registryProxy = proxy.createProxyMiddleware({
 	async pathRewrite(path, _req) {
 		const url = new URL(`${config.registryUrl}${path}`);
 
-		// pathname should be in the format
-		// /v2/org/fleet/service/release/method/tag
-		const imageRequest = imageRefParser(url.pathname);
+		const imageReq = parseImageRequest(url.pathname);
 
-		if (
-			!imageRequest ||
-			!imageRequest.version ||
-			!imageRequest.repository ||
-			!imageRequest.tag ||
-			!imageRequest.method
-		) {
-			// this may be an API version check or other command, just forward it
-			// https://docs.docker.com/registry/spec/api/#api-version-check
+		if (!imageReq?.release) {
+			// this doesn't look like an image request, just forward it
 			return path;
 		}
 
-		const imageLocation = await getImageLocation(imageRequest.repository);
+		const releaseRef = await lookupReleaseImage(imageReq.release);
 
-		if (!imageLocation) {
-			console.error(
-				`Failed to find a matching release: ${imageRequest.repository.slug}`,
+		if (!releaseRef?.content_hash) {
+			console.error('Forwarding unhandled image request!');
+			// TODO: should we bail out here and respond 404?
+			return path;
+		}
+
+		// replace the repository with the release image path
+		url.pathname = url.pathname.replace(imageReq.repository, releaseRef.path);
+
+		// replace the tag with the content hash
+		if (imageReq.method === 'manifests') {
+			url.pathname = url.pathname.replace(
+				imageReq.tag,
+				releaseRef.content_hash,
 			);
-			// TODO: should we bail out here somehow and respond 404?
-			return path;
-		}
-
-		// remove the registry host prefix
-		const imagePath = imageLocation.split('/').slice(1).join('/');
-
-		// update the path with the repository path retrieved from the api
-		url.pathname = url.pathname.replace(
-			imageRequest.repository.slug,
-			imagePath,
-		);
-
-		// if we are getting the manifest list the tag should always be "latest"
-		if (imageRequest.method === 'manifests') {
-			url.pathname = url.pathname.replace(imageRequest.tag, 'latest');
 		}
 
 		// remove the host prefix from the url parser href so we are left with the path and params
@@ -75,40 +61,26 @@ const authProxy = proxy.createProxyMiddleware({
 	async pathRewrite(path, _req) {
 		const url = new URL(`${auth.apiUrl}${path}`);
 
-		const scopeRequest = scopeRefParser(url.searchParams.get('scope') || '');
+		const scopeRequest = parseScopeRequest(url.searchParams.get('scope') || '');
 
-		if (
-			!scopeRequest ||
-			!scopeRequest.name ||
-			!scopeRequest.type ||
-			!scopeRequest.action
-		) {
-			// console.error('Forwarding unhandled auth request!');
+		if (!scopeRequest?.release) {
+			console.error('Forwarding unhandled auth request!');
+			// TODO: should we bail out here and respond 401?
 			return path;
 		}
 
-		const repoRef = repoRefParser(scopeRequest?.name);
+		const releaseRef = await lookupReleaseImage(scopeRequest.release);
 
-		if (!repoRef) {
-			console.error(`Forwarding unhandled auth request!: ${scopeRequest.name}`);
+		if (!releaseRef?.path) {
+			console.error('Forwarding unhandled auth request!');
+			// TODO: should we bail out here and respond 401?
 			return path;
 		}
-
-		const imageLocation = await getImageLocation(repoRef);
-
-		if (!imageLocation) {
-			console.error(`Failed to find a matching release: ${scopeRequest.name}`);
-			// TODO: should we bail out here somehow and respond 404?
-			return path;
-		}
-
-		// remove the registry host prefix
-		const imagePath = imageLocation.split('/').slice(1).join('/');
 
 		// update the scope with the repository path retrieved from the api
 		url.searchParams.set(
 			'scope',
-			[scopeRequest.type, imagePath, scopeRequest.action].join(':'),
+			[scopeRequest.type, releaseRef.path, scopeRequest.action].join(':'),
 		);
 
 		// remove the host prefix from the url parser href so we are left with the path and params
