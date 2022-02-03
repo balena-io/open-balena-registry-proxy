@@ -1,13 +1,11 @@
-import * as Docker from 'dockerode';
 import { expect } from 'chai';
-import { app } from '../../src/app';
-import { config, auth, test } from '../../src/config';
+import { config, test } from '../../src/config';
 import { parseReleaseRef } from '../../src/parse';
-
-const docker = new Docker();
+import * as request from 'supertest';
+import { app } from '../..';
 
 const releaseRef = parseReleaseRef(test.repository);
-const baseImage = `localhost:${config.listenPort}/${releaseRef?.fleet.slug}`;
+const fleet = releaseRef?.fleet.slug;
 
 const releases = Array.from(
 	new Set([
@@ -26,66 +24,70 @@ const services = Array.from(
 	]),
 );
 
-const options = {
-	...(auth.apiUsername &&
-		auth.apiToken && {
-			authconfig: {
-				username: auth.apiUsername,
-				password: auth.apiToken,
-			},
-		}),
-};
+releases.forEach((release) => {
+	services.forEach((service) => {
+		const repo = [fleet, release, release != null ? service : undefined]
+			.filter(Boolean)
+			.join('/');
 
-describe('#image', () => {
-	const server = app.listen(config.listenPort);
-
-	releases.forEach((release) => {
-		services.forEach((service) => {
-			const ref = [baseImage, release, release != null ? service : undefined]
-				.filter(Boolean)
-				.join('/');
-
-			describe('#pull', function () {
-				it(ref, function (done) {
-					this.timeout(4000);
-
-					// remove the image if it exists
-					const image = docker.getImage(ref);
-					image.remove({ force: true }, function (err, output) {
-						if (err) {
-							console.error(err);
-						} else {
-							console.log(output);
-						}
-					});
-
-					docker.pull(ref, options, function (err: any, stream: any) {
-						if (err) {
-							console.error(err);
-							return done(err);
-						}
-						docker.modem.followProgress(stream, onFinished, onProgress);
-
-						function onFinished(error: any, output: any) {
-							if (error) {
-								console.error(err);
-								return done(error);
-							}
-							expect(output).to.be.a('array');
-							done();
-						}
-
-						function onProgress(event: any) {
-							expect(event).to.be.ok;
-							console.debug(event);
-						}
-					});
-				});
+		let token = '';
+		// https://docs.docker.com/registry/spec/api/#api-version-check
+		describe('GET /v2/', function () {
+			it('responds with www-authenticate', async function () {
+				const response = await request(app)
+					.get('/v2/')
+					.set('Accept', 'application/json');
+				// console.debug(response.headers);
+				// console.debug(response.body);
+				expect(response.status).equals(401);
+				expect(response.headers['content-type']).to.match(/application\/json/);
+				expect(response.headers['docker-distribution-api-version']).to.match(
+					/registry\/2.0/,
+				);
+				expect(response.headers['www-authenticate']).to.match(/127.0.0.1/);
 			});
 		});
-	});
 
-	after(function (done) {
-		server.close(done);
+		// https://docs.docker.com/registry/spec/auth/scope/
+		describe('GET /auth/v1/token/', function () {
+			it('responds with token', async function () {
+				const response = await request(app)
+					.get('/auth/v1/token/')
+					.query({
+						scope: `repository:${repo}:pull`,
+						service: `${config.registryUrl.replace(/(^\w+:|^)\/\//, '')}`,
+					})
+					.set('Accept', 'application/json');
+				// console.debug(response.headers);
+				// console.debug(response.body);
+				expect(response.status).equals(200);
+				expect(response.headers['content-type']).to.match(/application\/json/);
+				expect(response.body['token']).to.exist;
+				token = response.body['token'];
+			});
+		});
+
+		// https://docs.docker.com/registry/spec/api/#pulling-an-image
+		describe(`HEAD /v2/${repo}/manifests/latest`, function () {
+			it('responds with manifest', async function () {
+				const response = await request(app)
+					.head(`/v2/${repo}/manifests/latest`)
+					.set('Authorization', `Bearer ${token}`)
+					.set(
+						'Accept',
+						'application/vnd.docker.distribution.manifest.v2+json',
+					);
+				// console.debug(response.headers);
+				// console.debug(response.body);
+				expect(response.status).equals(200);
+				expect(response.headers['docker-content-digest']).to.exist;
+				expect(response.headers['docker-distribution-api-version']).to.match(
+					/registry\/2.0/,
+				);
+				expect(response.headers['content-type']).to.match(
+					/application\/vnd.docker.distribution.manifest.v2\+json/,
+				);
+			});
+		});
 	});
 });
