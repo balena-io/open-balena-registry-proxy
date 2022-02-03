@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { auth, config, test } from '../../src/config';
+import * as config from '../../src/config';
 import { parseReleaseRef } from '../../src/parse';
 import * as request from 'supertest';
 import { app } from '../..';
@@ -7,7 +7,7 @@ import { app } from '../..';
 const manifestSchema = 'application/vnd.docker.distribution.manifest.v2+json';
 const apiVersion = 'registry/2.0';
 const userAgent = 'docker/20.10.7';
-const releaseRef = parseReleaseRef(test.repository);
+const releaseRef = parseReleaseRef(config.test.repo);
 const fleet = releaseRef?.fleet.slug;
 
 const releases = Array.from(
@@ -27,9 +27,9 @@ const services = Array.from(
 	]),
 );
 
-const basicAuth = Buffer.from(`${auth.apiUsername}:${auth.apiToken}`).toString(
-	'base64',
-);
+const basicAuth = Buffer.from(
+	`${config.api.username}:${config.api.token}`,
+).toString('base64');
 
 releases.forEach((release) => {
 	services.forEach((service) => {
@@ -63,9 +63,9 @@ releases.forEach((release) => {
 				const response = await request(app)
 					.get('/auth/v1/token')
 					.query({
-						account: auth.apiUsername,
+						account: config.api.username,
 						scope: `repository:${repo}:pull`,
-						service: `${config.registryUrl.replace(/(^\w+:|^)\/\//, '')}`,
+						service: `${config.registry.url.replace(/(^\w+:|^)\/\//, '')}`,
 					})
 					.set('Authorization', `Basic ${basicAuth}`)
 					.set('Accept', 'application/json');

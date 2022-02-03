@@ -1,13 +1,13 @@
 import * as Docker from 'dockerode';
 import { expect } from 'chai';
 import { app } from '../../src/app';
-import { config, auth, test } from '../../src/config';
+import * as config from '../../src/config';
 import { parseReleaseRef } from '../../src/parse';
 
 const docker = new Docker();
 
-const releaseRef = parseReleaseRef(test.repository);
-const baseImage = `localhost:${config.listenPort}/${releaseRef?.fleet.slug}`;
+const releaseRef = parseReleaseRef(config.test.repo);
+const baseImage = `localhost:${config.server.port}/${releaseRef?.fleet.slug}`;
 
 const releases = Array.from(
 	new Set([
@@ -27,17 +27,17 @@ const services = Array.from(
 );
 
 const options = {
-	...(auth.apiUsername &&
-		auth.apiToken && {
+	...(config.api.username &&
+		config.api.token && {
 			authconfig: {
-				username: auth.apiUsername,
-				password: auth.apiToken,
+				username: config.api.username,
+				password: config.api.token,
 			},
 		}),
 };
 
 describe('#image', () => {
-	const server = app.listen(config.listenPort);
+	const server = app.listen(config.server.port);
 
 	releases.forEach((release) => {
 		services.forEach((service) => {
