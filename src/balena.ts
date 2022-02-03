@@ -1,17 +1,17 @@
 import { getSdk, Image } from 'balena-sdk';
 import * as memoizee from 'memoizee';
-import { config, auth } from './config';
+import * as config from './config';
 import { ReleaseRef, ExtendedImage } from './parse';
 
 const sdk = getSdk({
-	apiUrl: auth.apiUrl,
+	apiUrl: config.api.url,
 });
 
 export const lookupReleaseImage = memoizee(
 	async (release: ReleaseRef): Promise<ExtendedImage | undefined> => {
 		try {
-			if (auth.apiToken) {
-				await sdk.auth.loginWithToken(auth.apiToken);
+			if (config.api.token) {
+				await sdk.auth.loginWithToken(config.api.token);
 			}
 
 			if (
@@ -118,6 +118,6 @@ export const lookupReleaseImage = memoizee(
 	{
 		promise: true,
 		primitive: true,
-		maxAge: config.cacheMaxAge * 1000,
+		maxAge: config.server.cacheMaxAge * 1000,
 	},
 );

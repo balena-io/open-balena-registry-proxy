@@ -1,15 +1,15 @@
 import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import { lookupReleaseImage } from './balena';
-import { auth, config } from './config';
+import * as config from './config';
 import { parseImageRequest, parseScopeRequest } from './parse';
 
 const registryProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
-	target: `${config.registryUrl}`,
+	target: `${config.registry.url}`,
 	changeOrigin: true,
 	async pathRewrite(path, _req) {
-		const url = new URL(`${config.registryUrl}${path}`);
+		const url = new URL(`${config.registry.url}${path}`);
 
 		const imageReq = parseImageRequest(url.pathname);
 
@@ -48,7 +48,7 @@ const registryProxy = proxy.createProxyMiddleware({
 		if (proxyRes.headers['www-authenticate']) {
 			proxyRes.headers['www-authenticate'] = proxyRes.headers[
 				'www-authenticate'
-			].replace(`${auth.apiUrl}`, `http://${req.headers.host}`);
+			].replace(`${config.api.url}`, `http://${req.headers.host}`);
 			console.log(`[onProxyRes] ${proxyRes.headers['www-authenticate']}`);
 		}
 	},
@@ -56,10 +56,10 @@ const registryProxy = proxy.createProxyMiddleware({
 
 const authProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
-	target: `${auth.apiUrl}`,
+	target: `${config.api.url}`,
 	changeOrigin: true,
 	async pathRewrite(path, _req) {
-		const url = new URL(`${auth.apiUrl}${path}`);
+		const url = new URL(`${config.api.url}${path}`);
 
 		const scopeRequest = parseScopeRequest(url.searchParams.get('scope') || '');
 
