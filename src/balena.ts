@@ -1,28 +1,24 @@
 import { getSdk, Image } from 'balena-sdk';
 import * as memoizee from 'memoizee';
 import { config, auth } from './config';
-import { Repository } from './parse';
+import { ReleaseRef, ExtendedImage } from './parse';
 
 const sdk = getSdk({
 	apiUrl: auth.apiUrl,
 });
 
-export const getImageLocation = memoizee(
-	async (repoRef: Repository) => {
+export const lookupReleaseImage = memoizee(
+	async (release: ReleaseRef): Promise<ExtendedImage | undefined> => {
 		try {
 			if (auth.apiToken) {
 				await sdk.auth.loginWithToken(auth.apiToken);
 			}
 
-			if (!repoRef?.fleet) {
-				return undefined;
-			}
-
 			if (
-				repoRef.release == null ||
-				[`latest`, `current`, `default`, `pinned`].includes(repoRef.release)
+				release.version == null ||
+				[`latest`, `current`, `default`, `pinned`].includes(release.version)
 			) {
-				repoRef.release = undefined;
+				release.version = undefined;
 			}
 
 			const [image] = await sdk.pine.get<Image>({
@@ -47,36 +43,36 @@ export const getImageLocation = memoizee(
 																$alias: 'bta',
 																$expr: {
 																	bta: {
-																		slug: repoRef.fleet,
+																		slug: release.fleet.slug,
 																	},
 																},
 															},
 														},
-														...(repoRef.release == null && {
+														...(release.version == null && {
 															should_be_running_on__application: {
 																$any: {
 																	$alias: 'sbroa',
 																	$expr: {
 																		sbroa: {
-																			slug: repoRef.fleet,
+																			slug: release.fleet.slug,
 																		},
 																	},
 																},
 															},
 														}),
 													},
-													...(repoRef.release != null && {
+													...(release.version != null && {
 														$or: [
-															{ ipor: { commit: repoRef.release } },
+															{ ipor: { commit: release.version } },
 															{
 																ipor: {
-																	semver: repoRef.release,
+																	semver: release.version,
 																	is_final: true,
 																},
 															},
 															{
 																ipor: {
-																	raw_version: repoRef.release,
+																	raw_version: release.version,
 																	is_final: false,
 																},
 															},
@@ -90,13 +86,13 @@ export const getImageLocation = memoizee(
 							},
 						},
 						status: 'success',
-						...(repoRef.service != null && {
+						...(release.service != null && {
 							is_a_build_of__service: {
 								$any: {
 									$alias: 'iabos',
 									$expr: {
 										iabos: {
-											service_name: repoRef.service,
+											service_name: release.service,
 										},
 									},
 								},
@@ -110,9 +106,11 @@ export const getImageLocation = memoizee(
 				},
 			});
 
-			// TODO: do we need to return 'is_stored_at__image_location@content_hash' ?
-			// eg. https://github.com/balena-os/balena-yocto-scripts/blob/master/automation/include/balena-api.inc#L755
-			return image?.is_stored_at__image_location;
+			return {
+				...image,
+				// path is the repository location without the registry host prefix
+				path: image?.is_stored_at__image_location.split('/').slice(1).join('/'),
+			} as ExtendedImage;
 		} catch (err) {
 			console.error(err);
 		}
