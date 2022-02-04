@@ -1,0 +1,121 @@
+- version: 0.1.1
+  date: 2022-02-03T20:04:00Z
+  commits:
+  - hash: fc9da5bf675b907f159434a798b6d97c93831681
+    author: Kyle Harding
+    footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+    subject: Install supertest packages
+    body:
+  - hash: 4f38d3fa1bbe7b272bac1212864e55910baf9e9a
+    author: Kyle Harding
+    footers:
+      change-type: patch
+      signed-off-by: Kyle Harding <kyle@balena.io>
+    subject: Switch to supertest for the default test suite
+    body: This avoids the need for a docker socket and can be run on balenaCI.
+  - hash: 9c63244a85a7f3244c65e8945a4876bc2534fb49
+    author: Kyle Harding
+    footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+    subject: Override default balenaCI tests
+    body: |-
+      - disable node 12 as it's not passing
+      - disable docker publish for now
+  - hash: 4d2dda3f7607f8dcf92bb05a4e76aec7fb006c0b
+    author: Kyle Harding
+    footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+    subject: Fix authentication tests for private repos
+    body:
+  - hash: b9cb6ebef3799c802cc12fd36e276f1237a187d6
+    author: Kyle Harding
+    footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+    subject: Cleanup config and dotenv settings
+    body:
+- version: 0.1.0
+- date: 2022-02-03T14:26:06Z
+- commits:
+  - hash: e9464ed7530ff14f8678326f4a821f948b35e9be
+- commits:
+  - author: Kyle Harding
+- commits:
+  - footers:
+      change-type: minor
+- commits:
+  - footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+- commits:
+  - subject: Use content hash from the API as the digest
+- commits:
+  - body: The alias 'latest' was working but should not be relied upon.
+- commits:
+  - hash: cd6bcdc06f9be0020c5aba819af9259cd7ed706b
+- commits:
+  - author: Kyle Harding
+- commits:
+  - footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+- commits:
+  - subject: Add support for private fleets
+- commits:
+  - body:
+- commits:
+  - hash: dce29393a19f074cde260a4a2ccc30875b4b095b
+- commits:
+  - author: Kyle Harding
+- commits:
+  - footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+- commits:
+  - subject: Add simple end-to-end tests
+- commits:
+  - body:
+- commits:
+  - hash: 82d1077aa8319136bbe60e812dc50d4ad2669b16
+- commits:
+  - author: Kyle Harding
+- commits:
+  - footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+- commits:
+  - subject: Install memoizee
+- commits:
+  - body: https://www.npmjs.com/package/memoizee
+- commits:
+  - hash: 9795570cad68b3601db5607b28c433964f56583f
+- commits:
+  - author: Kyle Harding
+- commits:
+  - footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+- commits:
+  - subject: Update tests
+- commits:
+  - body:
+- commits:
+  - hash: b37e1ef1164263c5103f4695dbe5bcdec748058a
+- commits:
+  - author: Kyle Harding
+- commits:
+  - footers:
+      change-type: patch
+- commits:
+  - footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+- commits:
+  - subject: Enable simple caching for API requests
+- commits:
+  - body:
+- commits:
+  - hash: f2f289b1fc0c97800de0998212b3580344499614
+- commits:
+  - author: Kyle Harding
+- commits:
+  - footers:
+      signed-off-by: Kyle Harding <kyle@balena.io>
+- commits:
+  - subject: Fix some shadowed vars
+- commits:
+  - body:
