@@ -19,7 +19,7 @@
 	"include": [
 		"bin/**/*.ts",
 		"src/**/*.ts",
-		"test/**/*.ts",
+		"tests/**/*.ts",
 		"typings/**/*.d.ts",
 		"*.ts"
 	],
