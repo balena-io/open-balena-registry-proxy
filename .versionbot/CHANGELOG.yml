@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add config files for each mocha suite
+      hash: 4bc8595a4871e2eb8f49f249707d863e6bde1614
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.1
+  title: "'Add config files for each mocha suite'"
+  date: 2022-02-08T20:25:14.144Z
+- commits:
     - subject: Use auth-header package to parse www-authenticate header
       hash: 4e244fc396b906cd310ea598478d41a3db209824
       body: ""

@@ -1,6 +1,6 @@
 {
   "name": "balena-registry-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Proxied names for balena registry fleet images",
   "private": true,
   "main": "src/app",
@@ -68,6 +68,6 @@
     ]
   },
   "versionist": {
-    "publishedAt": "2022-02-08T19:49:07.901Z"
+    "publishedAt": "2022-02-08T20:25:14.208Z"
   }
 }
