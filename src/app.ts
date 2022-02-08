@@ -3,6 +3,7 @@ import * as proxy from 'http-proxy-middleware';
 import { lookupReleaseImage } from './balena';
 import * as config from './config';
 import { parseImageRequest, parseScopeRequest } from './parse';
+import * as authorization from 'auth-header';
 
 function resolveRepo(
 	req: express.Request & { resolvedPath: string },
@@ -47,7 +48,7 @@ function resolveRepo(
 		})
 		.catch((err) => {
 			console.error(err);
-			res.sendStatus(500);
+			return res.sendStatus(500);
 		});
 }
 
@@ -82,7 +83,7 @@ function resolveScope(
 		})
 		.catch((err) => {
 			console.error(err);
-			res.sendStatus(500);
+			return res.sendStatus(500);
 		});
 }
 
@@ -97,16 +98,22 @@ const registryProxy = proxy.createProxyMiddleware({
 			console.debug(`==> ${proxyReq.path}`);
 		}
 	},
-	onProxyRes(proxyRes, req, _res) {
-		// TODO: catch error="insufficient_scope" errors
-		// replace www-authenticate bearer realm to direct auth requests to the proxy
-		// const json = JSON.parse(proxyRes.headers['www-authenticate']);
-		// console.debug(json);
+	onProxyRes(proxyRes, req: express.Request, res: express.Response) {
 		if (proxyRes.headers['www-authenticate']) {
+			const auth = authorization.parse(proxyRes.headers['www-authenticate']);
+
+			if (auth.params.error) {
+				console.error(auth.params.error);
+				return res.sendStatus(401);
+			}
+
+			auth.params.realm = (auth.params.realm as string).replace(
+				config.api.url,
+				`http://${req.headers.host}`,
+			);
+
 			console.debug(`<== ${proxyRes.headers['www-authenticate']}`);
-			proxyRes.headers['www-authenticate'] = proxyRes.headers[
-				'www-authenticate'
-			].replace(`${config.api.url}`, `http://${req.headers.host}`);
+			proxyRes.headers['www-authenticate'] = authorization.format(auth as any);
 			console.debug(`==> ${proxyRes.headers['www-authenticate']}`);
 		}
 	},

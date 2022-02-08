@@ -41,7 +41,7 @@ releases.forEach((release) => {
 		// const identityToken = '';
 		// https://docs.docker.com/registry/spec/api/#api-version-check
 		describe('GET /v2/', function () {
-			it('responds with www-authenticate', async function () {
+			it('responds with unauthorized', async function () {
 				const response = await request(app)
 					.get('/v2/')
 					.set('User-Agent', userAgent)
