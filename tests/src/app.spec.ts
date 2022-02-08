@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as config from '../../src/config';
 import { parseReleaseRef } from '../../src/parse';
 import * as request from 'supertest';
-import { app } from '../..';
+import { app } from '../../src/app';
 
 const manifestSchema = 'application/vnd.docker.distribution.manifest.v2+json';
 const apiVersion = 'registry/2.0';
