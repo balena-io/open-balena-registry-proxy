@@ -1,4 +1,29 @@
 - commits:
+    - subject: Use auth-header package to parse www-authenticate header
+      hash: 4e244fc396b906cd310ea598478d41a3db209824
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Rework server to resolve paths before proxy commands
+      hash: 07f5beeb92e9aced87d06fff6785e2b9bc3dd829
+      body: |
+        This allows us to handle errors before the data is proxied.
+      footer:
+        Change-type: major
+        change-type: major
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.0
+  title: "'Rework server to resolve paths before proxy commands'"
+  date: 2022-02-08T19:49:07.792Z
+- commits:
     - subject: Switch to open-balena-base image
       hash: 7bbeb827ae3a98847dbed2f5e18f84174af15ccf
       body: ""
