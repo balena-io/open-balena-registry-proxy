@@ -3,91 +3,132 @@ import * as proxy from 'http-proxy-middleware';
 import { lookupReleaseImage } from './balena';
 import * as config from './config';
 import { parseImageRequest, parseScopeRequest } from './parse';
+import * as authorization from 'auth-header';
+
+function resolveRepo(
+	req: express.Request & { resolvedPath: string },
+	res: express.Response,
+	next: express.NextFunction,
+) {
+	const url = new URL(config.api.url + req.originalUrl);
+	const imageReq = parseImageRequest(url.pathname);
+
+	if (!imageReq?.release) {
+		// this doesn't look like an manifest or digest request
+		return next();
+	}
+
+	lookupReleaseImage(imageReq.release)
+		.then((releaseRef) => {
+			if (!releaseRef?.content_hash) {
+				console.error('Failed to resolve a release matching this request');
+				return res.sendStatus(404);
+			}
+
+			if (imageReq.method === 'manifests') {
+				url.pathname = [
+					'',
+					imageReq.version,
+					releaseRef.path,
+					imageReq.method,
+					releaseRef.content_hash,
+				].join('/');
+			} else {
+				url.pathname = [
+					'',
+					imageReq.version,
+					releaseRef.path,
+					imageReq.method,
+					imageReq.tag,
+				].join('/');
+			}
+
+			req.resolvedPath = url.pathname + url.search;
+			return next();
+		})
+		.catch((err) => {
+			console.error(err);
+			return res.sendStatus(500);
+		});
+}
+
+function resolveScope(
+	req: express.Request & { resolvedPath: string },
+	res: express.Response,
+	next: express.NextFunction,
+) {
+	const url = new URL(config.api.url + req.originalUrl);
+	const scopeRequest = parseScopeRequest(url.searchParams.get('scope') || '');
+
+	if (!scopeRequest?.release) {
+		console.error('Failed to parse auth request!');
+		return res.sendStatus(401);
+	}
+
+	lookupReleaseImage(scopeRequest.release)
+		.then((releaseRef) => {
+			if (!releaseRef?.content_hash) {
+				console.error('Failed to resolve a release matching this request');
+				return res.sendStatus(401);
+			}
+
+			// update the scope with the repository path retrieved from the api
+			url.searchParams.set(
+				'scope',
+				[scopeRequest.type, releaseRef.path, scopeRequest.action].join(':'),
+			);
+
+			req.resolvedPath = url.pathname + url.search;
+			return next();
+		})
+		.catch((err) => {
+			console.error(err);
+			return res.sendStatus(500);
+		});
+}
 
 const registryProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
-	target: `${config.registry.url}`,
+	target: config.registry.url,
 	changeOrigin: true,
-	async pathRewrite(path, _req) {
-		const url = new URL(`${config.registry.url}${path}`);
-
-		const imageReq = parseImageRequest(url.pathname);
-
-		if (!imageReq?.release) {
-			// this doesn't look like an image request, just forward it
-			return path;
+	onProxyReq(proxyReq, req: express.Request & { resolvedPath: string }) {
+		if (req.resolvedPath) {
+			console.debug(`<== ${proxyReq.path}`);
+			proxyReq.path = req.resolvedPath;
+			console.debug(`==> ${proxyReq.path}`);
 		}
-
-		const releaseRef = await lookupReleaseImage(imageReq.release);
-
-		if (!releaseRef?.content_hash) {
-			console.error('Forwarding unhandled image request!');
-			// TODO: should we bail out here and respond 404?
-			return path;
-		}
-
-		// replace the repository with the release image path
-		url.pathname = url.pathname.replace(imageReq.repository, releaseRef.path);
-
-		// replace the tag with the content hash
-		if (imageReq.method === 'manifests') {
-			url.pathname = url.pathname.replace(
-				imageReq.tag,
-				releaseRef.content_hash,
-			);
-		}
-
-		// remove the host prefix from the url parser href so we are left with the path and params
-		const newPath = url.href.replace(url.origin, '');
-
-		console.log(`[pathRewrite] ${newPath}`);
-		return newPath;
 	},
-	async onProxyRes(proxyRes, req, _res) {
-		// replace www-authenticate bearer realm to direct auth requests to the proxy
+	onProxyRes(proxyRes, req: express.Request, res: express.Response) {
 		if (proxyRes.headers['www-authenticate']) {
-			proxyRes.headers['www-authenticate'] = proxyRes.headers[
-				'www-authenticate'
-			].replace(`${config.api.url}`, `http://${req.headers.host}`);
-			console.log(`[onProxyRes] ${proxyRes.headers['www-authenticate']}`);
+			const auth = authorization.parse(proxyRes.headers['www-authenticate']);
+
+			if (auth.params.error) {
+				console.error(auth.params.error);
+				return res.sendStatus(401);
+			}
+
+			auth.params.realm = (auth.params.realm as string).replace(
+				config.api.url,
+				`http://${req.headers.host}`,
+			);
+
+			console.debug(`<== ${proxyRes.headers['www-authenticate']}`);
+			proxyRes.headers['www-authenticate'] = authorization.format(auth as any);
+			console.debug(`==> ${proxyRes.headers['www-authenticate']}`);
 		}
 	},
 });
 
 const authProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
-	target: `${config.api.url}`,
+	target: config.api.url,
 	changeOrigin: true,
-	async pathRewrite(path, _req) {
-		const url = new URL(`${config.api.url}${path}`);
-
-		const scopeRequest = parseScopeRequest(url.searchParams.get('scope') || '');
-
-		if (!scopeRequest?.release) {
-			console.error('Forwarding unhandled auth request!');
-			// TODO: should we bail out here and respond 401?
-			return path;
+	onProxyReq(proxyReq, req: express.Request & { resolvedPath: string }) {
+		if (req.resolvedPath) {
+			console.debug(`<== ${proxyReq.path}`);
+			proxyReq.path = req.resolvedPath;
+			console.debug(`==> ${proxyReq.path}`);
 		}
-
-		const releaseRef = await lookupReleaseImage(scopeRequest.release);
-
-		if (!releaseRef?.path) {
-			console.error('Forwarding unhandled auth request!');
-			// TODO: should we bail out here and respond 401?
-			return path;
-		}
-
-		// update the scope with the repository path retrieved from the api
-		url.searchParams.set(
-			'scope',
-			[scopeRequest.type, releaseRef.path, scopeRequest.action].join(':'),
-		);
-
-		// remove the host prefix from the url parser href so we are left with the path and params
-		const newPath = url.href.replace(url.origin, '');
-
-		console.log(`[pathRewrite] ${newPath}`);
-		return newPath;
 	},
 });
 
@@ -95,5 +136,5 @@ const authProxy = proxy.createProxyMiddleware({
 export const app = express();
 
 // proxied endpoints
-app.use('/v2', registryProxy);
-app.use('/auth', authProxy);
+app.use('/v2/', resolveRepo, registryProxy);
+app.use('/auth/v1/token', resolveScope, authProxy);
