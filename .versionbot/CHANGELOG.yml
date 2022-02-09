@@ -1,4 +1,21 @@
 - commits:
+    - subject: Rename fleets to application or release
+      hash: aa1599afe95318cabe2e29f5b89e8c38f7785d37
+      body: |
+        Technically fleets are a type of application, and we expect
+        this service to be used for pulling releases from blocks, not
+        fleets, so application is the generic term from the SDK/API.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.2
+  title: "'Rename fleets to application or release '"
+  date: 2022-02-09T17:56:07.008Z
+- commits:
     - subject: Add config files for each mocha suite
       hash: 4bc8595a4871e2eb8f49f249707d863e6bde1614
       body: ""
