@@ -1,7 +1,7 @@
 {
   "name": "balena-registry-proxy",
   "version": "1.0.1",
-  "description": "Proxied names for balena registry fleet images",
+  "description": "Proxied names for balena registry release images",
   "private": true,
   "main": "src/app",
   "scripts": {
@@ -12,7 +12,7 @@
     "test:docker": "mocha --config tests/.mocharc.docker.js",
     "test:node": "mocha --config tests/.mocharc.js",
     "test:fast": "mocha --config tests/.mocharc.fast.js",
-    "test": "npm run clean && npm run lint && npm run build && npm run test:node",
+    "test": "npm run lint && npm run build && npm run test:node",
     "dev": "ts-node src/index.ts",
     "start": "node dist/index.js",
     "build": "npm run clean && tsc",

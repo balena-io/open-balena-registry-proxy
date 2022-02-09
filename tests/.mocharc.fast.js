@@ -1,7 +1,7 @@
 module.exports = {
     bail: true,
-	exit: true,
-	recursive: true,
+	exit: false,
+	recursive: false,
     require: [
         'ts-node/register/transpile-only',
     ],

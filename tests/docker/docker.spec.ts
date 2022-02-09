@@ -7,7 +7,7 @@ import { parseReleaseRef } from '../../src/parse';
 const docker = new Docker();
 
 const releaseRef = parseReleaseRef(config.test.repo);
-const baseImage = `localhost:${config.server.port}/${releaseRef?.fleet.slug}`;
+const baseImage = `localhost:${config.server.port}/${releaseRef?.application.slug}`;
 
 const releases = Array.from(
 	new Set([
