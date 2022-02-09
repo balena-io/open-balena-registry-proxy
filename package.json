@@ -12,7 +12,7 @@
     "test:docker": "mocha --config tests/.mocharc.docker.js",
     "test:node": "mocha --config tests/.mocharc.js",
     "test:fast": "mocha --config tests/.mocharc.fast.js",
-    "test": "npm run clean && npm run lint && npm run build && npm run test:node",
+    "test": "npm run lint && npm run build && npm run test:node",
     "dev": "ts-node src/index.ts",
     "start": "node dist/index.js",
     "build": "npm run clean && tsc",
