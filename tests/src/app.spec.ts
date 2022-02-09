@@ -8,7 +8,7 @@ const manifestSchema = 'application/vnd.docker.distribution.manifest.v2+json';
 const apiVersion = 'registry/2.0';
 const userAgent = 'docker/20.10.7';
 const releaseRef = parseReleaseRef(config.test.repo);
-const fleet = releaseRef?.fleet.slug;
+const application = releaseRef?.application.slug;
 
 const releases = Array.from(
 	new Set([
@@ -33,7 +33,7 @@ const basicAuth = Buffer.from(
 
 releases.forEach((release) => {
 	services.forEach((service) => {
-		const repo = [fleet, release, release != null ? service : undefined]
+		const repo = [application, release, release != null ? service : undefined]
 			.filter(Boolean)
 			.join('/');
 

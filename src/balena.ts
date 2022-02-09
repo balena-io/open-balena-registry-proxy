@@ -43,7 +43,7 @@ export const lookupReleaseImage = memoizee(
 																$alias: 'bta',
 																$expr: {
 																	bta: {
-																		slug: release.fleet.slug,
+																		slug: release.application.slug,
 																	},
 																},
 															},
@@ -54,7 +54,7 @@ export const lookupReleaseImage = memoizee(
 																	$alias: 'sbroa',
 																	$expr: {
 																		sbroa: {
-																			slug: release.fleet.slug,
+																			slug: release.application.slug,
 																		},
 																	},
 																},

@@ -11,7 +11,7 @@ export interface ImageLocation {
 }
 
 export interface ReleaseRef {
-	fleet: {
+	application: {
 		slug: string;
 		org: string;
 		name: string;
@@ -44,7 +44,7 @@ export const parseReleaseRef: (slug: string) => ReleaseRef | undefined = (
 	const [org, name, version, service] = slug.split('/').filter(Boolean);
 	return name != null
 		? ({
-				fleet: {
+				application: {
 					org,
 					name,
 					slug: [org, name].filter(Boolean).join('/'),
