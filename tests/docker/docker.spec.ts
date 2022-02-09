@@ -2,12 +2,12 @@ import * as Docker from 'dockerode';
 import { expect } from 'chai';
 import { app } from '../../src/app';
 import * as config from '../../src/config';
-import { parseReleaseRef } from '../../src/parse';
+import { parseRelease } from '../../src/parser';
 
 const docker = new Docker();
 
-const releaseRef = parseReleaseRef(config.test.repo);
-const baseImage = `localhost:${config.server.port}/${releaseRef?.application.slug}`;
+const testRelease = parseRelease(config.test.repo);
+const baseImage = `localhost:${config.server.port}/${testRelease?.application.slug}`;
 
 const releases = Array.from(
 	new Set([
@@ -16,13 +16,13 @@ const releases = Array.from(
 		'current',
 		'default',
 		'pinned',
-		releaseRef?.version != null ? releaseRef?.version : undefined,
+		testRelease?.version != null ? testRelease?.version : undefined,
 	]),
 );
 const services = Array.from(
 	new Set([
 		undefined,
-		releaseRef?.service != null ? releaseRef?.service : undefined,
+		testRelease?.service != null ? testRelease?.service : undefined,
 	]),
 );
 

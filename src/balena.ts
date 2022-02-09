@@ -1,15 +1,22 @@
 import { getSdk, Image } from 'balena-sdk';
 import * as memoizee from 'memoizee';
 import * as config from './config';
-import { ReleaseRef, ExtendedImage } from './parse';
+import { parseRelease } from './parser';
+import { ResolvedImage } from './types';
 
 const sdk = getSdk({
 	apiUrl: config.api.url,
 });
 
 export const lookupReleaseImage = memoizee(
-	async (release: ReleaseRef): Promise<ExtendedImage | undefined> => {
+	async (rel: string): Promise<ResolvedImage | undefined> => {
 		try {
+			const release = parseRelease(rel);
+
+			if (!release) {
+				return undefined;
+			}
+
 			if (config.api.token) {
 				await sdk.auth.loginWithToken(config.api.token);
 			}
@@ -106,11 +113,15 @@ export const lookupReleaseImage = memoizee(
 				},
 			});
 
-			return {
-				...image,
-				// path is the repository location without the registry host prefix
-				path: image?.is_stored_at__image_location.split('/').slice(1).join('/'),
-			} as ExtendedImage;
+			const location = image?.is_stored_at__image_location.split('/');
+
+			return location.length > 1
+				? ({
+						registry: location.shift(),
+						repo: location.join('/'),
+						digest: image?.content_hash,
+				  } as ResolvedImage)
+				: undefined;
 		} catch (err) {
 			console.error(err);
 		}
