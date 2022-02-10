@@ -1,7 +1,10 @@
 module.exports = {
-	bail: false,
+	bail: true,
 	exit: false,
 	recursive: false,
-	spec: ['dist/tests/docker/*.spec.js'],
+	require: [
+        'ts-node/register/transpile-only',
+    ],
+	spec: ['tests/docker/*.spec.ts'],
 	timeout: '30000',
 };

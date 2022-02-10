@@ -1,6 +1,6 @@
-# balena-registry-proxy
+# open-balena-registry-proxy
 
-Pull release images from balenaCloud container registry with application slugs!
+Pull release images from the balenaCloud container registry with application slugs!
 
 ## Getting Started
 
@@ -62,7 +62,7 @@ Add an entry similar to this to your [docker daemon configuration file](https://
 
 ```json
 {
-	"insecure-registries": ["mydevice.local:80"]
+"insecure-registries": ["mydevice.local:80"]
 }
 ```
 
