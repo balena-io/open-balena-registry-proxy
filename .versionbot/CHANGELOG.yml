@@ -1,4 +1,20 @@
 - commits:
+    - subject: Add a secondary dockerfile for use with balena push
+      hash: a7e6c138a9d1a92caadbbd8a34e09a01331e346b
+      body: |
+        Dockerfile.template does not use balena/open-balena-base
+        so it can be used for ARM architectures.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.4
+  title: "'Add a secondary dockerfile for use with balena push'"
+  date: 2022-02-10T18:20:50.929Z
+- commits:
     - subject: Change repo type to node and enable github releases
       hash: c77707c6643b366b45f1d0eb5134d72aabd4ddb7
       body: ""
