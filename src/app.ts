@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
-import { lookupReleaseImage } from './balena';
+import * as sdk from './balena';
 import * as config from './config';
-import { parseImageRequest, parseScopeRequest } from './parse';
+import { parseImageReq, parseScopeReq } from './parser';
 import * as authorization from 'auth-header';
 
 function resolveRepo(
@@ -11,16 +11,17 @@ function resolveRepo(
 	next: express.NextFunction,
 ) {
 	const url = new URL(config.api.url + req.originalUrl);
-	const imageReq = parseImageRequest(url.pathname);
+	const imageReq = parseImageReq(url.pathname);
 
-	if (!imageReq?.release) {
+	if (!imageReq?.name) {
 		// this doesn't look like an manifest or digest request
 		return next();
 	}
 
-	lookupReleaseImage(imageReq.release)
-		.then((releaseRef) => {
-			if (!releaseRef?.content_hash) {
+	sdk
+		.lookupReleaseImage(imageReq.name)
+		.then((resolved) => {
+			if (!resolved?.repo || !resolved?.digest) {
 				console.error('Failed to resolve a release matching this request');
 				return res.sendStatus(404);
 			}
@@ -29,15 +30,15 @@ function resolveRepo(
 				url.pathname = [
 					'',
 					imageReq.version,
-					releaseRef.path,
+					resolved.repo,
 					imageReq.method,
-					releaseRef.content_hash,
+					resolved.digest,
 				].join('/');
 			} else {
 				url.pathname = [
 					'',
 					imageReq.version,
-					releaseRef.path,
+					resolved.repo,
 					imageReq.method,
 					imageReq.tag,
 				].join('/');
@@ -58,16 +59,17 @@ function resolveScope(
 	next: express.NextFunction,
 ) {
 	const url = new URL(config.api.url + req.originalUrl);
-	const scopeRequest = parseScopeRequest(url.searchParams.get('scope') || '');
+	const scopeReq = parseScopeReq(url.searchParams.get('scope') || '');
 
-	if (!scopeRequest?.release) {
+	if (!scopeReq?.name) {
 		console.error('Failed to parse auth request!');
 		return res.sendStatus(401);
 	}
 
-	lookupReleaseImage(scopeRequest.release)
-		.then((releaseRef) => {
-			if (!releaseRef?.content_hash) {
+	sdk
+		.lookupReleaseImage(scopeReq.name)
+		.then((release) => {
+			if (!release?.digest) {
 				console.error('Failed to resolve a release matching this request');
 				return res.sendStatus(401);
 			}
@@ -75,7 +77,7 @@ function resolveScope(
 			// update the scope with the repository path retrieved from the api
 			url.searchParams.set(
 				'scope',
-				[scopeRequest.type, releaseRef.path, scopeRequest.action].join(':'),
+				[scopeReq.type, release.repo, scopeReq.action].join(':'),
 			);
 
 			req.resolvedPath = url.pathname + url.search;
