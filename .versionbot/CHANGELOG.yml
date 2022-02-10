@@ -1,4 +1,28 @@
 - commits:
+    - subject: Change repo type to node and enable github releases
+      hash: c77707c6643b366b45f1d0eb5134d72aabd4ddb7
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Add parser tests
+      hash: cdfb248a110768cd7223c5fb199f704155650fcc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.3
+  title: "'Add parser tests'"
+  date: 2022-02-10T16:43:37.022Z
+- commits:
     - subject: Rename fleets to application or release
       hash: aa1599afe95318cabe2e29f5b89e8c38f7785d37
       body: |
