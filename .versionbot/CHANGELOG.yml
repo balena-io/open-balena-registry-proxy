@@ -1,4 +1,28 @@
 - commits:
+    - subject: Add balena sdk tests
+      hash: f0ac978bab7df55b6820147f5c84a059fd907de6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Update dockerode tests to match app spec
+      hash: 2aa65c389dc482199db9dd658ba2a8e1c373675b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.5
+  title: "'Add more tests'"
+  date: 2022-02-10T19:30:05.330Z
+- commits:
     - subject: Add a secondary dockerfile for use with balena push
       hash: a7e6c138a9d1a92caadbbd8a34e09a01331e346b
       body: |
