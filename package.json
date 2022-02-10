@@ -14,7 +14,7 @@
     "test:fast": "mocha --config tests/.mocharc.fast.js",
     "test": "npm run lint && npm run build && npm run test:node",
     "dev": "ts-node src/index.ts",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "build": "npm run clean && tsc",
     "prepack": "npm run build",
     "prepare": "husky install"
