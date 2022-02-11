@@ -1,4 +1,21 @@
 - commits:
+    - subject: Skip packaging tests
+      hash: 91d0f8a4209d69d9ba3ba6bca6e51c4672b0d87c
+      body: |
+        When tests were not included in the Dockerfile
+        the src directory was being flattened leading
+        to incorrect paths.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.7
+  title: "'Skip packaging tests'"
+  date: 2022-02-11T15:13:14.987Z
+- commits:
     - subject: Remove tests from docker builds
       hash: c335eac68b2d6a5a3d2fcd2c7123140da142937c
       body: ""
