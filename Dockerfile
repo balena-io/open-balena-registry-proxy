@@ -4,10 +4,9 @@ WORKDIR /usr/src/app
 
 COPY *.json ./
 COPY src/ src/
-COPY tests/ tests/
 
 RUN npm ci --ignore-scripts && \
-    npm run test && \
+    npm run build && \
     npm prune --production && \
     npm cache clean --force
 
