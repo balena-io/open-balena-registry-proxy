@@ -19,11 +19,8 @@
 	"include": [
 		"bin/**/*.ts",
 		"src/**/*.ts",
-		"tests/**/*.ts",
 		"typings/**/*.d.ts",
 		"*.ts"
 	],
-	"exclude": [
-		"node_modules"
-	]
+	"exclude": ["node_modules", "**/*.spec.ts"]
 }
