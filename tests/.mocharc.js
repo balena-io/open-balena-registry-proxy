@@ -2,6 +2,9 @@ module.exports = {
 	bail: false,
 	exit: false,
 	recursive: false,
-	spec: ['dist/tests/src/*.spec.js'],
+	require: [
+        'ts-node/register/transpile-only',
+    ],
+	spec: ['tests/src/*.spec.ts'],
 	timeout: '30000',
 };
