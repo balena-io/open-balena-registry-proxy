@@ -1,4 +1,28 @@
 - commits:
+    - subject: Remove tests from docker builds
+      hash: c335eac68b2d6a5a3d2fcd2c7123140da142937c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Publish images to dockerhub
+      hash: 850a402d72cd0fa27a4b969736d4ea94b43473cb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.6
+  title: "'Publish images to dockerhub '"
+  date: 2022-02-11T14:18:29.157Z
+- commits:
     - subject: Add balena sdk tests
       hash: f0ac978bab7df55b6820147f5c84a059fd907de6
       body: ""
