@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add docker-compose tests
+      hash: 54ccb68459abe221edde1599ac65cbac53f941bc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.8
+  title: "'Add docker-compose tests'"
+  date: 2022-02-12T15:57:40.047Z
+- commits:
     - subject: Skip packaging tests
       hash: 91d0f8a4209d69d9ba3ba6bca6e51c4672b0d87c
       body: |
