@@ -1,4 +1,42 @@
 - commits:
+    - subject: "patch: Bump follow-redirects from 1.14.7 to 1.14.8"
+      hash: 8155ee0b4637dad863ed6f20862e9fd164c468a1
+      body: >
+        Bumps
+        [follow-redirects](https://github.com/follow-redirects/follow-redirects)
+        from 1.14.7 to 1.14.8.
+
+        - [Release notes](https://github.com/follow-redirects/follow-redirects/releases)
+
+        - [Commits](https://github.com/follow-redirects/follow-redirects/compare/v1.14.7...v1.14.8)
+
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: follow-redirects
+          dependency-type: indirect
+        ...
+      footer:
+        Signed-off-by: dependabot[bot] <support@github.com>
+        signed-off-by: dependabot[bot] <support@github.com>
+      author: dependabot[bot]
+      nested: []
+    - subject: Enable dependabot for npm and docker
+      hash: b9775f77eb620b28c81cbba2c7e0eeafb3e0b647
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.0.9
+  title: "'Enable dependabot for npm and docker'"
+  date: 2022-02-15T14:36:24.001Z
+- commits:
     - subject: Add docker-compose tests
       hash: 54ccb68459abe221edde1599ac65cbac53f941bc
       body: ""
