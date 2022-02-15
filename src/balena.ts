@@ -1,11 +1,11 @@
 import { getSdk, Image } from 'balena-sdk';
 import * as memoizee from 'memoizee';
-import * as config from './config';
+import { API_URL, API_TOKEN, RESOLVE_IMAGE_ID_CACHE_TIMEOUT } from './config';
 import { parseRelease } from './parser';
 import { ResolvedImage } from './types';
 
 const sdk = getSdk({
-	apiUrl: config.api.url,
+	apiUrl: API_URL,
 });
 
 export const lookupReleaseImage = memoizee(
@@ -17,8 +17,8 @@ export const lookupReleaseImage = memoizee(
 				return undefined;
 			}
 
-			if (config.api.token) {
-				await sdk.auth.loginWithToken(config.api.token);
+			if (API_TOKEN) {
+				await sdk.auth.loginWithToken(API_TOKEN);
 			}
 
 			if (
@@ -123,12 +123,12 @@ export const lookupReleaseImage = memoizee(
 				  } as ResolvedImage)
 				: undefined;
 		} catch (err) {
-			console.error(err);
+			// console.error(err);
 		}
 	},
 	{
 		promise: true,
 		primitive: true,
-		maxAge: config.server.cacheMaxAge * 1000,
+		maxAge: RESOLVE_IMAGE_ID_CACHE_TIMEOUT,
 	},
 );

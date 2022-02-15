@@ -26,3 +26,14 @@ export type ParsedScopeRequest = {
 	name: string;
 	action: string;
 };
+
+// https://docs.docker.com/registry/spec/api/#errors
+export type RegistryError = {
+	errors: [
+		{
+			code: string;
+			message: string;
+			detail: string;
+		},
+	];
+};
