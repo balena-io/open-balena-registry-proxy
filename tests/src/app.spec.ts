@@ -1,19 +1,21 @@
 import { expect } from 'chai';
 import * as request from 'supertest';
-import * as config from '../../src/config';
+import {
+	TEST_REPO,
+	TEST_USER,
+	TEST_TOKEN,
+	REGISTRY_URL,
+} from '../../src/config';
 import { app } from '../../src/app';
 
 const manifestSchema = 'application/vnd.docker.distribution.manifest.v2+json';
 const apiVersion = 'registry/2.0';
 const userAgent = 'docker/20.10.7';
 
-const basicAuth = Buffer.from(
-	`${config.api.username}:${config.api.token}`,
-).toString('base64');
+const basicAuth = Buffer.from(`${TEST_USER}:${TEST_TOKEN}`).toString('base64');
 
-const [testOrg, testApp, testVersion, testService] = config.test.repo
-	.split('/')
-	.filter(Boolean);
+const [testOrg, testApp, testVersion, testService] =
+	TEST_REPO.split('/').filter(Boolean);
 
 const repoSlugs: string[] = [];
 const repoVersion = [undefined, 'latest', testVersion];
@@ -33,6 +35,12 @@ repoVersion.forEach((version) => {
 			return;
 		}
 		repoSlugs.push(slug);
+	});
+});
+
+describe('GET /ping', function () {
+	it('responds with Ok', function (done) {
+		request(app).get('/ping').send().expect(200).expect('pong', done);
 	});
 });
 
@@ -63,9 +71,9 @@ repoSlugs.forEach((slug) => {
 			const response = await request(app)
 				.get('/auth/v1/token')
 				.query({
-					account: config.api.username,
+					account: TEST_USER,
 					scope: `repository:${slug}:pull`,
-					service: `${config.registry.url.replace(/(^\w+:|^)\/\//, '')}`,
+					service: REGISTRY_URL,
 				})
 				.set('Authorization', `Basic ${basicAuth}`)
 				.set('Accept', 'application/json');

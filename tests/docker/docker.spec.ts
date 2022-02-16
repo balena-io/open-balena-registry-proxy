@@ -1,23 +1,22 @@
 import * as Docker from 'dockerode';
 import { expect } from 'chai';
 import { app } from '../../src/app';
-import * as config from '../../src/config';
+import { TEST_REPO, TEST_USER, TEST_TOKEN, PORT } from '../../src/config';
 
 const options = {
-	...(config.api.username &&
-		config.api.token && {
+	...(TEST_USER &&
+		TEST_TOKEN && {
 			authconfig: {
-				username: config.api.username,
-				password: config.api.token,
+				username: TEST_USER,
+				password: TEST_TOKEN,
 			},
 		}),
 };
 
 const docker = new Docker();
 
-const [testOrg, testApp, testVersion, testService] = config.test.repo
-	.split('/')
-	.filter(Boolean);
+const [testOrg, testApp, testVersion, testService] =
+	TEST_REPO.split('/').filter(Boolean);
 
 const repoSlugs: string[] = [];
 const repoVersion = [undefined, 'latest', testVersion];
@@ -43,14 +42,14 @@ repoVersion.forEach((version) => {
 let server: any;
 
 before(function (done) {
-	server = app.listen(config.server.port, () => {
-		console.log(`Server started on port ${config.server.port}`);
+	server = app.listen(PORT, () => {
+		console.log(`Server started on port ${PORT}`);
 		done();
 	});
 });
 
 repoSlugs.forEach((slug) => {
-	const path = [`localhost:${config.server.port}`, slug].join('/');
+	const path = [`localhost:${PORT}`, slug].join('/');
 
 	describe(`docker pull ${path}`, function () {
 		it('should pull the specified manifest via the proxy', function (done) {
@@ -85,7 +84,7 @@ after(function (done) {
 	server.close(done);
 
 	repoSlugs.forEach((slug) => {
-		const path = [`localhost:${config.server.port}`, slug].join('/');
+		const path = [`localhost:${PORT}`, slug].join('/');
 		const image = docker.getImage(path);
 
 		// remove the image if it exists

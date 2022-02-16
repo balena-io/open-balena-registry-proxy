@@ -1,10 +1,9 @@
 import { expect } from 'chai';
 import { parseRelease, parseImageReq, parseScopeReq } from '../../src/parser';
-import * as config from '../../src/config';
+import { TEST_REPO } from '../../src/config';
 
-const [testOrg, testApp, testVersion, testService] = config.test.repo
-	.split('/')
-	.filter(Boolean);
+const [testOrg, testApp, testVersion, testService] =
+	TEST_REPO.split('/').filter(Boolean);
 
 const repoSlugs: string[] = [];
 const repoVersion = [undefined, 'latest', testVersion];
