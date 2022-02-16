@@ -1,4 +1,33 @@
 - commits:
+    - subject: Update open-balena-base to v13.0.7
+      hash: 9278dc771a8c2d719c0a7e9a69674c71d85bec2a
+      body: |
+        Update open-balena-base from 13.0.6 to 13.0.7
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested:
+        - commits:
+            - subject: Avoid cryptic names and rename bcr to registry-proxy
+              hash: c3d6787df9412883b8706f6edf7db80ed885b71f
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-13.0.7
+          title: "'Avoid cryptic names and rename bcr to registry-proxy'"
+          date: 2022-02-16T16:48:08.416Z
+  version: 2.0.1
+  title: "'Update open-balena-base to v13.0.7'"
+  date: 2022-02-16T16:58:00.702Z
+- commits:
     - subject: Code cleanup for production deployments
       hash: 0a548a1bef8321ceafb090e3431823af2018a7a9
       body: ""
