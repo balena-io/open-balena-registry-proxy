@@ -18,7 +18,7 @@ services:
 
   sut:
     image: docker:latest
-    command: sh -c 'while ! docker info; do sleep 1; done; docker pull proxy:5000/balenablocks/dashboard/0.0.0'
+    command: sh -c 'while ! docker info; do sleep 1; done; docker pull proxy:5000/balenablocks/dashboard'
     depends_on:
       - proxy
       - docker

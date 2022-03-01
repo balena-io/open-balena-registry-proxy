@@ -76,13 +76,12 @@ export const REGISTRY2_HOST = optionalVar(
 );
 
 export const API_HOST = optionalVar('API_HOST', 'api.balena-cloud.com');
-export const API_TOKEN = optionalVar('API_TOKEN');
 
 export const DNS_TLD = optionalVar('DNS_TLD');
 
 export const PORT = intVar('PORT', 80);
-export const RESOLVE_IMAGE_ID_CACHE_TIMEOUT = intVar(
-	'RESOLVE_IMAGE_ID_CACHE_TIMEOUT',
+export const RESOLVE_IMAGE_LOCATION_CACHE_TIMEOUT = intVar(
+	'RESOLVE_IMAGE_LOCATION_CACHE_TIMEOUT',
 	5 * MINUTES,
 );
 

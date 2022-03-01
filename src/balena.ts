@@ -1,6 +1,6 @@
 import { getSdk, Image } from 'balena-sdk';
 import * as memoizee from 'memoizee';
-import { API_URL, API_TOKEN, RESOLVE_IMAGE_ID_CACHE_TIMEOUT } from './config';
+import { API_URL, RESOLVE_IMAGE_LOCATION_CACHE_TIMEOUT } from './config';
 import { parseRelease } from './parser';
 import { ResolvedImage } from './types';
 
@@ -8,17 +8,16 @@ const sdk = getSdk({
 	apiUrl: API_URL,
 });
 
-export const lookupReleaseImage = memoizee(
-	async (rel: string): Promise<ResolvedImage | undefined> => {
+export const resolveImageLocation = memoizee(
+	async (
+		releaseSlug: string,
+		credentials: string | undefined = '',
+	): Promise<ResolvedImage | undefined> => {
 		try {
-			const release = parseRelease(rel);
+			const release = parseRelease(releaseSlug);
 
 			if (!release) {
 				return undefined;
-			}
-
-			if (API_TOKEN) {
-				await sdk.auth.loginWithToken(API_TOKEN);
 			}
 
 			if (
@@ -30,6 +29,11 @@ export const lookupReleaseImage = memoizee(
 
 			const [image] = await sdk.pine.get<Image>({
 				resource: 'image',
+				passthrough: {
+					headers: {
+						Authorization: credentials || '',
+					},
+				},
 				options: {
 					$top: 1,
 					$select: ['is_stored_at__image_location', 'content_hash'],
@@ -129,6 +133,10 @@ export const lookupReleaseImage = memoizee(
 	{
 		promise: true,
 		primitive: true,
-		maxAge: RESOLVE_IMAGE_ID_CACHE_TIMEOUT,
+		maxAge: RESOLVE_IMAGE_LOCATION_CACHE_TIMEOUT,
+		max: 500,
+		normalizer: ([releaseSlug, apiToken]) => {
+			return `${releaseSlug}${apiToken}`;
+		},
 	},
 );

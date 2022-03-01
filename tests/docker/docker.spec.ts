@@ -1,7 +1,7 @@
 import * as Docker from 'dockerode';
 import { expect } from 'chai';
 import { app } from '../../src/app';
-import { TEST_REPO, TEST_USER, TEST_TOKEN, PORT } from '../../src/config';
+import { TEST_REPO, TEST_USER, TEST_TOKEN } from '../../src/config';
 
 const options = {
 	...(TEST_USER &&
@@ -12,6 +12,8 @@ const options = {
 			},
 		}),
 };
+
+const PORT = 5000;
 
 const docker = new Docker();
 

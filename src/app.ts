@@ -6,6 +6,15 @@ import * as authorization from 'auth-header';
 import { errors, registryError } from './errors';
 import { TRUST_PROXY, API_URL, REGISTRY_URL } from './config';
 
+function decodeJwt(token: string) {
+	if (token) {
+		return JSON.parse(
+			Buffer.from(token.split('.')[1], 'base64').toString('ascii'),
+		);
+	}
+	return null;
+}
+
 function resolveRepo(
 	req: express.Request & { resolvedPath: string },
 	res: express.Response,
@@ -19,39 +28,46 @@ function resolveRepo(
 		return next();
 	}
 
-	sdk
-		.lookupReleaseImage(imageReq.name)
-		.then((resolved) => {
-			if (!resolved?.repo || !resolved?.digest) {
-				console.error('Failed to resolve a release matching this request');
-				return res.status(404).json(registryError(errors.NAME_UNKNOWN));
-			}
+	if (!req.headers['authorization']) {
+		return res.status(401).json(errors.UNAUTHORIZED);
+	}
 
-			if (imageReq.method === 'manifests') {
-				url.pathname = [
-					'',
-					imageReq.version,
-					resolved.repo,
-					imageReq.method,
-					resolved.digest,
-				].join('/');
-			} else {
-				url.pathname = [
-					'',
-					imageReq.version,
-					resolved.repo,
-					imageReq.method,
-					imageReq.tag,
-				].join('/');
-			}
+	const auth = authorization.parse(req.headers['authorization']);
 
-			req.resolvedPath = url.pathname + url.search;
-			return next();
-		})
-		.catch((err) => {
-			console.error(err);
-			return res.status(401).json(registryError(errors.DENIED));
-		});
+	if (auth.params.error) {
+		console.error(auth.params.error);
+		return res.status(401).json(errors.UNAUTHORIZED);
+	}
+
+	if (!auth.token || auth.scheme !== 'Bearer') {
+		return res.status(401).json(errors.UNAUTHORIZED);
+	}
+
+	const resolved = {
+		repo: decodeJwt(auth.token as string).access[0].name,
+		digest: 'latest',
+	};
+
+	if (imageReq.method === 'manifests') {
+		url.pathname = [
+			'',
+			imageReq.version,
+			resolved.repo,
+			imageReq.method,
+			resolved.digest,
+		].join('/');
+	} else {
+		url.pathname = [
+			'',
+			imageReq.version,
+			resolved.repo,
+			imageReq.method,
+			imageReq.tag,
+		].join('/');
+	}
+
+	req.resolvedPath = url.pathname + url.search;
+	return next();
 }
 
 function resolveScope(
@@ -67,8 +83,35 @@ function resolveScope(
 		return res.status(401).json(registryError(errors.UNSUPPORTED));
 	}
 
+	let credentials;
+
+	function bearerAuth(token: string): string {
+		return 'Bearer ' + token;
+	}
+
+	if (req.headers['authorization']) {
+		const auth = authorization.parse(req.headers['authorization']);
+
+		if (auth.params.error) {
+			console.error(auth.params.error);
+			return res.status(401).json(errors.UNAUTHORIZED);
+		}
+
+		if (!auth.token || auth.scheme !== 'Basic') {
+			return res.status(401).json(errors.UNAUTHORIZED);
+		}
+
+		const [_user, pass] = Buffer.from(auth.token as string, 'base64')
+			.toString()
+			.split(':', 2);
+
+		if (pass) {
+			credentials = bearerAuth(pass);
+		}
+	}
+
 	sdk
-		.lookupReleaseImage(scopeReq.name)
+		.resolveImageLocation(scopeReq.name, credentials)
 		.then((release) => {
 			if (!release?.digest) {
 				console.error('Failed to resolve a release matching this request');

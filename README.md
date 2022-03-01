@@ -19,7 +19,6 @@ flashing a device, downloading the project and pushing it via the [balena CLI](h
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `REGISTRY2_HOST` | Upstream registry URL. The default is `registry2.balena-cloud.com`.                                                                              |
 | `API_HOST`       | Upstream API URL used for authentication and release mapping. The default is `api.balena-cloud.com`.                                             |
-| `API_TOKEN`      | (optional) Session token or API key to authenticate with the balenaCloud API (<https://www.balena.io/docs/learn/manage/account/#access-tokens>). |
 
 ## Usage
 
@@ -68,17 +67,12 @@ docker pull mydevice.local:80/balenablocks/dashboard
 
 ### Private Releases
 
-Authenticating to private releases only works if the proxy server has an API token with the same access rights as the logged in user.
+Get a balena access token from the dashboard or the balena CLI and use it with `docker login`.
 
 ```bash
-# get an API token from your balenaCloud dashboard
-API_TOKEN=********
-
-# set the API_TOKEN env var on your device where the proxy is running
-balena env add API_TOKEN --device 7cf02a6 "$API_TOKEN"
-
-# login to the registry via the proxy with your username prefixed by "_u"
-echo "$API_TOKEN" | docker login --username "u_myusername" --password-stdin mydevice.balena-devices.com
+docker login mydevice.balena-devices.com                               
+Username: u_bob        # your username prefixed by "_u"
+Password: ************ # balena-cloud API token
 
 # pull from private apps
 docker pull mydevice.balena-devices.com/myorg/myapp
