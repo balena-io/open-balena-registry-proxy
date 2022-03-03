@@ -6,7 +6,7 @@ Pull release images from the balenaCloud container registry with application slu
 
 You can one-click-deploy this project to balena using the button below:
 
-[![deploy with balena](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/balena-io-playground/balena-registry-proxy)
+[![deploy with balena](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/balena-io/open-balena-registry-proxy)
 
 ## Manual Deployment
 
@@ -15,24 +15,21 @@ flashing a device, downloading the project and pushing it via the [balena CLI](h
 
 ### Environment Variables
 
-| Name             | Description                                                                                                                                      |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `REGISTRY2_HOST` | Upstream registry URL. The default is `registry2.balena-cloud.com`.                                                                              |
-| `API_HOST`       | Upstream API URL used for authentication and release mapping. The default is `api.balena-cloud.com`.                                             |
+| Name             | Description                                                         |
+| ---------------- | ------------------------------------------------------------------- |
+| `REGISTRY2_HOST` | Upstream registry URL. The default is `registry2.balena-cloud.com`. |
 
 ## Usage
 
 ### Image Reference
 
-The expected image reference format is `proxy:port/org/application/release?/service?[:tag]?`.
+The expected image reference format is `<org>/<app>/<commit|semver>:[tag]?` where:
 
-- `proxy:port` is the host:port where the proxy is running, such as `localhost:80` or `foobar.balena-devices.com`
-- `org/application` is a balenaCloud application slug
-- `release` (optional) the balenaCloud release, either the commit or the version
-- `service` (optional) if the balenaCloud release contains multiple services you can specify one here
-- `:tag` is optional and is ignored
+- `<org>/<app>` is a balenaCloud application slug
+- `<commit|semver>` (optional) the application release, either the commit or the semver
+- `[tag]` is optional and is ignored
 
-The `release` can take multiple formats, but `+` symbols are not supported in docker paths so some assumptions are made for final releases.
+The `<commit|semver>` can take multiple formats, but `+` symbols are not supported in docker paths so some rules are followed:
 
 - a final release version like `1.2.3` will pull the latest final release of that version (eg. `1.2.3+rev4`)
 - a draft release version like `1.2.3-1234567890`
@@ -41,7 +38,10 @@ The `release` can take multiple formats, but `+` symbols are not supported in do
 
 ### Public Device URL
 
-Enable the public device URL in the dashboard remove the `https://` prefix for your proxy host.
+Enable the [Public Device URL](https://www.balena.io/docs/learn/manage/actions/#enable-public-device-url)
+in your device dashboard to expose an HTTPS endpoint for your local Docker daemon.
+
+Using the public URL without a prefix you can now pull images directly from the balenaCloud container registry.
 
 ```bash
 docker pull mydevice.balena-devices.com/balenablocks/dashboard
@@ -51,26 +51,31 @@ docker pull mydevice.balena-devices.com/balenablocks/dashboard
 FROM mydevice.balena-devices.com/balenablocks/dashboard
 ```
 
-### Local Device IP
+```yaml
+service:
+    myService:
+        image: mydevice.balena-devices.com/balenablocks/dashboard
+```
 
-Alternatively, you can use the proxy via your device IP but you'll need to enable [insecure registries](https://docs.docker.com/engine/reference/commandline/dockerd/#insecure-registries).
+### Insecure Registries
 
-Add an entry similar to this to your [docker daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
+By default Docker won't communicate with an [insecure registry](https://docs.docker.com/engine/reference/commandline/dockerd/#insecure-registries)
+so if you aren't using the Public Device URL or some other HTTPS endpoint you'll need to reconfigure your daemon.
+
+Add an entry similar to this to your [docker daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file).
 
 ```json
-{"insecure-registries": ["mydevice.local:80"]}
+{ "insecure-registries": ["mydevice.local:80"] }
 ```
 
-```bash
-docker pull mydevice.local:80/balenablocks/dashboard
-```
+On Linux distros with systemd you can likely run `systemctl restart dockerd` to restart your daemon.
 
-### Private Releases
+### Authentication
 
 Get a balena access token from the dashboard or the balena CLI and use it with `docker login`.
 
 ```bash
-docker login mydevice.balena-devices.com                               
+docker login mydevice.balena-devices.com
 Username: u_bob        # your username prefixed by "_u"
 Password: ************ # balena-cloud API token
 
@@ -81,7 +86,13 @@ docker pull mydevice.balena-devices.com/myorg/myapp
 ## Testing
 
 ```bash
+# emulate a docker client with supertest
 npm run test
+
+# emulate a docker client with dockerode (requires docker)
+npm run test:docker
+
+# run a standalone docker daemon with docker compose (requires docker-compose)
 npm run test:compose
 ```
 

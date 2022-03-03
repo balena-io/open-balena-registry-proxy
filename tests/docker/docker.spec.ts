@@ -1,7 +1,15 @@
+import 'dotenv/config';
 import * as Docker from 'dockerode';
 import { expect } from 'chai';
 import { app } from '../../src/app';
-import { TEST_REPO, TEST_USER, TEST_TOKEN } from '../../src/config';
+import { optionalVar } from '../../src/config';
+
+const TEST_USER = optionalVar('TEST_USER');
+const TEST_TOKEN = optionalVar('TEST_TOKEN');
+const TEST_APP_SLUG = optionalVar(
+	'TEST_APP_SLUG',
+	'balenablocks/dashboard/0.0.0',
+);
 
 const options = {
 	...(TEST_USER &&
@@ -18,7 +26,7 @@ const PORT = 5000;
 const docker = new Docker();
 
 const [testOrg, testApp, testVersion, testService] =
-	TEST_REPO.split('/').filter(Boolean);
+	TEST_APP_SLUG.split('/').filter(Boolean);
 
 const repoSlugs: string[] = [];
 const repoVersion = [undefined, 'latest', testVersion];
@@ -55,7 +63,7 @@ repoSlugs.forEach((slug) => {
 
 	describe(`docker pull ${path}`, function () {
 		it('should pull the specified manifest via the proxy', function (done) {
-			this.timeout(4000);
+			this.timeout(24000);
 
 			docker.pull(path, options, function (err: any, stream: any) {
 				if (err) {
@@ -83,19 +91,13 @@ repoSlugs.forEach((slug) => {
 });
 
 after(function (done) {
-	server.close(done);
+	server.close().then(() => {
+		repoSlugs.forEach((slug) => {
+			const path = [`localhost:${PORT}`, slug].join('/');
+			const image = docker.getImage(path);
 
-	repoSlugs.forEach((slug) => {
-		const path = [`localhost:${PORT}`, slug].join('/');
-		const image = docker.getImage(path);
-
-		// remove the image if it exists
-		image.remove({ force: true }, function (err, output) {
-			if (err) {
-				console.error(err);
-			} else {
-				console.log(output);
-			}
+			// remove the image if it exists
+			image.remove({ force: true }, done);
 		});
 	});
 });

@@ -1,28 +1,24 @@
-import { RegistryError } from './types';
+// https://docs.docker.com/registry/spec/api/#errors
+function registryError(code: string, message: string, detail: string = '') {
+	return { errors: [{ code, message, detail }] };
+}
 
-export const errors = {
-	UNSUPPORTED: {
-		code: 'UNSUPPORTED',
-		message: 'The operation is unsupported.',
-		detail: '',
-	},
-	UNAUTHORIZED: {
-		code: 'UNAUTHORIZED',
-		message: 'authentication required',
-		detail: '',
-	},
-	NAME_UNKNOWN: {
-		code: 'NAME_UNKNOWN',
-		message: 'repository name not known to registry',
-		detail: '',
-	},
-	DENIED: {
-		code: 'DENIED',
-		message: 'requested access to the resource is denied',
-		detail: '',
-	},
-};
+export const ERROR_UNSUPPORTED = registryError(
+	'UNSUPPORTED',
+	'The operation is unsupported.',
+);
 
-export const registryError: (error: any) => RegistryError = (error) => {
-	return { errors: [error] } as RegistryError;
-};
+export const ERROR_UNAUTHORIZED = registryError(
+	'UNAUTHORIZED',
+	'authentication required',
+);
+
+export const ERROR_NAME_UNKNOWN = registryError(
+	'NAME_UNKNOWN',
+	'repository name not known to registry',
+);
+
+export const ERROR_DENIED = registryError(
+	'DENIED',
+	'requested access to the resource is denied',
+);

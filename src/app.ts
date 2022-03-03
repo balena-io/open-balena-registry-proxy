@@ -1,18 +1,25 @@
 import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
-import * as sdk from './balena';
-import { parseImageReq, parseScopeReq } from './parser';
 import * as authorization from 'auth-header';
-import { errors, registryError } from './errors';
-import { TRUST_PROXY, API_URL, REGISTRY_URL } from './config';
+import * as jsonwebtoken from 'jsonwebtoken';
+import * as _ from 'lodash';
+import { ERROR_DENIED } from './errors';
+import { TRUST_PROXY, REGISTRY_URL } from './config';
 
-function decodeJwt(token: string) {
-	if (token) {
-		return JSON.parse(
-			Buffer.from(token.split('.')[1], 'base64').toString('ascii'),
-		);
-	}
-	return null;
+/*
+ * Group 1: version
+ * Optional:
+ * - Group 2: repository name
+ * - Group 3: request method
+ * - Group 4: tag
+ */
+const URL_REGEX = /^\/([\w\d]*)\/(?:([\s\S]+)\/(manifests|blobs)\/([\s\S]+))?$/;
+
+interface Access {
+	name: string;
+	type: string;
+	actions: string[];
+	alias?: string;
 }
 
 function resolveRepo(
@@ -20,154 +27,68 @@ function resolveRepo(
 	res: express.Response,
 	next: express.NextFunction,
 ) {
-	const url = new URL(API_URL + req.originalUrl);
-	const imageReq = parseImageReq(url.pathname);
+	const url = new URL(REGISTRY_URL + req.originalUrl);
 
-	if (!imageReq?.name) {
-		// this doesn't look like an manifest or digest request
+	const matches = url.pathname.match(URL_REGEX);
+
+	if (matches == null) {
+		// the url could not be parsed
+		return res.status(403).json(ERROR_DENIED);
+	}
+
+	if (matches[4] == null) {
+		// just a version request, forward it
 		return next();
 	}
 
+	const version = matches[1];
+	const repository = matches[2];
+	const method = matches[3];
+	const tag = matches[4];
+
 	if (!req.headers['authorization']) {
-		return res.status(401).json(errors.UNAUTHORIZED);
+		// we need the authorization header with a JWT to go any further
+		return res.status(403).json(ERROR_DENIED);
 	}
 
 	const auth = authorization.parse(req.headers['authorization']);
 
-	if (auth.params.error) {
-		console.error(auth.params.error);
-		return res.status(401).json(errors.UNAUTHORIZED);
+	if (auth.params.error || !auth.token || auth.scheme !== 'Bearer') {
+		// bail out if the auth header is not in the expected bearer format
+		return res.status(403).json(ERROR_DENIED);
 	}
 
-	if (!auth.token || auth.scheme !== 'Bearer') {
-		return res.status(401).json(errors.UNAUTHORIZED);
+	// https://docs.docker.com/registry/spec/auth/jwt/
+	const jwt = jsonwebtoken.decode(auth.token as string) as { access: Access[] };
+
+	// API should have added an 'alias' field to the access list of the JWT
+	// https://docs.docker.com/registry/spec/auth/jwt/
+	const access = _.find(jwt.access, {
+		type: 'repository',
+		alias: repository,
+	});
+
+	if (access?.name == null) {
+		// bail out if we could not match this request to an alias in the JWT
+		return res.status(403).json(ERROR_DENIED);
 	}
 
-	const resolved = {
-		repo: decodeJwt(auth.token as string).access[0].name,
-		digest: 'latest',
-	};
-
-	if (imageReq.method === 'manifests') {
-		url.pathname = [
-			'',
-			imageReq.version,
-			resolved.repo,
-			imageReq.method,
-			resolved.digest,
-		].join('/');
-	} else {
-		url.pathname = [
-			'',
-			imageReq.version,
-			resolved.repo,
-			imageReq.method,
-			imageReq.tag,
-		].join('/');
-	}
+	// rewrite the request and replace the alias with the real repo path
+	url.pathname = [
+		'',
+		version,
+		access.name,
+		method,
+		method === 'manifests' ? 'latest' : tag,
+	].join('/');
 
 	req.resolvedPath = url.pathname + url.search;
 	return next();
 }
 
-function resolveScope(
-	req: express.Request & { resolvedPath: string },
-	res: express.Response,
-	next: express.NextFunction,
-) {
-	const url = new URL(API_URL + req.originalUrl);
-	const scopeReq = parseScopeReq(url.searchParams.get('scope') || '');
-
-	if (!scopeReq?.name) {
-		console.error('Failed to parse auth request!');
-		return res.status(401).json(registryError(errors.UNSUPPORTED));
-	}
-
-	let credentials;
-
-	function bearerAuth(token: string): string {
-		return 'Bearer ' + token;
-	}
-
-	if (req.headers['authorization']) {
-		const auth = authorization.parse(req.headers['authorization']);
-
-		if (auth.params.error) {
-			console.error(auth.params.error);
-			return res.status(401).json(errors.UNAUTHORIZED);
-		}
-
-		if (!auth.token || auth.scheme !== 'Basic') {
-			return res.status(401).json(errors.UNAUTHORIZED);
-		}
-
-		const [_user, pass] = Buffer.from(auth.token as string, 'base64')
-			.toString()
-			.split(':', 2);
-
-		if (pass) {
-			credentials = bearerAuth(pass);
-		}
-	}
-
-	sdk
-		.resolveImageLocation(scopeReq.name, credentials)
-		.then((release) => {
-			if (!release?.digest) {
-				console.error('Failed to resolve a release matching this request');
-				return res.status(401).json(registryError(errors.NAME_UNKNOWN));
-			}
-
-			// update the scope with the repository path retrieved from the api
-			url.searchParams.set(
-				'scope',
-				[scopeReq.type, release.repo, scopeReq.action].join(':'),
-			);
-
-			req.resolvedPath = url.pathname + url.search;
-			return next();
-		})
-		.catch((err) => {
-			console.error(err);
-			return res.status(401).json(registryError(errors.DENIED));
-		});
-}
-
 const registryProxy = proxy.createProxyMiddleware({
 	logLevel: 'debug',
 	target: REGISTRY_URL,
-	changeOrigin: true,
-	onProxyReq(proxyReq, req: express.Request & { resolvedPath: string }) {
-		if (req.resolvedPath) {
-			console.debug(`<== ${proxyReq.path}`);
-			proxyReq.path = req.resolvedPath;
-			console.debug(`==> ${proxyReq.path}`);
-		}
-	},
-	onProxyRes(proxyRes, req: express.Request, res: express.Response) {
-		if (proxyRes.headers['www-authenticate']) {
-			const auth = authorization.parse(proxyRes.headers['www-authenticate']);
-
-			if (auth.params.error) {
-				console.error(auth.params.error);
-				return res.status(401).json(errors.UNAUTHORIZED);
-			}
-
-			auth.params.realm = (auth.params.realm as string).replace(
-				/(.)+\/auth\/v1\/token/,
-				`${req.protocol}://${req.headers.host}/auth/v1/token`,
-			);
-
-			console.debug(`<== ${proxyRes.headers['www-authenticate']}`);
-			proxyRes.headers['www-authenticate'] = authorization.format(auth as any);
-			console.debug(`==> ${proxyRes.headers['www-authenticate']}`);
-		}
-	},
-});
-
-const authProxy = proxy.createProxyMiddleware({
-	logLevel: 'debug',
-	target: API_URL,
 	changeOrigin: true,
 	onProxyReq(proxyReq, req: express.Request & { resolvedPath: string }) {
 		if (req.resolvedPath) {
@@ -184,7 +105,6 @@ app.set('trust proxy', TRUST_PROXY);
 
 // proxied endpoints
 app.use('/v2/', resolveRepo, registryProxy);
-app.use('/auth/v1/token', resolveScope, authProxy);
 
 app.get('/ping', (_req, res) => {
 	res.status(200).send('pong');

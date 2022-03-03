@@ -1,21 +1,23 @@
+import 'dotenv/config';
 import { expect } from 'chai';
 import * as request from 'supertest';
-import {
-	TEST_REPO,
-	TEST_USER,
-	TEST_TOKEN,
-	REGISTRY_URL,
-} from '../../src/config';
+import { optionalVar } from '../../src/config';
 import { app } from '../../src/app';
+import * as authorization from 'auth-header';
 
 const manifestSchema = 'application/vnd.docker.distribution.manifest.v2+json';
 const apiVersion = 'registry/2.0';
 const userAgent = 'docker/20.10.7';
 
-const basicAuth = Buffer.from(`${TEST_USER}:${TEST_TOKEN}`).toString('base64');
+const TEST_USER = optionalVar('TEST_USER');
+const TEST_TOKEN = optionalVar('TEST_TOKEN');
+const TEST_APP_SLUG = optionalVar(
+	'TEST_APP_SLUG',
+	'balenablocks/dashboard/0.0.0',
+);
 
 const [testOrg, testApp, testVersion, testService] =
-	TEST_REPO.split('/').filter(Boolean);
+	TEST_APP_SLUG.split('/').filter(Boolean);
 
 const repoSlugs: string[] = [];
 const repoVersion = [undefined, 'latest', testVersion];
@@ -44,6 +46,8 @@ describe('GET /ping', function () {
 	});
 });
 
+let authenticate;
+
 // https://docs.docker.com/registry/spec/api/#api-version-check
 describe('GET /v2/', function () {
 	it('responds with unauthorized', async function () {
@@ -51,38 +55,36 @@ describe('GET /v2/', function () {
 			.get('/v2/')
 			.set('User-Agent', userAgent)
 			.set('Accept', 'application/json');
-		// console.debug(response.headers);
-		// console.debug(response.body);
 		expect(response.status).equals(401);
-		expect(response.headers['content-type']).to.match(/application\/json/);
-		expect(response.headers['docker-distribution-api-version']).to.match(
-			/registry\/2.0/,
+		expect(response.headers['docker-distribution-api-version']).equals(
+			apiVersion,
 		);
-		expect(response.headers['www-authenticate']).to.match(/127.0.0.1/);
+		expect(response.headers['www-authenticate']).to.exist;
+		authenticate = authorization.parse(response.headers['www-authenticate']);
 	});
 });
 
 repoSlugs.forEach((slug) => {
-	let authToken = '';
+	let authToken;
 
 	// https://docs.docker.com/registry/spec/auth/scope/
 	describe('GET /auth/v1/token', function () {
 		it('should return an authorization token', async function () {
-			const response = await request(app)
-				.get('/auth/v1/token')
-				.query({
+			const response = await require('axios').get(authenticate.params.realm, {
+				params: {
 					account: TEST_USER,
 					scope: `repository:${slug}:pull`,
-					service: REGISTRY_URL,
-				})
-				.set('Authorization', `Basic ${basicAuth}`)
-				.set('Accept', 'application/json');
-			// console.debug(response.headers);
-			// console.debug(response.body);
+					service: authenticate.params.service,
+				},
+				auth: {
+					username: TEST_USER,
+					password: TEST_TOKEN,
+				},
+			});
+
 			expect(response.status).equals(200);
-			expect(response.headers['content-type']).to.match(/application\/json/);
-			expect(response.body['token']).to.exist;
-			authToken = response.body['token'];
+			expect(response.data['token']).to.exist;
+			authToken = response.data['token'];
 		});
 	});
 
@@ -96,8 +98,6 @@ repoSlugs.forEach((slug) => {
 				.set('Authorization', `Bearer ${authToken}`)
 				.set('User-Agent', userAgent)
 				.set('Accept', manifestSchema);
-			// console.debug(response.headers);
-			// console.debug(response.body);
 			expect(response.status).equals(200);
 			expect(response.headers['docker-content-digest']).to.exist;
 			expect(response.headers['docker-distribution-api-version']).equals(
