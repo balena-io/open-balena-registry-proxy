@@ -1,4 +1,53 @@
 - commits:
+    - subject: Replace e2e tests with mock registry
+      hash: ffd3571f3cebc1ecf92ee05c5d359437150c6ff1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Rename Dockerfile.template so it only applies to armv7
+      hash: 6dbac951fd7eb6ef8ef521c8aa1d2315b426901e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Remove API proxy endpoints and rely on JWT aliases
+      hash: b7292425459c46c1988c334baa1aa76ca4f19a1a
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Switch to inline auth for private repositories
+      hash: b87948a428d960faa56a9e00ffaa8d7db8cc6d00
+      body: |
+        Use the basic auth credentials provided to the /auth/v1/token endpoint
+        to authenticate with the API when resolving the image location.
+
+        Also use the access name scope embedded in the JWT to skip resolving
+        of the image location on subsequent manifests/blobs requests.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.0.0
+  title: "'Remove API proxy endpoints and rely on JWT aliases'"
+  date: 2022-03-14T17:58:25.905Z
+- commits:
     - subject: Update open-balena-base to v13.0.7
       hash: 9278dc771a8c2d719c0a7e9a69674c71d85bec2a
       body: |
