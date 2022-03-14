@@ -1,59 +1,46 @@
+import 'dotenv/config';
 import * as Docker from 'dockerode';
 import { expect } from 'chai';
-import { app } from '../../src/app';
-import { TEST_REPO, TEST_USER, TEST_TOKEN, PORT } from '../../src/config';
+import app from '../../src/app';
+import { REGISTRY_URL } from '../../src/config';
+import * as access from '../fixtures/access.json';
 
-const options = {
-	...(TEST_USER &&
-		TEST_TOKEN && {
-			authconfig: {
-				username: TEST_USER,
-				password: TEST_TOKEN,
-			},
-		}),
-};
+// const options = {
+// 	...(TEST_USER &&
+// 		TEST_TOKEN && {
+// 			authconfig: {
+// 				username: TEST_USER,
+// 				password: TEST_TOKEN,
+// 			},
+// 		}),
+// };
+
+const options = {};
+
+const PROXY_PORT = 5000;
 
 const docker = new Docker();
 
-const [testOrg, testApp, testVersion, testService] =
-	TEST_REPO.split('/').filter(Boolean);
-
-const repoSlugs: string[] = [];
-const repoVersion = [undefined, 'latest', testVersion];
-const repoServices = [undefined, testService];
-
-repoVersion.forEach((version) => {
-	repoServices.forEach((service) => {
-		const slug = [
-			testOrg,
-			testApp,
-			version,
-			version != null ? service : undefined,
-		]
-			.filter(Boolean)
-			.join('/');
-		if (repoSlugs.includes(slug)) {
-			return;
-		}
-		repoSlugs.push(slug);
-	});
-});
-
-let server: any;
+let proxy: any;
 
 before(function (done) {
-	server = app.listen(PORT, () => {
-		console.log(`Server started on port ${PORT}`);
+	proxy = app(REGISTRY_URL).listen(PROXY_PORT, () => {
+		console.log(`Proxy started on port ${PROXY_PORT}`);
 		done();
 	});
 });
 
-repoSlugs.forEach((slug) => {
-	const path = [`localhost:${PORT}`, slug].join('/');
+after(function (done) {
+	proxy.close(done);
+});
+
+// https://docs.docker.com/registry/spec/api/#pulling-an-image
+access.forEach((item) => {
+	const path = [`localhost:${PROXY_PORT}`, item.alias].join('/');
 
 	describe(`docker pull ${path}`, function () {
 		it('should pull the specified manifest via the proxy', function (done) {
-			this.timeout(4000);
+			this.timeout(24000);
 
 			docker.pull(path, options, function (err: any, stream: any) {
 				if (err) {
@@ -76,24 +63,6 @@ repoSlugs.forEach((slug) => {
 					console.debug(event);
 				}
 			});
-		});
-	});
-});
-
-after(function (done) {
-	server.close(done);
-
-	repoSlugs.forEach((slug) => {
-		const path = [`localhost:${PORT}`, slug].join('/');
-		const image = docker.getImage(path);
-
-		// remove the image if it exists
-		image.remove({ force: true }, function (err, output) {
-			if (err) {
-				console.error(err);
-			} else {
-				console.log(output);
-			}
 		});
 	});
 });

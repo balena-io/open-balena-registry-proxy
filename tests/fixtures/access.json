@@ -1,0 +1,38 @@
+[
+	{
+		"type": "repository",
+		"name": "v2/2ee28d5283d76785fec6e8fb67155a88",
+		"alias": "balenablocks/dashboard/0.1.1",
+		"actions": ["pull"]
+	},
+	{
+		"type": "repository",
+		"name": "v2/2ee28d5283d76785fec6e8fb67155a88",
+		"alias": "balenablocks/dashboard/1caf9b1f36a578d48c098062b355e46f",
+		"actions": ["pull"]
+	},
+	{
+		"type": "repository",
+		"name": "v2/2ee28d5283d76785fec6e8fb67155a88",
+		"alias": "balenablocks/dashboard/0.0.0",
+		"actions": ["pull"]
+	},
+	{
+		"type": "repository",
+		"name": "v2/2ee28d5283d76785fec6e8fb67155a88",
+		"alias": "balenablocks/dashboard/8579bfd57285d972aee32a0a19e01987",
+		"actions": ["pull"]
+	},
+	{
+		"type": "repository",
+		"name": "v2/2ee28d5283d76785fec6e8fb67155a88",
+		"alias": "balenablocks/dashboard/0.1.11",
+		"actions": ["pull"]
+	},
+	{
+		"type": "repository",
+		"name": "v2/2ee28d5283d76785fec6e8fb67155a88",
+		"alias": "balenablocks/dashboard/239297595a5f492124c45d5d4d9853fe",
+		"actions": ["pull"]
+	}
+]
