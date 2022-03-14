@@ -1,6 +1,8 @@
-import { PORT } from './config';
-import { app } from './app';
+import { REGISTRY_URL, PROXY_PORT } from './config';
+import app from './app';
 
-app.listen(PORT, () => {
-	console.log(`Server started on port ${PORT}`);
+const proxy = app(REGISTRY_URL);
+
+proxy.listen(PROXY_PORT, () => {
+	console.log(`Proxy listening on port ${PROXY_PORT}`);
 });

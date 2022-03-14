@@ -22,12 +22,12 @@ interface Access {
 	alias?: string;
 }
 
-function resolveRepo(
-	req: express.Request & { resolvedPath: string },
+function rewriteRepository(
+	req: express.Request,
 	res: express.Response,
 	next: express.NextFunction,
 ) {
-	const url = new URL(REGISTRY_URL + req.originalUrl);
+	const url = new URL('http://127.0.0.1' + req.originalUrl);
 
 	const matches = url.pathname.match(URL_REGEX);
 
@@ -62,7 +62,6 @@ function resolveRepo(
 	const jwt = jsonwebtoken.decode(auth.token as string) as { access: Access[] };
 
 	// API should have added an 'alias' field to the access list of the JWT
-	// https://docs.docker.com/registry/spec/auth/jwt/
 	const access = _.find(jwt.access, {
 		type: 'repository',
 		alias: repository,
@@ -82,30 +81,44 @@ function resolveRepo(
 		method === 'manifests' ? 'latest' : tag,
 	].join('/');
 
-	req.resolvedPath = url.pathname + url.search;
+	res.locals.path = url.pathname + url.search;
+
 	return next();
 }
 
-const registryProxy = proxy.createProxyMiddleware({
-	logLevel: 'debug',
-	target: REGISTRY_URL,
-	changeOrigin: true,
-	onProxyReq(proxyReq, req: express.Request & { resolvedPath: string }) {
-		if (req.resolvedPath) {
-			console.debug(`<== ${proxyReq.path}`);
-			proxyReq.path = req.resolvedPath;
-			console.debug(`==> ${proxyReq.path}`);
-		}
-	},
-});
+function registryProxyMiddleware(target: string) {
+	return proxy.createProxyMiddleware({
+		logLevel: 'debug',
+		target,
+		changeOrigin: true,
+		onProxyReq(proxyReq, _req: express.Request, res: express.Response) {
+			if (res.locals.path) {
+				console.debug(`<== ${proxyReq.path}`);
+				proxyReq.path = res.locals.path;
+				console.debug(`==> ${proxyReq.path}`);
+			}
+		},
+	});
+}
 
-// create express server
-export const app = express();
-app.set('trust proxy', TRUST_PROXY);
+function registryProxy(
+	target: string = REGISTRY_URL,
+	trustProxy: string | number | boolean = TRUST_PROXY,
+) {
+	// create express server
+	const app = express();
+	app.set('trust proxy', trustProxy);
 
-// proxied endpoints
-app.use('/v2/', resolveRepo, registryProxy);
+	// proxy endpoint
+	app.use('/v2/', rewriteRepository, registryProxyMiddleware(target));
 
-app.get('/ping', (_req, res) => {
-	res.status(200).send('pong');
-});
+	// ping endpoint
+	app.get('/ping', (_req, res) => {
+		res.status(200).send('pong');
+	});
+
+	// return express server
+	return app;
+}
+
+export default registryProxy;

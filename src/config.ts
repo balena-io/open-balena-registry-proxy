@@ -1,4 +1,4 @@
-export const requiredVar = (varName: string): string => {
+const requiredVar = (varName: string): string => {
 	const s = process.env[varName];
 	if (s == null) {
 		process.exitCode = 1;
@@ -7,21 +7,21 @@ export const requiredVar = (varName: string): string => {
 	return s;
 };
 
-export function optionalVar(varName: string, defaultValue: string): string;
-export function optionalVar(
+function optionalVar(varName: string, defaultValue: string): string;
+function optionalVar(
 	varName: string,
 	defaultValue?: string,
 ): string | undefined;
-export function optionalVar(
+function optionalVar(
 	varName: string,
 	defaultValue?: string,
 ): string | undefined {
 	return process.env[varName] || defaultValue;
 }
 
-export function intVar(varName: string): number;
-export function intVar<R>(varName: string, defaultValue: R): number | R;
-export function intVar<R>(varName: string, defaultValue?: R): number | R {
+function intVar(varName: string): number;
+function intVar<R>(varName: string, defaultValue: R): number | R;
+function intVar<R>(varName: string, defaultValue?: R): number | R {
 	if (arguments.length === 1) {
 		requiredVar(varName);
 	}
@@ -48,7 +48,7 @@ export const REGISTRY_URL =
 		? `https://registry2.${DNS_TLD}`
 		: `https://${REGISTRY2_HOST}`;
 
-export const PORT = intVar('PORT', 80);
+export const PROXY_PORT = intVar('PROXY_PORT', 80);
 
 const { TRUST_PROXY: trustProxy = 'true' } = process.env;
 let trustProxyValue;
