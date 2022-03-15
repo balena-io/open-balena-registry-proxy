@@ -1,4 +1,40 @@
 - commits:
+    - subject: "patch: Extend ping endpoint"
+      hash: 29105ba15ff7822be825ddcb3b540fda59798e9c
+      body: ""
+      footer:
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: "patch: Pass trust proxy from environment during init"
+      hash: 94ffbc07c672efdd16e6bd72b52200e28a86d0a8
+      body: ""
+      footer:
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: "patch: Hardcode compose test endpoints for now"
+      hash: 801cf3e5f839d4fd96aa7e7a76a3d3d58e9c5ca7
+      body: ""
+      footer:
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: "patch: Remove unecessary URL translations"
+      hash: d03ea11512cb3a083822f2a2119dd1a0804f4c7b
+      body: ""
+      footer:
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.0.1
+  title: "'patch: Pass trust proxy from environment during init '"
+  date: 2022-03-15T15:54:58.593Z
+- commits:
     - subject: Replace e2e tests with mock registry
       hash: ffd3571f3cebc1ecf92ee05c5d359437150c6ff1
       body: ""
