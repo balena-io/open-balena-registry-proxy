@@ -27,9 +27,7 @@ function rewriteRepository(
 	res: express.Response,
 	next: express.NextFunction,
 ) {
-	const url = new URL('http://127.0.0.1' + req.originalUrl);
-
-	const matches = url.pathname.match(URL_REGEX);
+	const matches = req.originalUrl.match(URL_REGEX);
 
 	if (matches == null) {
 		// the url could not be parsed
@@ -73,15 +71,13 @@ function rewriteRepository(
 	}
 
 	// rewrite the request and replace the alias with the real repo path
-	url.pathname = [
+	res.locals.path = [
 		'',
 		version,
 		access.name,
 		method,
 		method === 'manifests' ? 'latest' : tag,
 	].join('/');
-
-	res.locals.path = url.pathname + url.search;
 
 	return next();
 }
