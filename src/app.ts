@@ -108,8 +108,14 @@ function registryProxy(
 	// proxy endpoint
 	app.use('/v2/', rewriteRepository, registryProxyMiddleware(target));
 
+	app.use((_req, res, next) => {
+		res.set('X-Frame-Options', 'DENY');
+		res.set('X-Content-Type-Options', 'nosniff');
+		next();
+	});
+
 	// ping endpoint
-	app.get('/ping', (_req, res) => {
+	app.use('/ping', (_req, res) => {
 		res.status(200).send('pong');
 	});
 
