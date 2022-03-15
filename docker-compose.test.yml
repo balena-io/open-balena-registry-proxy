@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     environment:
       PROXY_PORT: 5000
-      REGISTRY2_HOST: ${REGISTRY2_HOST:-registry2.balena-staging.com}
+      REGISTRY2_HOST: registry2.balena-staging.com
 
   docker:
     image: docker:dind
@@ -19,7 +19,7 @@ services:
 
   sut:
     image: docker:latest
-    command: sh -c 'while ! docker info; do sleep 1; done; docker pull proxy:5000/${TEST_APP_SLUG:-chriscw/awesomebrowserblock/0.0.0}'
+    command: sh -c 'while ! docker info; do sleep 1; done; docker pull proxy:5000/chriscw/awesomebrowserblock'
     depends_on:
       - proxy
       - docker
