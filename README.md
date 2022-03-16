@@ -1,100 +1,94 @@
 # open-balena-registry-proxy
 
-Pull release images from the balenaCloud container registry with application slugs!
+Pull release images from the balenaCloud container registry with block|fleet slugs!
 
 ## Getting Started
 
-You can one-click-deploy this project to balena using the button below:
+Publish your block or fleet to balenaHub following the steps here: <https://hub.balena.io/submit>
 
-[![deploy with balena](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/balena-io/open-balena-registry-proxy)
+Once your block|fleet is published, you can update your documentation to use one of the following URLs for pulling images:
 
-## Manual Deployment
-
-Alternatively, deployment can be carried out by manually creating a [balenaCloud account](https://dashboard.balena-cloud.com) and application,
-flashing a device, downloading the project and pushing it via the [balena CLI](https://github.com/balena-io/balena-cli).
-
-### Environment Variables
-
-| Name             | Description                                                         |
-| ---------------- | ------------------------------------------------------------------- |
-| `REGISTRY2_HOST` | Upstream registry URL. The default is `registry2.balena-cloud.com`. |
+- `bh.cr/myorg/myblock`
+- `bhcr.io/myorg/myblock`
 
 ## Usage
 
-### Image Reference
+The expected image reference format is `bh.cr/<org>/<app>/<commit|version>:[tag]` where:
 
-The expected image reference format is `<org>/<app>/<commit|semver>:[tag]?` where:
+- `<org>/<app>` is the application slug as shown in the Summary pane of the balenaCloud dashboard
+- `<commit|version>` is the optional application release, either the commit or the version
+- `[tag]` is not required and is ignored
 
-- `<org>/<app>` is a balenaCloud application slug
-- `<commit|semver>` (optional) the application release, either the commit or the semver
-- `[tag]` is optional and is ignored
+_Why aren't we using the tag to specify the version?_
 
-The `<commit|semver>` can take multiple formats, but `+` symbols are not supported in docker paths so some rules are followed:
+When a Docker client requests access to a balenaCloud image repository, our registry instructs the client to contact our API for a token following the [Token Authentication Specification](https://docs.docker.com/registry/spec/auth/token/). Our API will then provide a JWT with push|pull permissions
+based on the login provided and the repository in question.
 
-- a final release version like `1.2.3` will pull the latest final release of that version (eg. `1.2.3+rev4`)
-- a draft release version like `1.2.3-1234567890`
-- any successful release commit like `b1678e01687d42ae9b2fe254543c7d18`
-- unset, `latest`, `current`, `default`, `pinned` are all aliases for the current pinned release
+In balenaCloud we store every release image in a unique repository in the format `/v2/randomhash`. This allows us to rename organizations and applications without breaking the links to the release images. When your balena device downloads a release image this all happens transparently via the Supervisor and API target state.
 
-### Public Device URL
+However, Docker clients do not provide the tag when requesting a token from an authorization endpoint like our API. Instead they only request access to a repository like `docker.io/library/alpine` and do not provide a tag until it's time to start pulling layers.
 
-Enable the [Public Device URL](https://www.balena.io/docs/learn/manage/actions/#enable-public-device-url)
-in your device dashboard to expose an HTTPS endpoint for your local Docker daemon.
+Without the full path to the repository in the `/v2/randomhash` format we wouldn't know which image was being requested and would have to assume latest in all cases. So in order to provide a JWT with permissions to the desired repo we need to know the release version or commit during the earliest authorization steps when the tag is not available!
 
-Using the public URL without a prefix you can now pull images directly from the balenaCloud container registry.
+### Examples
 
-```bash
-docker pull mydevice.balena-devices.com/balenablocks/dashboard
-```
-
-```dockerfile
-FROM mydevice.balena-devices.com/balenablocks/dashboard
-```
+Pull the default release as set in the Summary pane of the balenaCloud dashboard.
 
 ```yaml
 service:
-    myService:
-        image: mydevice.balena-devices.com/balenablocks/dashboard
+    fin-block:
+        image: bh.cr/balenablocks/fin-block
 ```
 
-### Insecure Registries
+Aliases like `latest`, `current`, `default`, `pinned` will also pull the default release.
 
-By default Docker won't communicate with an [insecure registry](https://docs.docker.com/engine/reference/commandline/dockerd/#insecure-registries)
-so if you aren't using the Public Device URL or some other HTTPS endpoint you'll need to reconfigure your daemon.
-
-Add an entry similar to this to your [docker daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file).
-
-```json
-{ "insecure-registries": ["mydevice.local:80"] }
+```yaml
+service:
+    fin-block:
+        image: bh.cr/balenablocks/fin-block/latest
 ```
 
-On Linux distros with systemd you can likely run `systemctl restart dockerd` to restart your daemon.
+Pull a specific final release version as shown in the Releases pane of the balenaCloud dashboard.
+Note that specifying a revision via `+rev_` is not supported and the highest revision will be pulled.
+
+```yaml
+service:
+    fin-block:
+        image: bh.cr/balenablocks/fin-block/3.6.0
+```
+
+Pull a specific draft release version as shown in the Releases pane of the balenaCloud dashboard.
+
+```yaml
+service:
+    fin-block:
+        image: bh.cr/balenablocks/fin-block/3.6.0-1640898570135
+```
+
+Pull a specific release commit as shown in the Releases pane of the balenaCloud dashboard.
+
+```yaml
+service:
+    fin-block:
+        image: bh.cr/balenablocks/fin-block/490a6b48a457bcb49d558fc1b82cfed5
+```
 
 ### Authentication
 
-Get a balena access token from the dashboard or the balena CLI and use it with `docker login`.
+This proxy is most effective with public blocks and fleets,
+but it's also possible to pull images from private blocks|fleets using your balenaCloud credentials and `docker login`.
 
 ```bash
-docker login mydevice.balena-devices.com
-Username: u_bob        # your username prefixed by "_u"
-Password: ************ # balena-cloud API token
+docker login bh.cr
+Username: u_bob        # balenaCloud username prefixed by "_u"
+Password: ************ # balenaCloud API token
 
-# pull from private apps
-docker pull mydevice.balena-devices.com/myorg/myapp
+docker pull bh.cr/myprivateorg/myprivateapp
 ```
 
-## Testing
+### Development
 
-```bash
-# emulate a docker client with supertest
-npm run test
-
-# emulate a docker client with dockerode (requires docker)
-npm run test:docker
-
-# run a standalone docker daemon with docker compose (requires docker-compose)
-npm run test:compose
-```
+For testing and local development of this proxy see [DEVELOPMENT.md](./DEVELOPMENT.md).
 
 ## Contributing
 
