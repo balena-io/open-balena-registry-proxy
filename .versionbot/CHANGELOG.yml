@@ -1,4 +1,31 @@
 - commits:
+    - subject: "patch: bump minimist from 1.2.5 to 1.2.6"
+      hash: 3f24345c27d91806a34a87d7473d4abf1503081f
+      body: >
+        Bumps [minimist](https://github.com/substack/minimist) from 1.2.5 to
+        1.2.6.
+
+        - [Release notes](https://github.com/substack/minimist/releases)
+
+        - [Commits](https://github.com/substack/minimist/compare/1.2.5...1.2.6)
+
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: minimist
+          dependency-type: indirect
+        ...
+      footer:
+        Signed-off-by: dependabot[bot] <support@github.com>
+        signed-off-by: dependabot[bot] <support@github.com>
+      author: dependabot[bot]
+      nested: []
+  version: 3.0.3
+  title: "'patch: bump minimist from 1.2.5 to 1.2.6'"
+  date: 2022-04-01T13:16:33.133Z
+- commits:
     - subject: Update documentation
       hash: 1ba606268c2add56f0315591b105f8b31deebedd
       body: ""
