@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add deploy-to-balena GH action to push block releases
+      hash: f62b90b9839b2ba3297c11842298d3cf557836a8
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.0.4
+  title: "'Add deploy-to-balena GH action to push block releases'"
+  date: 2022-04-01T14:25:59.226Z
+- commits:
     - subject: "patch: bump minimist from 1.2.5 to 1.2.6"
       hash: 3f24345c27d91806a34a87d7473d4abf1503081f
       body: >
