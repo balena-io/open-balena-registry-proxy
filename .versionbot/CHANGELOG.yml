@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add balena.yml for proper block versioning
+      hash: 30499b930705ee191a741c36d39d195c4c6d0876
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.0.5
+  title: "'Add balena.yml for proper block versioning'"
+  date: 2022-04-06T13:56:48.754Z
+- commits:
     - subject: Add deploy-to-balena GH action to push block releases
       hash: f62b90b9839b2ba3297c11842298d3cf557836a8
       body: ""
