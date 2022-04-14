@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add additional private fleet authentication methods to README
+      hash: 039e79b371de64b39308902b95a82b4f7e90633a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.0.6
+  title: "'Add additional private fleet authentication methods to README'"
+  date: 2022-04-14T14:22:02.450Z
+- commits:
     - subject: Add balena.yml for proper block versioning
       hash: 30499b930705ee191a741c36d39d195c4c6d0876
       body: ""
