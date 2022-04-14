@@ -15,7 +15,7 @@ Once your block|fleet is published, you can update your documentation to use one
 
 The expected image reference format is `bh.cr/<org>/<app>/<commit|version>:[tag]` where:
 
-- `<org>/<app>` is the application slug as shown in the Summary pane of the balenaCloud dashboard
+- `<org>/<app>` is the application Slug as shown in the Summary pane of the balenaCloud dashboard
 - `<commit|version>` is the optional application release, either the commit or the version
 - `[tag]` is not required and is ignored
 
@@ -32,59 +32,100 @@ Without the full path to the repository in the `/v2/randomhash` format we wouldn
 
 ### Examples
 
-Pull the default release as set in the Summary pane of the balenaCloud dashboard.
+Here's how to pull a specific release version given several available releases in the dashboard.
 
 ```yaml
-service:
-    fin-block:
-        image: bh.cr/balenablocks/fin-block
+services:
+  # Browser block service added to the multicontainer fleet
+  browser:
+    image: bh.cr/balenablocks/browser-aarch64/2.3.8
+    privileged: true
+    network_mode: host
 ```
 
-Aliases like `latest`, `current`, `default`, `pinned` will also pull the default release.
+Note that specifying a revision via `+rev_` is not supported in image URLs as the plus sign is considered a special character. Instead, we will default to pulling the latest revision when a release version is provided.
+
+So if there are multiple revisions of a release, for example `2.3.8`, `2.3.8+rev1`, and `2.3.8+rev2`, specifying `2.3.8` in the image reference will result in `2.3.8+rev2` being pulled.
+
+During development you may want to pull a draft release for testing. Since draft releases are not included in the latest release track, you must specify the whole version string including the build stamp.
 
 ```yaml
-service:
-    fin-block:
-        image: bh.cr/balenablocks/fin-block/latest
+services:
+  # Browser block service added to the multicontainer fleet
+  browser:
+    image: bh.cr/balenablocks/browser-aarch64/2.4.1-1648554962021
+    privileged: true
+    network_mode: host
 ```
 
-Pull a specific final release version as shown in the Releases pane of the balenaCloud dashboard.
-Note that specifying a revision via `+rev_` is not supported and the highest revision will be pulled.
+You can also refer to a release by its build commit by copying the commit hash from the first column of the releases dashboard.
 
 ```yaml
-service:
-    fin-block:
-        image: bh.cr/balenablocks/fin-block/3.6.0
+services:
+  # Browser block service added to the multi-container fleet
+  browser:
+    image: bh.cr/balenablocks/browser-aarch64/11e1ee23d7ddf6ab6da99bac26c9d274
+    privileged: true
+    network_mode: host
 ```
 
-Pull a specific draft release version as shown in the Releases pane of the balenaCloud dashboard.
+### Private Registries
+
+In some cases, you may want to deploy blocks from a private organization.
+In order to do this, you need to enable balena to authenticate with the registry during the build,
+which is done by passing the `--registry-secrets` option with a path to the authentication secrets. An example is shown below:
+
+For `balena push`:
+
+```bash
+balena push myFleet --registry-secrets ../secrets.yml
+```
+
+Or for `balena deploy`:
+
+```bash
+balena deploy myFleet --registry-secrets ../secrets.yml
+```
+
+You can also save a file with secrets in JSON or YAML format in your home directory
+under `~/.balena/secrets.<yml|json>`, which will automatically be used for the secrets
+if it exists and the `--registry-secrets` switch has not been passed to `balena push`.
+
+JSON example:
+
+```json
+{
+  "bh.cr": {
+    "username": "u",
+    "password": "API_KEY"
+  }
+}
+```
+
+YAML example:
 
 ```yaml
-service:
-    fin-block:
-        image: bh.cr/balenablocks/fin-block/3.6.0-1640898570135
+'bh.cr':
+    username: u
+    password: API_KEY
 ```
 
-Pull a specific release commit as shown in the Releases pane of the balenaCloud dashboard.
+Note that the username can be any non-zero length string, as long as the API key is associated with a user that has access to the org.
 
-```yaml
-service:
-    fin-block:
-        image: bh.cr/balenablocks/fin-block/490a6b48a457bcb49d558fc1b82cfed5
-```
-
-### Authentication
-
-This proxy is most effective with public blocks and fleets,
-but it's also possible to pull images from private blocks|fleets using your balenaCloud credentials and `docker login`.
+You can also login via your typical Docker client with `docker login`:
 
 ```bash
 docker login bh.cr
-Username: u_bob        # balenaCloud username prefixed by "_u"
+Username: u            # balenaCloud username
 Password: ************ # balenaCloud API token
 
-docker pull bh.cr/myprivateorg/myprivateapp
+docker pull bh.cr/myorg/myapp  
 ```
+
+Sources:
+
+- <https://www.balena.io/docs/learn/deploy/deployment/#private-base-images>
+- <https://www.balena.io/docs/learn/more/masterclasses/cli-masterclass/#7-using-private-registries>
 
 ### Development
 
