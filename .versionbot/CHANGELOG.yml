@@ -1,4 +1,86 @@
 - commits:
+    - subject: Update open-balena-base to 13.3.1
+      hash: c8c2b97df5d83ee8332b67f1eab8c2823173e6b1
+      body: |
+        Update open-balena-base from 13.2.0 to 13.3.1
+        Update open-balena-base from 13.2.0 to 13.3.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested:
+        - commits:
+            - subject: Add SystemMaxUse for journald.conf
+              hash: 59543bf6b8b1faf2914be1ff2302982c0d269b33
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Pagan Gazzard
+              nested: []
+          version: open-balena-base-13.3.1
+          title: "'Add SystemMaxUse for journald.conf'"
+          date: 2022-05-05T09:33:37.847Z
+        - commits:
+            - subject: Update nodejs to 16.15.0 and npm to 8.8.0
+              hash: a7454fb62d845e444e3e798c577a264979da574a
+              body: ""
+              footer:
+                Change-type: minor
+                change-type: minor
+              author: Pagan Gazzard
+              nested: []
+          version: open-balena-base-13.3.0
+          title: "'Update nodejs to 16.15.0 and npm to 8.8.0'"
+          date: 2022-05-02T16:14:06.385Z
+        - commits:
+            - subject: Add support to map tokens from existing env
+              hash: e78d0887a9f859c0763f4875d990a3cc4186ac7e
+              body: >
+                * if global config already contains the value(s) for the map,
+                use them
+
+                * don't explicitly require BALENA_DEVICE_UID (openBalena/dockerd)
+
+                * add REGISTRY S3 secrets
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: ab77
+              nested: []
+          version: open-balena-base-13.2.3
+          title: "'Add support to map tokens from existing env'"
+          date: 2022-04-08T18:03:20.929Z
+        - commits:
+            - subject: Remove redundant package-lock.json
+              hash: 88a2c6f3315746b94d769bae81002482ba5d4b98
+              body: >
+                VersionBot used to create that file because of a bug. The bug
+                has long been fixed and the file is redundant.
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Akis Kesoglou
+              nested: []
+          version: open-balena-base-13.2.2
+          title: "'Remove redundant package-lock.json'"
+          date: 2022-04-05T18:47:41.535Z
+        - commits:
+            - subject: Update nodejs to 16.14.2 and npm to 8.5.5
+              hash: 165c44a52b291b9c335d3fe139d82ff0c99a5e96
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Pagan Gazzard
+              nested: []
+          version: open-balena-base-13.2.1
+          title: "'Update nodejs to 16.14.2 and npm to 8.5.5'"
+          date: 2022-03-21T14:38:46.073Z
+  version: 3.0.7
+  title: "'Update open-balena-base to 13.3.1'"
+  date: 2022-05-05T11:35:16.029Z
+- commits:
     - subject: Add additional private fleet authentication methods to README
       hash: 039e79b371de64b39308902b95a82b4f7e90633a
       body: ""
