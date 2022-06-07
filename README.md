@@ -1,6 +1,6 @@
 # open-balena-registry-proxy
 
-Pull release images from the balenaCloud container registry with block|fleet slugs!
+Pull container images directly from the balenaHub container registry!
 
 ## Getting Started
 
