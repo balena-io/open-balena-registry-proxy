@@ -1,3 +1,15 @@
 name: open-balena-registry-proxy
 type: sw.block
 version: 3.0.8
+description: >-
+  Pull container images directly from the balenaHub container registry!
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/balena-io/open-balena-registry-proxy'
+data:
+  defaultDeviceType: genericx86-64-ext
+  supportedDeviceTypes:
+    - genericx86-64-ext
+    - intel-nuc
