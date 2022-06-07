@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add description and assets to balena.yml
+      hash: 029049493f5ae13e002f8c4bea60c308e9e14997
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.0.9
+  title: "'Add description and assets to balena.yml'"
+  date: 2022-06-07T15:03:22.584Z
+- commits:
     - subject: Update dependencies
       hash: a192ab9980933e94f4f9f966aca5f439a1984881
       body: ""
