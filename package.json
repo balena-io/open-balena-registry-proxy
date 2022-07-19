@@ -72,6 +72,10 @@
       "balena-lint --fix"
     ]
   },
+  "engines": {
+    "node": "^16.16.0",
+    "npm": "^8.11.0"
+  },
   "versionist": {
     "publishedAt": "2022-07-12T12:35:16.034Z"
   }
