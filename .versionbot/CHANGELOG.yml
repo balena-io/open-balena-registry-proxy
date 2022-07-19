@@ -1,4 +1,18 @@
 - commits:
+    - subject: Update to node 16.16.0
+      hash: bb46c5200853606e3ebb96e5178d1abb06d80e1e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.0.11
+  title: "'Update to node 16.16.0'"
+  date: 2022-07-19T18:02:57.046Z
+- commits:
     - subject: Update open-balena-base to 13.4.0
       hash: 777b45e54735fb8d8a9cbfa803d3364e82d086d3
       body: |
