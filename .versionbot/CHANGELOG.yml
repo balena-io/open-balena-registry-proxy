@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update balena-io/deploy-to-balena-action action to 0.12.0
+      hash: 9ef09ec63f2978d31214deed3279452796e1bcf1
+      body: |
+        Update balena-io/deploy-to-balena-action to 0.12.0
+
+        Update balena-io/deploy-to-balena-action from 0.11.0 to 0.12.0
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.1.0
+  title: "'Update balena-io/deploy-to-balena-action action to 0.12.0'"
+  date: 2022-07-19T19:09:06.204Z
+- commits:
     - subject: Update to node 16.16.0
       hash: bb46c5200853606e3ebb96e5178d1abb06d80e1e
       body: ""
