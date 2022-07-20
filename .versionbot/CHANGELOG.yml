@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency dotenv to 16.0.1
+      hash: bb86a8147046e460adbe59bfe7f0dd5e9ce33b0c
+      body: |
+        Update dotenv to 16.0.1
+
+        Update dotenv from 15.0.1 to 16.0.1
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.2.0
+  title: "'Update dependency dotenv to 16.0.1'"
+  date: 2022-07-19T19:52:48.755Z
+- commits:
     - subject: Update balena-io/deploy-to-balena-action action to 0.12.0
       hash: 9ef09ec63f2978d31214deed3279452796e1bcf1
       body: |
