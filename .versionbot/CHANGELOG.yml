@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update balena-io/deploy-to-balena-action action to 0.12.1
+      hash: 7dc29789040b588a06d1ff2c1e99e1c661301dd6
+      body: |
+        Update balena-io/deploy-to-balena-action to 0.12.1
+
+        Update balena-io/deploy-to-balena-action from 0.12.0 to 0.12.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.2.4
+  title: "'Update balena-io/deploy-to-balena-action action to 0.12.1'"
+  date: 2022-07-21T21:00:23.432Z
+- commits:
     - subject: Update dependency mocha to 10.0.0
       hash: a7752fdf8688cac95921f0e841324e6a1ae5db46
       body: |
