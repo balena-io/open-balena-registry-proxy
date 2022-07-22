@@ -43,10 +43,12 @@ export const REGISTRY2_HOST = optionalVar(
 	'registry2.balena-cloud.com',
 );
 
-export const REGISTRY_URL =
+export const REGISTRY_URL = optionalVar(
+	'REGISTRY_URL',
 	DNS_TLD != null
 		? `https://registry2.${DNS_TLD}`
-		: `https://${REGISTRY2_HOST}`;
+		: `https://${REGISTRY2_HOST}`,
+);
 
 export const PROXY_PORT = intVar('PROXY_PORT', 80);
 
