@@ -19,12 +19,15 @@ services:
     command: --insecure-registry proxy:5000 --tls=false --debug
 
   sut:
-    image: docker:latest
+    image: alpine:3.16
     command: >-
-      sh -c 'while ! docker info; do sleep 1; done;
+      sh -c '
+      apk add --no-cache skopeo docker-cli-buildx &&
+      while ! docker info; do sleep 1; done &&
       docker build . &&
       docker buildx create --name sut --config /buildkitd.toml --driver-opt network=host --use &&
-      docker buildx build --pull .'
+      docker buildx build --pull . &&
+      skopeo inspect docker://proxy:5000/balena/open-balena-registry-proxy --tls-verify=false'
     depends_on:
       - proxy
       - docker
