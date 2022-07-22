@@ -46,7 +46,7 @@ function rewriteRepository(
 
 	if (!req.headers['authorization']) {
 		// we need the authorization header with a JWT to go any further
-		return res.status(403).json(ERROR_DENIED);
+		return next();
 	}
 
 	const auth = authorization.parse(req.headers['authorization']);

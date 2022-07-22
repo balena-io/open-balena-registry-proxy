@@ -47,7 +47,7 @@ access.forEach((item) => {
 		it('should respond with OK', function (done) {
 			const jwt = generateToken('', '', [item]);
 			request(app(REGISTRY_URL))
-				.get(`/v2/${item.alias}/blobs/latest`)
+				.get(`/v2/${item.alias}/manifests/latest`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
 				.expect(200, done);
