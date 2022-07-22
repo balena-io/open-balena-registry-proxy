@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add skopeo inspect to compose tests
+      hash: b905133979ec9d53c8888111d810897140f0f004
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.2.6
+  title: "'Add optional skopeo inspect tests to npm compose scripts'"
+  date: 2022-07-22T18:26:48.303Z
+- commits:
     - subject: Proxy all unauthenticated requests rather than rejecting
       hash: 41f25ffe6b1b9c00232d3c97c0812459a94430fb
       body: |
