@@ -1,4 +1,33 @@
 - commits:
+    - subject: Proxy all unauthenticated requests rather than rejecting
+      hash: 41f25ffe6b1b9c00232d3c97c0812459a94430fb
+      body: |
+        Buildkit does not send an initial /v2 request for authentication
+        but instead requests the entire image path without an auth header.
+
+        We need to forward this upstream so the registry can respond with
+        authentication instructions.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Respect REGISTRY_URL env var if provided
+      hash: d2bea895d69dce73f1bb61f17ab558101e79d535
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.2.5
+  title: "'Proxy all unauthenticated requests rather than rejecting'"
+  date: 2022-07-22T16:44:08.989Z
+- commits:
     - subject: Update balena-io/deploy-to-balena-action action to 0.12.1
       hash: 7dc29789040b588a06d1ff2c1e99e1c661301dd6
       body: |
