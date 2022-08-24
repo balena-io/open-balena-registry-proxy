@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update Node.js to v16.17.0
+      hash: 85e60486be0d394196858d74fc5fcc43ce1af07f
+      body: |
+        Update node to 16.17.0
+
+        Update node from 16.16.0 to 16.17.0
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.3.0
+  title: "'Update Node.js to v16.17.0'"
+  date: 2022-08-24T22:12:58.060Z
+- commits:
     - subject: Add skopeo inspect to compose tests
       hash: b905133979ec9d53c8888111d810897140f0f004
       body: ""
