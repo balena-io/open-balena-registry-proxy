@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update balena-io/deploy-to-balena-action action to 0.13.1
+      hash: fe4bd71f203611c898454c9fadfbb9e756c905b1
+      body: |
+        Update balena-io/deploy-to-balena-action to 0.13.1
+
+        Update balena-io/deploy-to-balena-action from 0.13.0 to 0.13.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.4.1
+  title: "'Update balena-io/deploy-to-balena-action action to 0.13.1'"
+  date: 2022-08-26T17:24:39.178Z
+- commits:
     - subject: Update balena-io/deploy-to-balena-action action to 0.13.0
       hash: 45a9c056b0d78cf45320b00214ad78c9ef848428
       body: |
