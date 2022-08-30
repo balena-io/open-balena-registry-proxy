@@ -1,4 +1,19 @@
 - commits:
+    - subject: "flowzone: Remove deprecated docker_platforms command"
+      hash: 01b521af0262f9f677dafd0b10097748866f2836
+      body: |
+        The default is amd64 now and advanced features require a bake file.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.4.3
+  title: ""
+  date: 2022-08-30T16:28:22.276Z
+- commits:
     - subject: Add flowzone workflow with versioning
       hash: 5ea0a8caf0bcbfbfa4fe550c1a1b6266477e973d
       body: ""
