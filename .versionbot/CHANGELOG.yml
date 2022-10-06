@@ -1,4 +1,19 @@
 - commits:
+    - subject: "chore(deps): update node.js to v16.17.1"
+      hash: ee822f0ba1cdb80ea7451061f5e2ca62bc60eeb2
+      body: |
+        Update node to 16.17.1
+
+        Update node from 16.17.0 to 16.17.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.4.5
+  title: ""
+  date: 2022-10-06T22:37:56.825Z
+- commits:
     - subject: Remove redundant .resinci.yml
       hash: 8a54a03d1aba3cc83c3f504fe6e5f542f6a56bca
       body: ""
