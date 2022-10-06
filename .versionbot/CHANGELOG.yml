@@ -1,4 +1,16 @@
 - commits:
+    - subject: Remove redundant .resinci.yml
+      hash: 8a54a03d1aba3cc83c3f504fe6e5f542f6a56bca
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 3.4.4
+  title: ""
+  date: 2022-10-06T22:18:01.511Z
+- commits:
     - subject: "flowzone: Remove deprecated docker_platforms command"
       hash: 01b521af0262f9f677dafd0b10097748866f2836
       body: |
