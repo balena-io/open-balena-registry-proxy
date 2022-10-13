@@ -1,4 +1,19 @@
 - commits:
+    - subject: "chore(deps): update node.js to v16.18.0"
+      hash: 45ec0f36d52f20c578d7d3929b65188154b34481
+      body: |
+        Update node to 16.18.0
+
+        Update node from 16.17.1 to 16.18.0
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.5.0
+  title: ""
+  date: 2022-10-13T19:18:29.012Z
+- commits:
     - subject: "chore(deps): update node.js to v16.17.1"
       hash: ee822f0ba1cdb80ea7451061f5e2ca62bc60eeb2
       body: |
@@ -349,8 +364,7 @@
             - subject: Add support to map tokens from existing env
               hash: e78d0887a9f859c0763f4875d990a3cc4186ac7e
               body: >
-                * if global config already contains the value(s) for the map,
-                use them
+                * if global config already contains the value(s) for the map, use them
 
                 * don't explicitly require BALENA_DEVICE_UID (openBalena/dockerd)
 
@@ -367,8 +381,8 @@
             - subject: Remove redundant package-lock.json
               hash: 88a2c6f3315746b94d769bae81002482ba5d4b98
               body: >
-                VersionBot used to create that file because of a bug. The bug
-                has long been fixed and the file is redundant.
+                VersionBot used to create that file because of a bug. The bug has long
+                been fixed and the file is redundant.
               footer:
                 Change-type: patch
                 change-type: patch
@@ -892,7 +906,7 @@
 - commits:
     - subject: Add support for private fleets
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: dce29393a19f074cde260a4a2ccc30875b4b095b
 - commits:
@@ -903,7 +917,7 @@
 - commits:
     - subject: Add simple end-to-end tests
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 82d1077aa8319136bbe60e812dc50d4ad2669b16
 - commits:
@@ -925,7 +939,7 @@
 - commits:
     - subject: Update tests
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: b37e1ef1164263c5103f4695dbe5bcdec748058a
 - commits:
@@ -939,7 +953,7 @@
 - commits:
     - subject: Enable simple caching for API requests
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: f2f289b1fc0c97800de0998212b3580344499614
 - commits:
@@ -950,4 +964,4 @@
 - commits:
     - subject: Fix some shadowed vars
 - commits:
-    - ? body
+    - body: null
