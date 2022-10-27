@@ -4,4 +4,4 @@ upstream:
     url: 'https://github.com/balena-io/balena-sdk'
     module: '@balena/balena-sdk'
   - repo: 'open-balena-base'
-    url: 'https://github.com/balena-io/open-balena-base'
+    url: 'https://github.com/balena-io-modules/open-balena-base'
