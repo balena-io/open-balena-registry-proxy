@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update armv7hf dockerfile to nodejs 18
+      hash: 72338145a0b3cd4f5dd330bfb0bc688b7eadb530
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Page-
+      nested: []
+  version: 3.6.1
+  title: ""
+  date: 2022-10-31T14:05:58.503Z
+- commits:
     - subject: Update open-balena-base to 14.0.0
       hash: 6bbcec4b4624ea6edd49aa1a0de32c533b44e27c
       body: |
