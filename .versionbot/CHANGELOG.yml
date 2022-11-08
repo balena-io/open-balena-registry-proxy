@@ -1,4 +1,19 @@
 - commits:
+    - subject: "chore(deps): update node.js to v18.12.1"
+      hash: 0b8df0ab7dd6f95eabcfaf2100e84453adac85cd
+      body: |
+        Update node to 18.12.1
+
+        Update node from 18.12.0 to 18.12.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.6.2
+  title: ""
+  date: 2022-11-08T19:40:13.660Z
+- commits:
     - subject: Update armv7hf dockerfile to nodejs 18
       hash: 72338145a0b3cd4f5dd330bfb0bc688b7eadb530
       body: ""
