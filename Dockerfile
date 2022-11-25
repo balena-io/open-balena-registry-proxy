@@ -1,5 +1,5 @@
 # x86_64 dockerfile for cloud deployments
-FROM balena/open-balena-base:no-systemd-v14.0.0
+FROM balena/open-balena-base:no-systemd-v14.1.0
 
 WORKDIR /usr/src/app
 
