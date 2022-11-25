@@ -3,10 +3,7 @@ version: "2"
 services:
 
   proxy:
-    image: balena/open-balena-registry-proxy
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: localhost:5000/sut
     environment:
       PROXY_PORT: 5000
       REGISTRY2_HOST: registry2.balena-cloud.com
