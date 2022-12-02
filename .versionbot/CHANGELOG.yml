@@ -1,4 +1,30 @@
 - commits:
+    - subject: Publish multiarch images to dockerhub
+      hash: 8f8f2cef6cec1ef504e1af196515f039f1fc07f5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Remove armv7 dockerfile support
+      hash: df40b7face0743c149878a19e7c7331212f25cf7
+      body: |
+        The main Dockerfile should soon support both amd64 and arm64
+        thanks to some recent updates to open-balena-base.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.6.3
+  title: ""
+  date: 2022-12-02T13:44:36.863Z
+- commits:
     - subject: "chore(deps): update node.js to v18.12.1"
       hash: 0b8df0ab7dd6f95eabcfaf2100e84453adac85cd
       body: |
