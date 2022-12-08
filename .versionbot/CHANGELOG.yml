@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update alpine Docker tag to v3.17
+      hash: af0697e2be855d7f275d7e411b5399bb752eafa2
+      body: |
+        Update alpine to 3.17
+
+        Update alpine from 3.16 to 3.17
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.7.0
+  title: ""
+  date: 2022-12-08T17:03:36.443Z
+- commits:
     - subject: Enable external contributions via Flowzone
       hash: 49c9b5b5f818b869ed7f699dcb002b37ff75d763
       body: ""
