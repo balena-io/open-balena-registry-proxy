@@ -1,4 +1,18 @@
 - commits:
+    - subject: Enable external contributions via Flowzone
+      hash: 49c9b5b5f818b869ed7f699dcb002b37ff75d763
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.6.4
+  title: ""
+  date: 2022-12-08T15:14:39.716Z
+- commits:
     - subject: Publish multiarch images to dockerhub
       hash: 8f8f2cef6cec1ef504e1af196515f039f1fc07f5
       body: ""
