@@ -1,4 +1,19 @@
 - commits:
+    - subject: "chore(deps): update npm to 9.2.0"
+      hash: 5336579c7c29174b0940427bd594b10bc26318e5
+      body: |
+        Update npm to 9.2.0
+
+        Update npm from 8.19.3 to 9.2.0
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.8.0
+  title: ""
+  date: 2022-12-17T23:56:49.300Z
+- commits:
     - subject: Update open-balena-base to 14.1.4
       hash: f54e1fa7e8975b6b814405e4dd16c3d0cbc32d50
       body: |
