@@ -1,4 +1,19 @@
 - commits:
+    - subject: "fix(deps): update dependency jsonwebtoken to 9.0.0 [security]"
+      hash: 47ffba6160ec80a794c0bd1dffebb4ddc70186f1
+      body: |
+        Update jsonwebtoken to 9.0.0
+
+        Update jsonwebtoken from 8.5.1 to 9.0.0
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.8.0
+  title: ""
+  date: 2022-12-23T02:17:00.905Z
+- commits:
     - subject: Update open-balena-base to 14.1.4
       hash: f54e1fa7e8975b6b814405e4dd16c3d0cbc32d50
       body: |
