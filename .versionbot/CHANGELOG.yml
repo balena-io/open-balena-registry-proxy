@@ -1,4 +1,19 @@
 - commits:
+    - subject: "chore(deps): update npm to 9.3.1"
+      hash: 628524f4b61072e78e49ee1c24245e8098a4e543
+      body: |
+        Update npm to 9.3.1
+
+        Update npm from 8.19.3 to 9.3.1
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 3.9.0
+  title: ""
+  date: 2023-01-19T15:25:01.466Z
+- commits:
     - subject: "fix(deps): update dependency jsonwebtoken to 9.0.0 [security]"
       hash: 47ffba6160ec80a794c0bd1dffebb4ddc70186f1
       body: |
