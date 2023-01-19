@@ -1,4 +1,19 @@
 - commits:
+    - subject: "chore(deps): update dependency @types/jsonwebtoken to 9.0.1"
+      hash: e4895d7bd5d6deb2aaeed0f6018f4a23c776e5be
+      body: |
+        Update @types/jsonwebtoken to 9.0.1
+
+        Update @types/jsonwebtoken from 8.5.8 to 9.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.9.2
+  title: ""
+  date: 2023-01-19T17:34:33.473Z
+- commits:
     - subject: "chore(deps): update dependency rimraf to 4.1.1"
       hash: 4d934171e005a1dffa5dee4c1c1ef04c33161298
       body: |
