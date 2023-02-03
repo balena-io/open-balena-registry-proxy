@@ -1,5 +1,4 @@
 name: Flowzone
-
 on:
   pull_request:
     types: [opened, synchronize, closed]
@@ -8,11 +7,10 @@ on:
   pull_request_target:
     types: [opened, synchronize, closed]
     branches: [main, master]
-
 jobs:
   flowzone:
     name: Flowzone
-    uses: product-os/flowzone/.github/workflows/flowzone.yml@master
+    uses: product-os/flowzone/.github/workflows/flowzone.yml@6863bc456355940157340cde42154570a8dece84
     # prevent duplicate workflows and only allow one `pull_request` or `pull_request_target` for
     # internal or external contributions respectively
     if: |
@@ -24,3 +22,4 @@ jobs:
         docker.io/balena/open-balena-registry-proxy
       balena_slugs: |
         balena/open-balena-registry-proxy
+      protect_branch: false
