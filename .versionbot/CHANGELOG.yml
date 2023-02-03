@@ -1,4 +1,56 @@
 - commits:
+    - subject: Update open-balena-base to 14.4.0
+      hash: 2a6854f4285b23fe63240499f575fa625bec4de6
+      body: |
+        Update open-balena-base from 14.1.4 to 14.4.0
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Pagan Gazzard
+      nested:
+        - commits:
+            - subject: Update nodejs to 18.14.0 and npm to 9.4.1
+              hash: 8f8ff1c68b4d1973f3e6c03e4ac4b5ab8ee70592
+              body: ""
+              footer:
+                Change-type: minor
+                change-type: minor
+              author: Pagan Gazzard
+              nested: []
+          version: open-balena-base-14.4.0
+          title: ""
+          date: 2023-02-03T17:34:44.201Z
+        - commits:
+            - subject: Update dependency node to 18.14.0
+              hash: 94316b8e029eaf1a15ec303b5e6887261971c4a3
+              body: |
+                Update node to 18.14.0
+
+                Update node from 18.13.0 to 18.14.0
+              footer:
+                Change-type: minor
+                change-type: minor
+              author: Renovate Bot
+              nested: []
+          version: open-balena-base-14.3.0
+          title: ""
+          date: 2023-02-02T20:01:11.681Z
+        - commits:
+            - subject: Update to nodejs 18.13.0
+              hash: 93d27af823100a75822e20f29f41dc4d576aa8e1
+              body: ""
+              footer:
+                Change-type: minor
+                change-type: minor
+              author: Pagan Gazzard
+              nested: []
+          version: open-balena-base-14.2.0
+          title: ""
+          date: 2023-01-09T15:46:31.806Z
+  version: 3.10.0
+  title: ""
+  date: 2023-02-03T19:05:42.496Z
+- commits:
     - subject: Add a delay to allow proxy startup during tests
       hash: 874b39fd1145160250d15b4fcd29f8af4ef7b431
       body: ""
