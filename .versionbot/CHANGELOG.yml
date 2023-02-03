@@ -1,4 +1,28 @@
 - commits:
+    - subject: Add a delay to allow proxy startup during tests
+      hash: 874b39fd1145160250d15b4fcd29f8af4ef7b431
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Pin dind image version in tests
+      hash: 4590cb43359b1297d26cd9355b665fb786c781c3
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 3.9.3
+  title: ""
+  date: 2023-02-03T17:42:26.908Z
+- commits:
     - subject: "chore(deps): update dependency @types/jsonwebtoken to 9.0.1"
       hash: e4895d7bd5d6deb2aaeed0f6018f4a23c776e5be
       body: |
