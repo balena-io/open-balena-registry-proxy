@@ -9,18 +9,20 @@ services:
       REGISTRY2_HOST: registry2.balena-cloud.com
 
   docker:
-    image: docker:dind
+    image: docker:20.10.23-dind
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: ""
-    command: --insecure-registry proxy:5000 --tls=false --debug
+    command: --insecure-registry=proxy:5000 --tls=false --debug
+    depends_on:
+      - proxy
 
   sut:
     image: alpine:3.17
     command: >-
       sh -c '
       apk add --no-cache skopeo docker-cli-buildx &&
-      while ! docker info; do sleep 1; done &&
+      sleep 60 &&
       docker build . &&
       docker buildx create --name sut --config /buildkitd.toml --driver-opt network=host --use &&
       docker buildx build --pull . &&
