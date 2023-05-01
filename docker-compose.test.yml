@@ -9,11 +9,11 @@ services:
       REGISTRY2_HOST: registry2.balena-cloud.com
 
   docker:
-    image: docker:20.10.23-dind
+    image: docker:23.0.5-dind
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: ""
-    command: --insecure-registry=proxy:5000 --tls=false --debug
+    command: --insecure-registry=http://proxy:5000 --debug --iptables=false
     depends_on:
       - proxy
 
