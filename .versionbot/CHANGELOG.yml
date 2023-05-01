@@ -1,4 +1,17 @@
 - commits:
+    - subject: "chore(deps): update docker docker tag to v23"
+      hash: 5693ba1c9076116933abd5f5e6965a1ad9d0bddb
+      body: |
+        Update docker from 20.10.23 to 23.0.5
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.12.1
+  title: ""
+  date: 2023-05-01T17:12:44.598Z
+- commits:
     - subject: Update open-balena-base to 14.7.2
       hash: f5b9db19fd34756875cbbafa23f0bf07ca744883
       body: |
@@ -999,7 +1012,8 @@
             - subject: Add support to map tokens from existing env
               hash: e78d0887a9f859c0763f4875d990a3cc4186ac7e
               body: >
-                * if global config already contains the value(s) for the map, use them
+                * if global config already contains the value(s) for the map,
+                use them
 
                 * don't explicitly require BALENA_DEVICE_UID (openBalena/dockerd)
 
@@ -1016,8 +1030,8 @@
             - subject: Remove redundant package-lock.json
               hash: 88a2c6f3315746b94d769bae81002482ba5d4b98
               body: >
-                VersionBot used to create that file because of a bug. The bug has long
-                been fixed and the file is redundant.
+                VersionBot used to create that file because of a bug. The bug
+                has long been fixed and the file is redundant.
               footer:
                 Change-type: patch
                 change-type: patch
