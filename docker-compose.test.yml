@@ -13,7 +13,7 @@ services:
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: ""
-    command: --insecure-registry=proxy:5000 --tls=false --debug
+    command: --insecure-registry=http://proxy:5000 --debug --iptables=false
     depends_on:
       - proxy
 
