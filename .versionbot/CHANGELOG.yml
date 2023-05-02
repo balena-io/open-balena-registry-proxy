@@ -1,4 +1,17 @@
 - commits:
+    - subject: "chore(deps): update dependency rimraf to v5"
+      hash: fca575a357a38a98357944986949152dcf2ac7da
+      body: |
+        Update rimraf from 4.4.1 to 5.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.12.2
+  title: ""
+  date: 2023-05-02T22:50:54.731Z
+- commits:
     - subject: "chore(deps): update docker docker tag to v23"
       hash: 5693ba1c9076116933abd5f5e6965a1ad9d0bddb
       body: |
