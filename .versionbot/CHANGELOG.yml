@@ -1,4 +1,17 @@
 - commits:
+    - subject: "chore(deps): update docker docker tag to v23.0.6"
+      hash: fb2f74e923f53aa33476db3b67982237cd278eb8
+      body: |
+        Update docker from 23.0.5 to 23.0.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 3.12.3
+  title: ""
+  date: 2023-05-09T19:42:06.423Z
+- commits:
     - subject: "chore(deps): update dependency rimraf to v5"
       hash: fca575a357a38a98357944986949152dcf2ac7da
       body: |
