@@ -1,4 +1,17 @@
 - commits:
+    - subject: "chore(deps): update docker docker tag to v24.0.1"
+      hash: 102b79cb41809f17958e0855c2f7eb60a84ec873
+      body: |
+        Update docker from 24.0.0 to 24.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 4.1.1
+  title: ""
+  date: 2023-05-20T01:50:09.054Z
+- commits:
     - subject: "chore(deps): update alpine docker tag to v3.18"
       hash: 0d9d9764e2e778318e78498bde2c2106462256d3
       body: |
