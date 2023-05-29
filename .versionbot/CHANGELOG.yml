@@ -1,4 +1,17 @@
 - commits:
+    - subject: "chore(deps): update docker docker tag to v24.0.2"
+      hash: dca2a0ff09da580aaf3e1a0dd1a224d1e907279a
+      body: |
+        Update docker from 24.0.1 to 24.0.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 4.1.2
+  title: ""
+  date: 2023-05-29T23:05:27.246Z
+- commits:
     - subject: "chore(deps): update docker docker tag to v24.0.1"
       hash: 102b79cb41809f17958e0855c2f7eb60a84ec873
       body: |
