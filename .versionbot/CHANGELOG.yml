@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependencies
+      hash: 4b8938ef38d3a14fcf309285570a017470eab919
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 4.2.2
+  title: ""
+  date: 2023-07-03T15:20:24.124Z
+- commits:
     - subject: "chore(deps): update balena/open-balena-base docker tag to
         no-systemd-v14.10.2"
       hash: 7d5e312024e718365a208d2b7ba91c5dec5962e1
