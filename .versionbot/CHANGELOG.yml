@@ -1,4 +1,19 @@
 - commits:
+    - subject: "chore(deps): update balena/open-balena-base docker tag to
+        no-systemd-v14.11.0"
+      hash: 69392cfe6f86dc1636ac15b2546f7b4e49871ee3
+      body: >
+        Update balena/open-balena-base from no-systemd-14.10.2 to
+        no-systemd-14.11.0
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 4.3.0
+  title: ""
+  date: 2023-07-05T21:42:02.805Z
+- commits:
     - subject: Update dependencies
       hash: 4b8938ef38d3a14fcf309285570a017470eab919
       body: ""
