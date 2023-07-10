@@ -1,4 +1,17 @@
 - commits:
+    - subject: "chore(deps): update docker docker tag to v24.0.4"
+      hash: b632689033d4cd2240639e6bb8c9636cac7cfa3e
+      body: |
+        Update docker from 24.0.2 to 24.0.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.1
+  title: ""
+  date: 2023-07-10T20:33:51.777Z
+- commits:
     - subject: "chore(deps): update balena/open-balena-base docker tag to v15"
       hash: 30634e19b4fc29c8166c3587209e94c91985e1da
       body: >
