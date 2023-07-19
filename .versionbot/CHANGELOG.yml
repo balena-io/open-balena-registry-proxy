@@ -1,5 +1,20 @@
 - commits:
     - subject: "chore(deps): update balena/open-balena-base docker tag to
+        no-systemd-v15.0.2"
+      hash: 200f15b9f595c9ce38e96c70c10c5da60148ed54
+      body: >
+        Update balena/open-balena-base from no-systemd-15.0.1 to
+        no-systemd-15.0.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.3
+  title: ""
+  date: 2023-07-19T19:31:53.714Z
+- commits:
+    - subject: "chore(deps): update balena/open-balena-base docker tag to
         no-systemd-v15.0.1"
       hash: 8f61686980f0352e5d55a3562965071d30fd060f
       body: >
