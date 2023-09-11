@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependencies
+      hash: 5ee5f56c1c46e05115b588d27e6497fc301cc9fe
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.10
+  title: ""
+  date: 2023-09-11T16:22:27.308Z
+- commits:
     - subject: Update open-balena-base to 16.0.0
       hash: 9490831addd72e81727e65180314ffd8d0f85db3
       body: |
