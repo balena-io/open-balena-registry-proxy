@@ -40,7 +40,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@balena/lint": "^6.2.2",
+    "@balena/lint": "^7.0.0",
     "@types/auth-header": "^1.0.2",
     "@types/chai": "^4.3.6",
     "@types/dockerode": "^3.3.19",
