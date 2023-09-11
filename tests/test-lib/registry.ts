@@ -18,23 +18,16 @@ import * as access from '../fixtures/access.json';
  */
 const URL_REGEX = /^\/([\w\d]*)\/(?:([\s\S]+)\/(manifests|blobs)\/([\s\S]+))?$/;
 
-interface Access {
-	name: string;
-	type: string;
-	actions: string[];
-	alias?: string;
-}
-
 // create express server
 const app = express();
 
 app.use('/v2/', (req, res) => {
 	function needsAuth() {
 		const realm = 'http://127.0.0.1/auth/v1/token';
-		const service = req.headers.host;
+		const service = req.headers.host!;
 		res.set(
 			'WWW-Authenticate',
-			authorization.format('Bearer', null, { realm, service }),
+			authorization.format('Bearer', undefined, { realm, service }),
 		);
 		res.status(401).send();
 	}
@@ -51,7 +44,11 @@ app.use('/v2/', (req, res) => {
 	}
 
 	// https://docs.docker.com/registry/spec/auth/jwt/
-	const jwt = jsonwebtoken.decode(auth.token as string) as { access: Access[] };
+	const jwt = jsonwebtoken.decode(auth.token as string);
+
+	if (jwt == null) {
+		throw new Error('Invalid JWT');
+	}
 
 	const matches = req.originalUrl.match(URL_REGEX);
 
