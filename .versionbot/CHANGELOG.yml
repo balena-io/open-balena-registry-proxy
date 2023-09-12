@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add type checking for tests
+      hash: a29e64d37b01e75cc82f48e108f6d739acdd31e3
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.11
+  title: ""
+  date: 2023-09-12T16:14:35.865Z
+- commits:
     - subject: Update dependencies
       hash: 5ee5f56c1c46e05115b588d27e6497fc301cc9fe
       body: ""
