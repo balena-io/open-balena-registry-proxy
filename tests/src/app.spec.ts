@@ -5,8 +5,9 @@ import app from '../../src/app';
 import registry from '../test-lib/registry';
 import * as access from '../fixtures/access.json';
 import { generateToken } from '../test-lib/token';
+import type * as http from 'http';
 
-let mockRegistry: any;
+let mockRegistry: http.Server;
 const mockRegistryPort = 5000;
 
 const REGISTRY_URL = `http://127.0.0.1:${mockRegistryPort}`;
@@ -23,12 +24,12 @@ after(function (done) {
 });
 
 describe('GET /ping', function () {
-	it('responds with Ok', function (done) {
-		request(app(REGISTRY_URL))
+	it('responds with Ok', async function () {
+		await request(app(REGISTRY_URL))
 			.get('/ping')
 			.send()
 			.expect(200)
-			.expect('pong', done);
+			.expect('pong');
 	});
 });
 
@@ -44,93 +45,96 @@ describe('GET /v2/', function () {
 // https://docs.docker.com/registry/spec/api/#pulling-an-image
 access.forEach((item) => {
 	describe(`get latest manifest with valid jwt`, function () {
-		it('should respond with OK', function (done) {
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+		it('should respond with OK', async function () {
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/v2/${item.alias}/manifests/latest`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(200, done);
+				.expect(200);
 		});
 	});
 
 	describe(`get sha256 digest with valid jwt`, function () {
-		it('should respond with OK', function (done) {
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+		it('should respond with OK', async function () {
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/v2/${item.alias}/blobs/sha256:d3adc0de`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(200, done);
+				.expect(200);
 		});
 	});
 
 	describe(`get latest manifest with invalid jwt (missing alias)`, function () {
-		it('should respond with with 403', function (done) {
+		it('should respond with with 403', async function () {
+			// @ts-expect-error deleting a required property
 			delete item['alias'];
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/v2/${item.alias}/manifests/latest`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(403, done);
+				.expect(403);
 		});
 	});
 
 	describe(`get latest manifest with invalid jwt (missing name)`, function () {
-		it('should respond with with 403', function (done) {
+		it('should respond with with 403', async function () {
+			// @ts-expect-error deleting a required property
 			delete item['name'];
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/v2/${item.alias}/manifests/latest`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(403, done);
+				.expect(403);
 		});
 	});
 
-	describe(`get latest manifest with invalid jwt (missing access)`, function () {
-		it('should respond with with 403', function (done) {
-			delete item['access'];
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+	describe(`get latest manifest with invalid jwt (missing actions)`, function () {
+		it('should respond with with 403', async function () {
+			// @ts-expect-error deleting a required property
+			delete item['actions'];
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/v2/${item.alias}/manifests/latest`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(403, done);
+				.expect(403);
 		});
 	});
 
 	describe(`get invalid path (missing tag) with valid jwt`, function () {
-		it('should respond with with 403', function (done) {
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+		it('should respond with with 403', async function () {
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/v2/${item.alias}/manifests`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(403, done);
+				.expect(403);
 		});
 	});
 
 	describe(`get invalid path (missing method) with valid jwt`, function () {
-		it('should respond with with 403', function (done) {
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+		it('should respond with with 403', async function () {
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/v2/${item.alias}`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(403, done);
+				.expect(403);
 		});
 	});
 
 	describe(`get invalid path (missing version) with valid jwt`, function () {
-		it('should respond with with 404', function (done) {
-			const jwt = generateToken('', '', [item]);
-			request(app(REGISTRY_URL))
+		it('should respond with with 404', async function () {
+			const jwt = generateToken([item]);
+			await request(app(REGISTRY_URL))
 				.get(`/${item.alias}/manifests`)
 				.set('Authorization', `Bearer ${jwt}`)
 				.send()
-				.expect(404, done);
+				.expect(404);
 		});
 	});
 });

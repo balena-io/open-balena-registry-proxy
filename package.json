@@ -6,9 +6,9 @@
   "main": "src/app",
   "scripts": {
     "clean": "rimraf dist",
-    "check": "tsc --pretty --noEmit --diagnostics --project ./tsconfig.json",
-    "lint": "balena-lint src tests",
-    "lint:fix": "balena-lint --fix src tests",
+    "check": "tsc --pretty --noEmit --diagnostics --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.dev.json",
+    "lint": "balena-lint -t ./tsconfig.dev.json src tests",
+    "lint:fix": "balena-lint -t ./tsconfig.dev.json --fix src tests",
     "test:docker": "mocha --config tests/.mocharc.docker.js",
     "test:node": "mocha --config tests/.mocharc.js",
     "test:fast": "mocha --config tests/.mocharc.fast.js",
@@ -40,7 +40,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@balena/lint": "^6.2.2",
+    "@balena/lint": "^7.1.2",
     "@types/auth-header": "^1.0.2",
     "@types/chai": "^4.3.6",
     "@types/dockerode": "^3.3.19",
@@ -68,7 +68,7 @@
   },
   "lint-staged": {
     "*.ts": [
-      "balena-lint --fix"
+      "balena-lint -t ./tsconfig.dev.json --fix"
     ]
   },
   "engines": {
