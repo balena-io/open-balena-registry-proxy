@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update repo.yml
+      hash: cf30d4a905e2c8a4612eee72ce1e3a2c442eafa6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Kyle Harding
+      nested: []
+  version: 5.0.17
+  title: ""
+  date: 2023-09-21T17:05:00.648Z
+- commits:
     - subject: "chore(deps): update balena/open-balena-base docker tag to
         no-systemd-v16.0.5"
       hash: aa976c40910f4d47b0a24c337a5ae201c132797b
