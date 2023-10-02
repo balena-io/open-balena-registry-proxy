@@ -1,4 +1,18 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to no-systemd-v16.0.7
+      hash: 0221827f4c502f6fb065aeffaae7b146b8167557
+      body: >
+        Update balena/open-balena-base from no-systemd-16.0.6 to
+        no-systemd-16.0.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.19
+  title: ""
+  date: 2023-10-02T15:15:38.079Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to no-systemd-v16.0.6
       hash: 677c8b26a933426698bd904c0634310eabdd3558
       body: >
