@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dockerode to v4
+      hash: be559c63e02e4efb13048a286f96598e06f33980
+      body: |
+        Update dockerode from 3.3.5 to 4.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.21
+  title: ""
+  date: 2023-10-16T13:46:54.782Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to no-systemd-v16.0.8
       hash: c02ca9b76ae37173e57ef0cd0f82cc9cb16fb6aa
       body: >
