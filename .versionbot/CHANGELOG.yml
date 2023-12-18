@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v24.0.7
+      hash: 27a860742921faacfdea34ffd0c3019034617aa4
+      body: |
+        Update docker from 24.0.6 to 24.0.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.27
+  title: ""
+  date: 2023-12-18T21:59:41.877Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to no-systemd-v16.0.18
       hash: dcc6c075b46843ec681d7310acd33828b44986bc
       body: >
