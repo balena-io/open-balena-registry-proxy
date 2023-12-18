@@ -1,4 +1,18 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to no-systemd-v16.0.18
+      hash: dcc6c075b46843ec681d7310acd33828b44986bc
+      body: >
+        Update balena/open-balena-base from no-systemd-16.0.10 to
+        no-systemd-16.0.18
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.26
+  title: ""
+  date: 2023-12-18T21:40:01.223Z
+- commits:
     - subject: "CI: Remove insecure flag that was breaking local auth via buildkit"
       hash: 5996c99da91b6634e7d5f04a2fd989af45dfb60a
       body: ""
