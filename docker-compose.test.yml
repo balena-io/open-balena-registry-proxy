@@ -18,7 +18,7 @@ services:
       - proxy
 
   sut:
-    image: alpine:3.18
+    image: alpine:3.19
     command: >-
       sh -c '
       apk add --no-cache skopeo docker-cli-buildx &&
