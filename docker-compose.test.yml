@@ -1,7 +1,6 @@
 version: "2"
 
 services:
-
   proxy:
     image: localhost:5000/sut
     environment:
@@ -13,20 +12,28 @@ services:
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: ""
-    command: --insecure-registry=http://proxy:5000 --debug --iptables=false
+    command: --insecure-registry=http://proxy:5000 --debug
     depends_on:
       - proxy
 
   sut:
-    image: alpine:3.18
-    command: >-
-      sh -c '
-      apk add --no-cache skopeo docker-cli-buildx &&
-      sleep 60 &&
-      docker build . &&
-      docker buildx create --name sut --config /buildkitd.toml --driver-opt network=host --use &&
-      docker buildx build --pull . &&
-      skopeo inspect docker://proxy:5000/balena/open-balena-registry-proxy --tls-verify=false'
+    image: alpine:3.19
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - |
+        set -ex
+        apk add --no-cache skopeo docker-cli-buildx
+        # wait for docker to be ready
+        while ! docker system info; do sleep $(( (RANDOM % 5) + 3 )); done
+        # test legacy docker pull
+        docker build .
+        # test buildx docker pull
+        docker buildx create --config /buildkitd.toml --driver-opt network=host --use
+        docker buildx build --pull .
+        # skopeo image inspect
+        skopeo inspect docker://proxy:5000/balena/open-balena-registry-proxy --tls-verify=false
     depends_on:
       - proxy
       - docker

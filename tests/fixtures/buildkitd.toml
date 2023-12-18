@@ -1,6 +1,5 @@
 debug = true
-insecure-entitlements = [ "network.host", "security.insecure"]
+insecure-entitlements = [ "network.host", "security.insecure" ]
 
 [registry."proxy:5000"]
   http = true
-  insecure = true
