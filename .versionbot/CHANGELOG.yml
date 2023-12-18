@@ -1,4 +1,18 @@
 - commits:
+    - subject: "CI: Remove insecure flag that was breaking local auth via buildkit"
+      hash: 5996c99da91b6634e7d5f04a2fd989af45dfb60a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 5.0.25
+  title: ""
+  date: 2023-12-18T21:28:57.963Z
+- commits:
     - subject: Update dependency lint-staged to v15
       hash: 70099388c2278cc7a9377a8321566e915ed88153
       body: |
