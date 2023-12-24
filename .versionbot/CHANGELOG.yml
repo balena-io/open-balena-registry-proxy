@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/supertest to v6
+      hash: ee03aaa449c3283a7178f428fd0401e916877d99
+      body: |
+        Update @types/supertest from 2.0.16 to 6.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.29
+  title: ""
+  date: 2023-12-24T23:59:21.305Z
+- commits:
     - subject: Lock file maintenance
       hash: ef55a15da3774385b0d94d85ba2497f880de02e1
       body: |
