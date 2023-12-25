@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: 0af30280b1d8726440c5544397495e230262e5bf
+      body: |
+        Update
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.30
+  title: ""
+  date: 2023-12-25T01:21:43.095Z
+- commits:
     - subject: Update dependency @types/supertest to v6
       hash: ee03aaa449c3283a7178f428fd0401e916877d99
       body: |
