@@ -1,4 +1,18 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to no-systemd-v17.0.2
+      hash: abcb9b35301591a54efdc162a4e33a76dd733560
+      body: >
+        Update balena/open-balena-base from no-systemd-17.0.1 to
+        no-systemd-17.0.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.37
+  title: ""
+  date: 2024-01-15T17:02:18.263Z
+- commits:
     - subject: Lock file maintenance
       hash: 311732a1503ab2ced8b06b52a4f390fbaad3ed93
       body: |
