@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v24.0.9
+      hash: 3bdf65efb5b2a155cec45854962672d66bf9f7a3
+      body: |
+        Update docker from 24.0.7 to 24.0.9
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.42
+  title: ""
+  date: 2024-02-05T15:01:51.044Z
+- commits:
     - subject: Update dependencies
       hash: dac8ba6d8e9a533a9cee1e59859e890a35bbe47d
       body: ""
