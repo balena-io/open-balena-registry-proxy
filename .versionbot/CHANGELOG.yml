@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependencies
+      hash: dac8ba6d8e9a533a9cee1e59859e890a35bbe47d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.41
+  title: ""
+  date: 2024-02-05T14:29:38.440Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to no-systemd-v17.0.4
       hash: 17c0d996f7241b26cbe8f699882b188fc5e47efd
       body: >
