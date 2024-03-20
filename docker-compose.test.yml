@@ -8,7 +8,7 @@ services:
       REGISTRY2_HOST: registry2.balena-cloud.com
 
   docker:
-    image: docker:24.0.9-dind
+    image: docker:25.0.5-dind
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: ""
