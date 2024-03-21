@@ -1,4 +1,70 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to v17.0.10
+      hash: f5e4ded1fd50f2eb6e476d092b08e0f27f402a7d
+      body: |
+        Update balena/open-balena-base from 17.0.6 to 17.0.10
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested:
+        - commits:
+            - subject: Update dependency node to v21.7.1
+              hash: 00982618ef48ad40ee83d269593bcfabcd5c102b
+              body: |
+                Update node from 21.7.0 to 21.7.1
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Self-hosted Renovate Bot
+              nested: []
+          version: open-balena-base-17.0.10
+          title: ""
+          date: 2024-03-08T22:55:50.554Z
+        - commits:
+            - subject: Update dependency node to v21.7.0
+              hash: 090c5b72737c4849076108d38b84b77b482822f1
+              body: |
+                Update node from 21.6.2 to 21.7.0
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Self-hosted Renovate Bot
+              nested: []
+          version: open-balena-base-17.0.9
+          title: ""
+          date: 2024-03-06T18:58:19.803Z
+        - commits:
+            - subject: Update dependency npm to v10.5.0
+              hash: 7151fd9008f9443c677441177c2959a0e35b952d
+              body: |
+                Update npm from 10.4.0 to 10.5.0
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Self-hosted Renovate Bot
+              nested: []
+          version: open-balena-base-17.0.8
+          title: ""
+          date: 2024-02-28T18:58:05.433Z
+        - commits:
+            - subject: Fix docker cache-from for no-system variants
+              hash: 47989bd29164aaef2f78c2642aeaf64185df5561
+              body: ""
+              footer:
+                See: https://github.com/balena-io-modules/open-balena-base/pull/343
+                see: https://github.com/balena-io-modules/open-balena-base/pull/343
+                Change-type: patch
+                change-type: patch
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-17.0.7
+          title: ""
+          date: 2024-02-27T21:40:13.465Z
+  version: 5.0.45
+  title: ""
+  date: 2024-03-21T02:59:28.095Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v17.0.6
       hash: 1b1f6ecc29bfee32528051ab9f4c7b7a12966688
       body: |
@@ -1832,7 +1898,8 @@
                 * if global config already contains the value(s) for the map,
                 use them
 
-                * don't explicitly require BALENA_DEVICE_UID (openBalena/dockerd)
+                * don't explicitly require BALENA_DEVICE_UID
+                (openBalena/dockerd)
 
                 * add REGISTRY S3 secrets
               footer:
@@ -2091,9 +2158,11 @@
         [follow-redirects](https://github.com/follow-redirects/follow-redirects)
         from 1.14.7 to 1.14.8.
 
-        - [Release notes](https://github.com/follow-redirects/follow-redirects/releases)
+        - [Release
+        notes](https://github.com/follow-redirects/follow-redirects/releases)
 
-        - [Commits](https://github.com/follow-redirects/follow-redirects/compare/v1.14.7...v1.14.8)
+        -
+        [Commits](https://github.com/follow-redirects/follow-redirects/compare/v1.14.7...v1.14.8)
 
 
         ---
