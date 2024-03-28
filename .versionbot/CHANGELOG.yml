@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency express to v4.19.2 [SECURITY]
+      hash: f8e8793c0214f186b8a7362a0a130036a910a402
+      body: |
+        Update express from 4.18.2 to 4.19.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.46
+  title: ""
+  date: 2024-03-28T23:02:48.101Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v17.0.10
       hash: f5e4ded1fd50f2eb6e476d092b08e0f27f402a7d
       body: |
