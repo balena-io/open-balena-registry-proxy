@@ -1,4 +1,69 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to v17.0.14
+      hash: d5d4aaa7a209d22c4d2ba3a0cd5633e08e460587
+      body: |
+        Update balena/open-balena-base from 17.0.10 to 17.0.14
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested:
+        - commits:
+            - subject: Update dependency npm to v10.5.2
+              hash: fb255f3673eb71ba85299e28c927c6667b61292f
+              body: |
+                Update npm from 10.5.1 to 10.5.2
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Self-hosted Renovate Bot
+              nested: []
+          version: open-balena-base-17.0.14
+          title: ""
+          date: 2024-04-10T20:56:39.128Z
+        - commits:
+            - subject: Update dependency node to v21.7.3
+              hash: c8b4b1b7458cf85cedcedcac0586a7a8ccb523b9
+              body: |
+                Update node from 21.7.2 to 21.7.3
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Self-hosted Renovate Bot
+              nested: []
+          version: open-balena-base-17.0.13
+          title: ""
+          date: 2024-04-10T19:07:42.640Z
+        - commits:
+            - subject: Update dependency node to v21.7.2
+              hash: 0f0358ed49cd7468f7beec482843332b2acca894
+              body: |
+                Update node from 21.7.1 to 21.7.2
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Self-hosted Renovate Bot
+              nested: []
+          version: open-balena-base-17.0.12
+          title: ""
+          date: 2024-04-03T16:53:19.467Z
+        - commits:
+            - subject: Update dependency npm to v10.5.1
+              hash: 2901db193efc4829d5f24d544021920692bd7363
+              body: |
+                Update npm from 10.5.0 to 10.5.1
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Self-hosted Renovate Bot
+              nested: []
+          version: open-balena-base-17.0.11
+          title: ""
+          date: 2024-04-03T15:55:50.962Z
+  version: 5.0.48
+  title: ""
+  date: 2024-04-12T11:02:50.093Z
+- commits:
     - subject: Update to @balena/lint 8.x
       hash: 184fe3d613dd2dccedd9687d7e68c7e5ea0cb291
       body: ""
