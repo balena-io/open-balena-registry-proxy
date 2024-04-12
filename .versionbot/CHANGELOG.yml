@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v26
+      hash: 7568b588b324cb1f13baa13b8bc3084fd4148ccd
+      body: |
+        Update docker from 24.0.9 to 26.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.50
+  title: ""
+  date: 2024-04-12T16:13:03.015Z
+- commits:
     - subject: Lock file maintenance
       hash: 3022ecdd0d68e28e783bb463234f8a3606167c77
       body: |
