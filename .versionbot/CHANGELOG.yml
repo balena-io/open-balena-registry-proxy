@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update alpine Docker tag to v3.20
+      hash: 74b086a42f74c53faffb5e555474fed367caa4ca
+      body: |
+        Update alpine from 3.19 to 3.20
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.52
+  title: ""
+  date: 2024-06-19T15:02:09.707Z
+- commits:
     - subject: Update dependency husky to v9
       hash: be5c8a18fb49a5b6da85cf7ac00d82df5672fb74
       body: |
