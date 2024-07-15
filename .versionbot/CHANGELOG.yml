@@ -1,4 +1,15 @@
 - commits:
+    - subject: publish to ghcr.io
+      hash: e7921e9b28ce7a658a8829e4c165e455f4c0bae2
+      body: ""
+      footer:
+        change-type: patch
+      author: Anton Belodedenko
+      nested: []
+  version: 5.0.55
+  title: ""
+  date: 2024-07-15T13:24:18.707Z
+- commits:
     - subject: Update docker Docker tag to v26.1.4
       hash: 5ac909ad0e66b9191b2cf4591645ab86d88feba5
       body: |
