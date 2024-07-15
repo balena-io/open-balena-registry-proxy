@@ -21,6 +21,7 @@ jobs:
     secrets: inherit
     with:
       docker_images: |
-        docker.io/balena/open-balena-registry-proxy
+        docker.io/balena/open-balena-registry-proxy,
+        ghcr.io/balena-io/open-balena-registry-proxy
       balena_slugs: |
         balena/open-balena-registry-proxy
