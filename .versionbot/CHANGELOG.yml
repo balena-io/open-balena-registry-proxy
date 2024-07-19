@@ -1,4 +1,16 @@
 - commits:
+    - subject: Fix husky config
+      hash: 53ce71b10c0c0a51ae9c929578207f97e9b1f5c4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.59
+  title: ""
+  date: 2024-07-19T13:51:56.554Z
+- commits:
     - subject: Make use of @balena/env-parsing for env parsing
       hash: 038833508e7c7941da5c24685b0c6ce724b5982b
       body: ""
