@@ -62,11 +62,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.ts": [
       "balena-lint -t ./tsconfig.dev.json --fix"
