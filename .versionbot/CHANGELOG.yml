@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v27
+      hash: ff4446c3bcf41293e809efda79e2832aa5ccdc79
+      body: |
+        Update docker from 26.1.4 to 27.0.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.60
+  title: ""
+  date: 2024-07-19T14:01:16.155Z
+- commits:
     - subject: Fix husky config
       hash: 53ce71b10c0c0a51ae9c929578207f97e9b1f5c4
       body: ""
