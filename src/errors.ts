@@ -1,5 +1,5 @@
 // https://docs.docker.com/registry/spec/api/#errors
-function registryError(code: string, message: string, detail: string = '') {
+function registryError(code: string, message: string, detail = '') {
 	return { errors: [{ code, message, detail }] };
 }
 
