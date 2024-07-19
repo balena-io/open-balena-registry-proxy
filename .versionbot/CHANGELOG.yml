@@ -1,4 +1,16 @@
 - commits:
+    - subject: Make use of @balena/env-parsing for env parsing
+      hash: 038833508e7c7941da5c24685b0c6ce724b5982b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.58
+  title: ""
+  date: 2024-07-19T13:36:34.142Z
+- commits:
     - subject: Update dependencies
       hash: 6ab64d10736109e15792a30153bb4d1a32ac0975
       body: ""
