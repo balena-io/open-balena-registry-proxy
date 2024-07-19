@@ -36,7 +36,8 @@ function rewriteRepository(
 
 	if (matches[4] == null) {
 		// just a version request, forward it
-		return next();
+		next();
+		return;
 	}
 
 	const version = matches[1];
@@ -46,7 +47,8 @@ function rewriteRepository(
 
 	if (!req.headers['authorization']) {
 		// we need the authorization header with a JWT to go any further
-		return next();
+		next();
+		return;
 	}
 
 	const auth = authorization.parse(req.headers['authorization']);
@@ -79,7 +81,7 @@ function rewriteRepository(
 		method === 'manifests' ? 'latest' : tag,
 	].join('/');
 
-	return next();
+	next();
 }
 
 function registryProxyMiddleware(target: string) {

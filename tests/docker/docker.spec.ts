@@ -45,14 +45,16 @@ access.forEach((item) => {
 			docker.pull(path, options, function (err: any, stream: any) {
 				if (err) {
 					console.error(err);
-					return done(err);
+					done(err);
+					return;
 				}
 				docker.modem.followProgress(stream, onFinished, onProgress);
 
 				function onFinished(error: any, output: any) {
 					if (error) {
 						console.error(err);
-						return done(error);
+						done(error);
+						return;
 					}
 					expect(output).to.be.a('array');
 					done();

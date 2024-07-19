@@ -8,7 +8,7 @@
     "clean": "rimraf dist",
     "check": "tsc --pretty --noEmit --diagnostics --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.dev.json",
     "lint": "balena-lint -t ./tsconfig.dev.json src tests",
-    "lint:fix": "balena-lint -t ./tsconfig.dev.json --fix src tests",
+    "lint-fix": "balena-lint -t ./tsconfig.dev.json --fix src tests",
     "test:docker": "mocha --config tests/.mocharc.docker.js",
     "test:node": "mocha --config tests/.mocharc.js",
     "test:fast": "mocha --config tests/.mocharc.fast.js",
@@ -19,7 +19,7 @@
     "start": "node dist/index.js",
     "build": "npm run clean && tsc",
     "prepack": "npm run build",
-    "prepare": "husky install"
+    "prepare": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
   },
   "repository": {
     "type": "git",
@@ -40,26 +40,26 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@balena/lint": "^8.0.1",
+    "@balena/lint": "^8.2.7",
     "@types/auth-header": "^1.0.6",
-    "@types/chai": "^4.3.14",
-    "@types/dockerode": "^3.3.28",
+    "@types/chai": "^4.3.16",
+    "@types/dockerode": "^3.3.30",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/lodash": "^4.17.0",
-    "@types/mocha": "^10.0.6",
+    "@types/lodash": "^4.17.7",
+    "@types/mocha": "^10.0.7",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.14.11",
     "@types/supertest": "^6.0.2",
     "chai": "^4.4.1",
     "dockerode": "^4.0.2",
-    "husky": "^9.0.0",
-    "lint-staged": "^15.2.2",
-    "mocha": "^10.4.0",
-    "rimraf": "^5.0.5",
-    "supertest": "^6.3.4",
+    "husky": "^9.1.1",
+    "lint-staged": "^15.2.7",
+    "mocha": "^10.6.0",
+    "rimraf": "^6.0.1",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.3"
   },
   "husky": {
     "hooks": {
@@ -72,8 +72,8 @@
     ]
   },
   "engines": {
-    "node": "^21.6.1",
-    "npm": "^10.4.0"
+    "node": "^22.2.0",
+    "npm": "^10.7.0"
   },
   "versionist": {
     "publishedAt": "2024-07-19T13:11:44.571Z"

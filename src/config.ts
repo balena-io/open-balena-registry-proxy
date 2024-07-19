@@ -16,7 +16,7 @@ function optionalVar(
 	varName: string,
 	defaultValue?: string,
 ): string | undefined {
-	return process.env[varName] || defaultValue;
+	return process.env[varName] ?? defaultValue;
 }
 
 function intVar(varName: string): number;

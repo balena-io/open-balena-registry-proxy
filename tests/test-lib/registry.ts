@@ -33,7 +33,8 @@ app.use('/v2/', (req, res) => {
 	}
 
 	if (!req.headers['authorization']) {
-		return needsAuth();
+		needsAuth();
+		return;
 	}
 
 	const auth = authorization.parse(req.headers['authorization']);
