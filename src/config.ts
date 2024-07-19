@@ -1,41 +1,4 @@
-const requiredVar = (varName: string): string => {
-	const s = process.env[varName];
-	if (s == null) {
-		process.exitCode = 1;
-		throw new Error(`Missing environment variable: ${varName}`);
-	}
-	return s;
-};
-
-function optionalVar(varName: string, defaultValue: string): string;
-function optionalVar(
-	varName: string,
-	defaultValue?: string,
-): string | undefined;
-function optionalVar(
-	varName: string,
-	defaultValue?: string,
-): string | undefined {
-	return process.env[varName] ?? defaultValue;
-}
-
-function intVar(varName: string): number;
-function intVar<R>(varName: string, defaultValue: R): number | R;
-function intVar<R>(varName: string, defaultValue?: R): number | R {
-	if (arguments.length === 1) {
-		requiredVar(varName);
-	}
-
-	const s = process.env[varName];
-	if (s == null) {
-		return defaultValue!;
-	}
-	const i = parseInt(s, 10);
-	if (!Number.isFinite(i)) {
-		throw new Error(`${varName} must be a valid number if set`);
-	}
-	return i;
-}
+import { intVar, optionalVar, trustProxyVar } from '@balena/env-parsing';
 
 export const DNS_TLD = optionalVar('DNS_TLD');
 export const REGISTRY2_HOST = optionalVar(
@@ -52,21 +15,4 @@ export const REGISTRY_URL = optionalVar(
 
 export const PROXY_PORT = intVar('PROXY_PORT', 80);
 
-const { TRUST_PROXY: trustProxy = 'true' } = process.env;
-let trustProxyValue;
-if (trustProxy === 'true') {
-	// If it's 'true' enable it
-	trustProxyValue = true;
-} else if (trustProxy.includes('.') || trustProxy.includes(':')) {
-	// If it looks like an ip use as-is
-	trustProxyValue = trustProxy;
-} else {
-	const trustProxyNum = parseInt(trustProxy, 10);
-	if (Number.isFinite(trustProxyNum)) {
-		// If it's a number use the number
-		trustProxyValue = trustProxyNum;
-	} else {
-		throw new Error(`Invalid value for 'TRUST_PROXY' of '${trustProxy}'`);
-	}
-}
-export const TRUST_PROXY = trustProxyValue;
+export const TRUST_PROXY = trustProxyVar('TRUST_PROXY', false);
