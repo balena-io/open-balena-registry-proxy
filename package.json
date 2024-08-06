@@ -52,7 +52,7 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.14.11",
     "@types/supertest": "^6.0.2",
-    "chai": "^4.4.1",
+    "chai": "^5.0.0",
     "dockerode": "^4.0.2",
     "husky": "^9.1.1",
     "lint-staged": "^15.2.7",
