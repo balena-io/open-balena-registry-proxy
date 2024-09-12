@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v27.2.1
+      hash: b88b95aa84d47c1348cc026669d0b8212a5235b3
+      body: |
+        Update docker from 27.2.0 to 27.2.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.74
+  title: ""
+  date: 2024-09-12T15:00:25.233Z
+- commits:
     - subject: Update @balena/lint to 9.x
       hash: 300e3da7da4eab0718021ca2dcfe6df7bbadc352
       body: ""
