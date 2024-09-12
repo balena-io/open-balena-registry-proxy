@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: bb9c40eb135662dd8761f6c6afc232d6fcaa4413
+      body: |
+        Update
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.75
+  title: ""
+  date: 2024-09-12T16:01:24.021Z
+- commits:
     - subject: Update docker Docker tag to v27.2.1
       hash: b88b95aa84d47c1348cc026669d0b8212a5235b3
       body: |
