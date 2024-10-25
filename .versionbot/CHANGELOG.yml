@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency http-proxy-middleware to v2.0.7 [SECURITY]
+      hash: 707efa488c6d1fef3e2e0e11bf122f8f7fe27e94
+      body: |
+        Update http-proxy-middleware from 2.0.6 to 2.0.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.0.78
+  title: ""
+  date: 2024-10-25T07:59:43.923Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v18.0.14
       hash: 961db57270e45583751d078e72a470eb5cdbe2fd
       body: |
