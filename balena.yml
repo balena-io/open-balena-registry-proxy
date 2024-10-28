@@ -1,6 +1,6 @@
 name: open-balena-registry-proxy
 type: sw.block
-version: 5.0.82
+version: 5.0.83
 description: >-
   Pull container images directly from the balenaHub container registry!
 assets:
