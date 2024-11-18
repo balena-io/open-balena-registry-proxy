@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: 2b3e2875505dd0c677a075b599d8d2c2e517fb30
+      body: |
+        Update 
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.88
+  title: ""
+  date: 2024-11-18T21:06:00.808Z
+- commits:
     - subject: Explicitly set GH_TOKEN permissions
       hash: 54adebd2b97287b3c2e174606ca7bac3791805fb
       body: ""
