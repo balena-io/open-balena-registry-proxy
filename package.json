@@ -1,6 +1,6 @@
 {
   "name": "balena-registry-proxy",
-  "version": "5.0.86",
+  "version": "5.0.87",
   "description": "Proxied names for balena registry release images",
   "private": true,
   "main": "src/app",
@@ -72,6 +72,6 @@
     "npm": "^10.7.0"
   },
   "versionist": {
-    "publishedAt": "2024-11-12T20:06:50.574Z"
+    "publishedAt": "2024-11-18T20:37:34.085Z"
   }
 }
