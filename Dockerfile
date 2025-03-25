@@ -1,4 +1,4 @@
-FROM balena/open-balena-base:18.0.26-no-systemd
+FROM balena/open-balena-base:18.0.27-no-systemd
 
 WORKDIR /usr/src/app
 
