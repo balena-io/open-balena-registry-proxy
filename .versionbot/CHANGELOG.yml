@@ -1,4 +1,16 @@
 - commits:
+    - subject: Convert to ESM
+      hash: 36f4880db361bc68f644155b14963227f20c6808
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.133
+  title: ""
+  date: 2025-05-15T13:07:28.516Z
+- commits:
     - subject: Convert tsconfig module to `NodeNext`
       hash: 453e5ae12885506fe22cb6e9bbf98fa378997834
       body: ""
