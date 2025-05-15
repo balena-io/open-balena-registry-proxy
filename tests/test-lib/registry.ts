@@ -2,8 +2,8 @@ import express from 'express';
 import * as authorization from 'auth-header';
 import jsonwebtoken from 'jsonwebtoken';
 import _ from 'lodash';
-import { ERROR_DENIED } from '../../src/errors';
-import access from '../fixtures/access.json';
+import { ERROR_DENIED } from '../../src/errors.js';
+import access from '../fixtures/access.json' with { type: 'json' };
 
 // listen on /v2 for version, manifest, and blobs requests
 // if JWT is not included, return 401 with www-authentication header

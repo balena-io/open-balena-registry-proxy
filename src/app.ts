@@ -3,8 +3,8 @@ import * as proxy from 'http-proxy-middleware';
 import * as authorization from 'auth-header';
 import jsonwebtoken from 'jsonwebtoken';
 import _ from 'lodash';
-import { ERROR_DENIED } from './errors';
-import { TRUST_PROXY, REGISTRY_URL } from './config';
+import { ERROR_DENIED } from './errors.js';
+import { TRUST_PROXY, REGISTRY_URL } from './config.js';
 
 /*
  * Group 1: version
