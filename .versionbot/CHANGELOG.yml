@@ -1,4 +1,16 @@
 - commits:
+    - subject: Convert tsconfig module to `NodeNext`
+      hash: 453e5ae12885506fe22cb6e9bbf98fa378997834
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.132
+  title: ""
+  date: 2025-05-15T12:55:40.748Z
+- commits:
     - subject: Lock file maintenance
       hash: 79cad3e8322d9a4cdcc98d396c33182807542dde
       body: |
