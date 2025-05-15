@@ -1,4 +1,4 @@
-import * as jsonwebtoken from 'jsonwebtoken';
+import jsonwebtoken from 'jsonwebtoken';
 import { randomUUID } from 'crypto';
 
 interface Access {

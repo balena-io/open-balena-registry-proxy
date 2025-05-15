@@ -1,9 +1,9 @@
 import 'dotenv/config';
-import * as Docker from 'dockerode';
+import Docker from 'dockerode';
 import { expect } from 'chai';
 import app from '../../src/app';
 import { REGISTRY_URL } from '../../src/config';
-import * as access from '../fixtures/access.json';
+import access from '../fixtures/access.json';
 
 // const options = {
 // 	...(TEST_USER &&

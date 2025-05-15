@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import { expect } from 'chai';
-import * as request from 'supertest';
+import request from 'supertest';
 import app from '../../src/app';
 import registry from '../test-lib/registry';
-import * as access from '../fixtures/access.json';
+import access from '../fixtures/access.json';
 import { generateToken } from '../test-lib/token';
-import type * as http from 'http';
+import type http from 'http';
 
 let mockRegistry: http.Server;
 const mockRegistryPort = 5000;
