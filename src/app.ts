@@ -1,8 +1,8 @@
-import * as express from 'express';
+import express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import * as authorization from 'auth-header';
-import * as jsonwebtoken from 'jsonwebtoken';
-import * as _ from 'lodash';
+import jsonwebtoken from 'jsonwebtoken';
+import _ from 'lodash';
 import { ERROR_DENIED } from './errors';
 import { TRUST_PROXY, REGISTRY_URL } from './config';
 

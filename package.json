@@ -2,6 +2,7 @@
   "name": "balena-registry-proxy",
   "version": "5.0.131",
   "description": "Proxied names for balena registry release images",
+  "type": "commonjs",
   "private": true,
   "main": "src/app",
   "scripts": {
