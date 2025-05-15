@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update chai to v5
+      hash: 99d82678eb9aef4b2f5220101474192d15a0a92e
+      body: |
+        Update @types/chai from 4.3.20 to 5.2.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.134
+  title: ""
+  date: 2025-05-15T13:24:07.520Z
+- commits:
     - subject: Convert to ESM
       hash: 36f4880db361bc68f644155b14963227f20c6808
       body: ""
