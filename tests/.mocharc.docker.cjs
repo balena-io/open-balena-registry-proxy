@@ -2,9 +2,7 @@ module.exports = {
 	bail: true,
 	exit: false,
 	recursive: false,
-	require: [
-        'ts-node/register/transpile-only',
-    ],
+	loader: "ts-node/esm/transpile-only",
 	spec: ['tests/docker/*.spec.ts'],
 	timeout: '30000',
 };

@@ -1,5 +1,5 @@
-import { REGISTRY_URL, PROXY_PORT, TRUST_PROXY } from './config';
-import app from './app';
+import { REGISTRY_URL, PROXY_PORT, TRUST_PROXY } from './config.js';
+import app from './app.js';
 
 const proxy = app(REGISTRY_URL, TRUST_PROXY);
 
