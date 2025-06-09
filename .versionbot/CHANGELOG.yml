@@ -1,5 +1,18 @@
 - commits:
     - subject: Lock file maintenance
+      hash: 886efe6eb68ab17221d665c6a5cda8ab66f6e653
+      body: |
+        Update 
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.143
+  title: ""
+  date: 2025-06-09T01:53:49.889Z
+- commits:
+    - subject: Lock file maintenance
       hash: 52e4434067fc796be1d1d5710425b27e660c8d30
       body: |
         Update 
