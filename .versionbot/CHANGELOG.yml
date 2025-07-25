@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependencies
+      hash: b2c9aa5fab263f7f0f5c272c3b0672d3e1b08f38
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.147
+  title: ""
+  date: 2025-07-25T13:39:53.174Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v18.0.38
       hash: 280cc1d76e9631ccb31529c4d806de98d1eff925
       body: |
