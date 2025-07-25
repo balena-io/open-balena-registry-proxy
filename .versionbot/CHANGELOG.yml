@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v28.3.2
+      hash: 64989246e5e3f8a6d3933a7550359785bd2aff51
+      body: |
+        Update docker from 28.2.2 to 28.3.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.149
+  title: ""
+  date: 2025-07-25T15:11:46.682Z
+- commits:
     - subject: Lock file maintenance
       hash: 4e6ec0f6c0ba9519cc9c30634ba7ec1f4a69082b
       body: |
