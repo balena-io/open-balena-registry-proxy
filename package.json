@@ -50,7 +50,7 @@
     "@types/lodash": "^4.17.20",
     "@types/mocha": "^10.0.10",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^22.16.5",
+    "@types/node": "^24.2.1",
     "@types/supertest": "^6.0.3",
     "chai": "^5.2.1",
     "dockerode": "^4.0.7",
@@ -69,8 +69,8 @@
     ]
   },
   "engines": {
-    "node": "^22.2.0",
-    "npm": "^11.0.0"
+    "node": "^24.5.0",
+    "npm": "^11.5.2"
   },
   "versionist": {
     "publishedAt": "2025-08-11T01:24:08.191Z"
