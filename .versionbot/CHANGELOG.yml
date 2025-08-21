@@ -1,4 +1,31 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to v19.1.1
+      hash: e799841f5d75b682d0c71275456064c8f9e3519c
+      body: |
+        Update balena/open-balena-base from 19.1.0 to 19.1.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested:
+        - commits:
+            - subject: Add dbus and avahi supervised services to s6-overlay
+              hash: 50a4108141b44ab5db5d0031f2e6560f83a8e286
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-19.1.1
+          title: ""
+          date: 2025-08-21T21:10:31.364Z
+  version: 5.0.161
+  title: ""
+  date: 2025-08-21T22:16:11.582Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v19.1.0
       hash: a43606533878200592ac03c6fb745af02a750044
       body: |
