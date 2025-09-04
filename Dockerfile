@@ -1,4 +1,4 @@
-FROM balena/open-balena-base:19.1.2-no-systemd
+FROM balena/open-balena-base:20.0.0-no-init
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ COPY src/ src/
 
 RUN npm ci --ignore-scripts && \
     npm run build && \
-    npm prune --production && \
+    npm prune --omit=dev && \
     npm cache clean --force
 
 CMD [ "npm", "start" ]
