@@ -1,4 +1,133 @@
 - commits:
+    - subject: Update balena/open-balena-base to v20.0.0
+      hash: 300f216012d1f6360a72599763aa2913d58fd8fc
+      body: |
+        Update balena/open-balena-base from 19.1.2 to 20.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested:
+        - commits:
+            - subject: Rename no-systemd variant to no-init for clarity
+              hash: f988174713d723624b5d1a455a899b1de4ff8c3d
+              body: |
+                This is a breaking change and consumers of this variant will
+                need to point to the new compatibility tag to get new releases.
+              footer:
+                Change-type: major
+                change-type: major
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+            - subject: Upgrade to debian trixie
+              hash: 8f937b6b16109cda217637860ea819015173cd6f
+              body: ""
+              footer:
+                Change-type: major
+                change-type: major
+              author: Pagan Gazzard
+              nested: []
+            - subject: Disable publishing of systemd variant
+              hash: 36c1ec3482356ccad7b5c0407ac72fcc2fbbc8cb
+              body: |
+                Going forward we will only be using s6 and no-init variants.
+              footer:
+                Change-type: major
+                change-type: major
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-20.0.0
+          title: ""
+          date: 2025-09-04T14:21:54.921Z
+        - commits:
+            - subject: Update dependency npm to v11.6.0
+              hash: 6331d136682ce8c6971648619cc911e66d515437
+              body: |
+                Update npm from 11.5.2 to 11.6.0
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-19.2.1
+          title: ""
+          date: 2025-09-03T20:08:07.236Z
+        - commits:
+            - subject: Install eget in the runtime image for convenience
+              hash: bda3c47838cfcfc63316f60b34fd14d36a10b57c
+              body: >
+                Downstream components can use open-balena-base in build stages
+
+                to install packages with eget rather than installing eget from
+                source.
+              footer:
+                Change-type: minor
+                change-type: minor
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-19.2.0
+          title: ""
+          date: 2025-09-03T14:15:57.893Z
+        - commits:
+            - subject: Add load_env_var shared function
+              hash: 7c0a5185c884e105c86b616e7f134034b1cad0ab
+              body: >
+                This shared function replicates systemd's EnvironmentFile
+                behaviour
+
+                by treating everything after the '=' as the complete value.
+
+
+                It should be used by services to load env files that may contain
+
+                spaces in values that are unquoted and may not be bash-safe.
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-19.1.5
+          title: ""
+          date: 2025-08-29T16:42:19.853Z
+        - commits:
+            - subject: Set up logging prefixes for longrun services
+              hash: 9ca5f21435c6c82238bc93ef4095c5d75e590606
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-19.1.4
+          title: ""
+          date: 2025-08-28T16:29:06.774Z
+        - commits:
+            - subject: Update Node.js to v24.7.0
+              hash: 61929e2e3ee19e66b8eb4c34324b3b349f585002
+              body: |
+                Update node from 24.6.0 to 24.7.0
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-19.1.3
+          title: ""
+          date: 2025-08-27T22:05:30.972Z
+  version: 5.0.165
+  title: ""
+  date: 2025-09-04T19:50:10.159Z
+- commits:
     - subject: Update dependency chai to v6
       hash: 47274458888c3e6667783e549ce01724572a4af5
       body: |
