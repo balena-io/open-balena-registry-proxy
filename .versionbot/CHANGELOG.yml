@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: 6f6faf2339b0f71364219e7d565af44091798810
+      body: |
+        Update 
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.166
+  title: ""
+  date: 2025-09-11T12:09:58.983Z
+- commits:
     - subject: Update balena/open-balena-base to v20.0.0
       hash: 300f216012d1f6360a72599763aa2913d58fd8fc
       body: |
