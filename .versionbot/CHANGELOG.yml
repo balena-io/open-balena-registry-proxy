@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v28.4.0
+      hash: 06e72a6a0c871ca1d2e12ca66c4ef1b8550c8487
+      body: |
+        Update docker from 28.3.3 to 28.4.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.168
+  title: ""
+  date: 2025-09-11T14:09:35.359Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v20.0.1
       hash: f592910df8de13e6f563050276444788baa12c5e
       body: |
