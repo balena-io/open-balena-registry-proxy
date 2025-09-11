@@ -1,4 +1,4 @@
-FROM balena/open-balena-base:20.0.0-no-init
+FROM balena/open-balena-base:20.0.1-no-init
 
 WORKDIR /usr/src/app
 
