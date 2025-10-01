@@ -1,4 +1,32 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to v20.1.1
+      hash: 87d3abfab2e3e0949317a4a32dfe3e43484bf3c3
+      body: |
+        Update balena/open-balena-base from 20.1.0 to 20.1.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested:
+        - commits:
+            - subject: Revert "Update dependency npm to v11.6.1"
+              hash: 1d459c4e18a5f234a3c3a51a67f83f1e5889e03d
+              body: |
+                This reverts commit 12e3c9b70b635e860907aab56f8afff0b3c6f3c8.
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Kyle Harding <kyle@balena.io>
+                signed-off-by: Kyle Harding <kyle@balena.io>
+              author: Kyle Harding
+              nested: []
+          version: open-balena-base-20.1.1
+          title: ""
+          date: 2025-10-01T20:39:35.435Z
+  version: 5.0.175
+  title: ""
+  date: 2025-10-01T21:09:42.447Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v20.1.0
       hash: 4c0cbf914da34fcdd20b5c56b2e9111b40edd2db
       body: |
