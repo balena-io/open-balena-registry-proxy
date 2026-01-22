@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency lodash to v4.17.23 [SECURITY]
+      hash: 4d5397cebdfbe9c6bbd914b846a98f2acba71c4b
+      body: |
+        Update lodash from 4.17.21 to 4.17.23
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.195
+  title: ""
+  date: 2026-01-22T03:01:39.879Z
+- commits:
     - subject: Lock file maintenance
       hash: a6c72ac9230bd0ed7bf8ac7dfc609c54db2ed7f0
       body: |
