@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/dockerode to v4
+      hash: bdb63f5ea3752d75f12cc485039e0d9db37c4588
+      body: |
+        Update @types/dockerode from 3.3.47 to 4.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.197
+  title: ""
+  date: 2026-02-12T20:24:18.398Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v20.2.8
       hash: 77028e88f1c5168010e6a2580c03776bd710fd8e
       body: |
