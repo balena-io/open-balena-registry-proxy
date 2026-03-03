@@ -2,7 +2,6 @@ import express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import * as authorization from 'auth-header';
 import jsonwebtoken from 'jsonwebtoken';
-import _ from 'lodash';
 import { ERROR_DENIED } from './errors.js';
 import { TRUST_PROXY, REGISTRY_URL } from './config.js';
 
@@ -14,13 +13,6 @@ import { TRUST_PROXY, REGISTRY_URL } from './config.js';
  * - Group 4: tag
  */
 const URL_REGEX = /^\/([\w\d]*)\/(?:([\s\S]+)\/(manifests|blobs)\/([\s\S]+))?$/;
-
-interface Access {
-	name: string;
-	type: string;
-	actions: string[];
-	alias?: string;
-}
 
 function rewriteRepository(
 	req: express.Request,
@@ -59,15 +51,34 @@ function rewriteRepository(
 	}
 
 	// https://docs.docker.com/registry/spec/auth/jwt/
-	const jwt = jsonwebtoken.decode(auth.token as string) as { access: Access[] };
+	const jwt = jsonwebtoken.decode(auth.token as string);
+
+	if (
+		typeof jwt !== 'object' ||
+		jwt === null ||
+		!Object.hasOwn(jwt, 'access') ||
+		!Array.isArray(jwt.access)
+	) {
+		// bail out if the provided jwt contents are invalid
+		return res.status(403).json(ERROR_DENIED);
+	}
 
 	// API should have added an 'alias' field to the access list of the JWT
-	const access = _.find(jwt.access, {
-		type: 'repository',
-		alias: repository,
-	});
+	const access = jwt.access.find(
+		(a) => a.type === 'repository' && a.alias === repository,
+	);
 
-	if (access?.name == null) {
+	/**
+	 * The expected interface is as follows, but we enforce typescript verifying all as it's potentially untrusted
+	 * interface Access {
+	 * 	name: string;
+	 * 	type: string;
+	 * 	actions: string[];
+	 * 	alias?: string;
+	 * }
+	 */
+
+	if (access?.name == null || typeof access.name !== 'string') {
 		// bail out if we could not match this request to an alias in the JWT
 		return res.status(403).json(ERROR_DENIED);
 	}

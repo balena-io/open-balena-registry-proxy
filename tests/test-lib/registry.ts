@@ -1,7 +1,6 @@
 import express from 'express';
 import * as authorization from 'auth-header';
 import jsonwebtoken from 'jsonwebtoken';
-import _ from 'lodash';
 import { ERROR_DENIED } from '../../src/errors.js';
 import access from '../fixtures/access.json' with { type: 'json' };
 
@@ -58,10 +57,9 @@ app.use('/v2/', (req, res) => {
 		return res.status(403).json(ERROR_DENIED);
 	}
 
-	const found = _.find(access, {
-		type: 'repository',
-		name: matches[2],
-	});
+	const found = access.find(
+		(a) => a.type === 'repository' && a.name === matches[2],
+	);
 
 	if (found != null) {
 		return res.status(200).send();
