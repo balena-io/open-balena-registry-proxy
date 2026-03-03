@@ -1,4 +1,16 @@
 - commits:
+    - subject: Remove lodash
+      hash: 3800e7a5e0495a9f908b695ef893355af840c2f9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.202
+  title: ""
+  date: 2026-03-03T14:34:57.824Z
+- commits:
     - subject: Lock file maintenance
       hash: ae0617dc2ffc84ef1354a4f797a714d8ed0174a5
       body: |
