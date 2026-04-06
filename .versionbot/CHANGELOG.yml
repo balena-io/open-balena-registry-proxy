@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update to typescript 6.x / es2025
+      hash: 3d46844231deb46e1502f2bd2e8975d1ba5e1de9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.206
+  title: ""
+  date: 2026-04-06T15:58:26.575Z
+- commits:
     - subject: Update dependency @types/supertest to v7
       hash: afd1e58dd56bc31ea3be3a9becebf56bdfa72012
       body: |
