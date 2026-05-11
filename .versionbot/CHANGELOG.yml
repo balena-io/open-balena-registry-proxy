@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: cb380747e8ac314e0a549b4fae80b55d9ec55354
+      body: |
+        Update 
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.219
+  title: ""
+  date: 2026-05-11T18:05:49.720Z
+- commits:
     - subject: Update dependency dockerode to v5
       hash: 4d5517fefbd3cac162ad2ae9995d95c85368e872
       body: |
