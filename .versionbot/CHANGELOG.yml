@@ -1,4 +1,123 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to v21.0.25
+      hash: 4ac53c6ab6fb96c49248b919c5139e02b5805d07
+      body: |
+        Update balena/open-balena-base from 21.0.17 to 21.0.25
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested:
+        - commits:
+            - subject: Update debian:trixie-20260610 Docker digest to fe7312b
+              hash: 47203c360f92a5e243530036c78fca038c69e564
+              body: |
+                Update debian
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-21.0.25
+          title: ""
+          date: 2026-06-11T08:38:13.074Z
+        - commits:
+            - subject: Update debian:trixie-20260610 Docker digest to 50d8c6e
+              hash: f06a51474782b3228dfad97681a8904e0c951aa9
+              body: |
+                Update debian
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-21.0.24
+          title: ""
+          date: 2026-06-11T06:39:26.537Z
+        - commits:
+            - subject: Update debian Docker tag to trixie-20260610
+              hash: 8ac0bf86cc8ad1b61e3821d18c8a6812d96b4fe0
+              body: |
+                Update debian from trixie-20260518 to trixie-20260610
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-21.0.23
+          title: ""
+          date: 2026-06-11T05:49:46.108Z
+        - commits:
+            - subject: Update Node.js to v24.16.0
+              hash: b7bcd031d09ba9bd37bf189f70a7ee530e8d94f0
+              body: |
+                Update node from 24.15.0 to 24.16.0
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-21.0.22
+          title: ""
+          date: 2026-05-21T14:04:30.230Z
+        - commits:
+            - subject: Update debian:trixie-20260518 Docker digest to 4ae6766
+              hash: 9e2fcd0e710d2b16071e6c2240ddd6496e4f9cd2
+              body: |
+                Update debian
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-21.0.21
+          title: ""
+          date: 2026-05-20T02:54:38.405Z
+        - commits:
+            - subject: Update debian Docker tag to trixie-20260518
+              hash: b5d245358558539be381f145dced9b508a5b2b93
+              body: |
+                Update debian from trixie-20260505 to trixie-20260518
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-21.0.20
+          title: ""
+          date: 2026-05-19T23:20:57.863Z
+        - commits:
+            - subject: Remove DSA key references
+              hash: 146c0d1d220f2c3e76872a4ce99ba7cdbac3670c
+              body: |
+                We recently dropped DSA key generation from cert-manager
+                as the latest ssh-keygen no longer supports it. Removing
+                references to those keys from this codebase as well.
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: joshbwlng
+              nested: []
+          version: open-balena-base-21.0.19
+          title: ""
+          date: 2026-05-13T14:46:58.611Z
+        - commits:
+            - subject: Pin debian Docker tag to e2d08da
+              hash: 80eaf869b00bd7caad8258fbf1d59ee885117562
+              body: |
+                Update debian
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: balena-renovate[bot]
+              nested: []
+          version: open-balena-base-21.0.18
+          title: ""
+          date: 2026-05-12T17:55:10.860Z
+  version: 5.0.226
+  title: ""
+  date: 2026-06-15T18:10:12.864Z
+- commits:
     - subject: Update dependency @balena/lint to ^9.4.1
       hash: d6900a30e70ca70ec741f0853f56889de9a6c245
       body: |
