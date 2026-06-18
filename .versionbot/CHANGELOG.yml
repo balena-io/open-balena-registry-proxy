@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v29.5.3
+      hash: 8ef3226374d5bd5a2945c726453bbdb7b4ae509a
+      body: |
+        Update docker from 29.4.3 to 29.5.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.228
+  title: ""
+  date: 2026-06-18T08:59:56.436Z
+- commits:
     - subject: Update dependency lint-staged to ^17.0.3
       hash: 95c2da155270a35325228ace9763b53630626190
       body: |
