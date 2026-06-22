@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency http-proxy-middleware to v2.0.10 [SECURITY]
+      hash: eafb06212941b7bc871507f3703362e5f66ae2ac
+      body: |
+        Update http-proxy-middleware from 2.0.9 to 2.0.10
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.232
+  title: ""
+  date: 2026-06-22T19:20:49.299Z
+- commits:
     - subject: Update docker Docker tag to v29.6.0
       hash: 1dbf8f7e73a3f68fb2996312b5558106045cbe82
       body: |
