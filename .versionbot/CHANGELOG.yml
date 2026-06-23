@@ -1,4 +1,16 @@
 - commits:
+    - subject: Drop unused @types/morgan devDependency
+      hash: 8bd83f16d4b19c199fd51642a3b0415b10a36db0
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: joshbwlng
+      nested: []
+  version: 5.0.233
+  title: ""
+  date: 2026-06-23T00:09:28.383Z
+- commits:
     - subject: Update dependency http-proxy-middleware to v2.0.10 [SECURITY]
       hash: eafb06212941b7bc871507f3703362e5f66ae2ac
       body: |
