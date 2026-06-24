@@ -97,15 +97,19 @@ function rewriteRepository(
 
 function registryProxyMiddleware(target: string) {
 	return proxy.createProxyMiddleware({
-		logLevel: 'debug',
+		logger: console,
 		target,
 		changeOrigin: true,
-		onProxyReq(proxyReq, _req: express.Request, res: express.Response) {
-			if (res.locals.path) {
-				console.debug(`<== ${proxyReq.path}`);
-				proxyReq.path = res.locals.path;
-				console.debug(`==> ${proxyReq.path}`);
-			}
+		on: {
+			proxyReq(proxyReq, req: express.Request, res: express.Response) {
+				if (res.locals.path) {
+					console.debug(`<== ${proxyReq.path}`);
+					proxyReq.path = res.locals.path;
+					console.debug(`==> ${proxyReq.path}`);
+				} else {
+					proxyReq.path = req.originalUrl;
+				}
+			},
 		},
 	});
 }
@@ -119,7 +123,7 @@ function registryProxy(
 	app.set('trust proxy', trustProxy);
 
 	// proxy endpoint
-	app.use('/v2/', rewriteRepository, registryProxyMiddleware(target));
+	app.use('/v2', rewriteRepository, registryProxyMiddleware(target));
 
 	app.use((_req, res, next) => {
 		res.set('X-Frame-Options', 'DENY');
