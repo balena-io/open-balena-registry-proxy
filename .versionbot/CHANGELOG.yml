@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update express to v5, http-proxy-middleware to v4
+      hash: 30523c34cd80ce8cb9b145e002a453f9afdb3db6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: joshbwlng
+      nested: []
+  version: 5.0.234
+  title: ""
+  date: 2026-06-24T00:43:57.458Z
+- commits:
     - subject: Drop unused @types/morgan devDependency
       hash: 8bd83f16d4b19c199fd51642a3b0415b10a36db0
       body: ""
