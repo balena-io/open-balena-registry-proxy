@@ -1,4 +1,17 @@
 - commits:
+    - subject: Pin dependencies
+      hash: ec645348429f59ff8a452ec292d807eed7d21332
+      body: |
+        Update @types/auth-header
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.238
+  title: ""
+  date: 2026-06-27T00:36:34.870Z
+- commits:
     - subject: Update docker Docker tag to v29.6.1
       hash: 37192b37e3445e6f3991b1eba8f3104b7a156489
       body: |
