@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dockerode to v5.0.1
+      hash: 76bb2b1e47569a41b04180cc8f3b4ce271c7a012
+      body: |
+        Update dockerode from 5.0.0 to 5.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.241
+  title: ""
+  date: 2026-06-27T20:30:36.671Z
+- commits:
     - subject: Update dependency @types/node to v24.13.2
       hash: afce7d909cef8d2e7070e60109c9c028db890240
       body: |
