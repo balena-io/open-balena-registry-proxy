@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency mocha to v11.8.0
+      hash: 66ccf2c6c7f3e6a224958485f63a847c8dd33e4f
+      body: |
+        Update mocha from 11.7.6 to 11.8.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.250
+  title: ""
+  date: 2026-08-15T01:23:13.212Z
+- commits:
     - subject: Update docker Docker tag to v29.7.2
       hash: 2a578017bc90c42d5e7ea87d93d0c47327b19268
       body: |
