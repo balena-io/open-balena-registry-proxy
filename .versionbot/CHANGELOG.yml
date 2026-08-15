@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/supertest to v7.2.1
+      hash: 63d77cc290163584f54d4ce9bcf808c76bf1194a
+      body: |
+        Update @types/supertest from 7.2.0 to 7.2.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.251
+  title: ""
+  date: 2026-08-15T02:30:42.068Z
+- commits:
     - subject: Update dependency mocha to v11.8.0
       hash: 66ccf2c6c7f3e6a224958485f63a847c8dd33e4f
       body: |
