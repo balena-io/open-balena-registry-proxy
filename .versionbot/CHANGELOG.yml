@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker:29.7.2-dind Docker digest to 360545c
+      hash: 7c82e7ceb4431695dc929ec252e1159ba20f37be
+      body: |
+        Update docker
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.261
+  title: ""
+  date: 2026-08-31T20:07:55.688Z
+- commits:
     - subject: Lock file maintenance
       hash: f9a2f3afe790cddca38183d15441bd8b4baea4d0
       body: |
