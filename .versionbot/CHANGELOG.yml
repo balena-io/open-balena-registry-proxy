@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker:29.8.1-dind Docker digest to 3f3c01a
+      hash: a919780a391ef4e377947b5e4f118f4cc714b260
+      body: |
+        Update docker
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.273
+  title: ""
+  date: 2026-09-18T01:33:05.146Z
+- commits:
     - subject: Update alpine:3.21 Docker digest to f21d2ab
       hash: ad18307fae65bfd96578f7d692c2017adb49c433
       body: |
