@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update alpine:3.21 Docker digest to f21d2ab
+      hash: ad18307fae65bfd96578f7d692c2017adb49c433
+      body: |
+        Update alpine
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.272
+  title: ""
+  date: 2026-09-18T00:05:19.495Z
+- commits:
     - subject: Update dependency mocha to v12
       hash: e4b336499ef11370298e9f2b9566b71d1fbae4d5
       body: |
