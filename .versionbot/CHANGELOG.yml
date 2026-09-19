@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/node to v24.13.5
+      hash: 8c214931be0519117366b38de1f3f09e6b09c5d8
+      body: |
+        Update @types/node from 24.13.4 to 24.13.5
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.276
+  title: ""
+  date: 2026-09-19T00:15:17.591Z
+- commits:
     - subject: Update alpine:3.21 Docker digest to ce64758
       hash: f09e8780d691fb2e290d77d178ffda681c80d6f3
       body: |
