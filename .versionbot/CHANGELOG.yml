@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dotenv to v18
+      hash: b0355cf16b27878980df9f7ca1c01c23526f3cb8
+      body: |
+        Update dotenv from 17.4.2 to 18.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.282
+  title: ""
+  date: 2026-09-24T12:48:14.351Z
+- commits:
     - subject: Lock file maintenance
       hash: a64a695c3c7b1cc65452f7bc3022e6596035dbed
       body: |
