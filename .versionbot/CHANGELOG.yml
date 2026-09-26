@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dotenv to v18.0.3
+      hash: 019cea54bd759e32071420b18feaf2088fb732bc
+      body: |
+        Update dotenv from 18.0.1 to 18.0.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.283
+  title: ""
+  date: 2026-09-26T01:41:51.424Z
+- commits:
     - subject: Update dependency dotenv to v18
       hash: b0355cf16b27878980df9f7ca1c01c23526f3cb8
       body: |
