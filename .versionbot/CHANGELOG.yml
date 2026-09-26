@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/node to v24.13.6
+      hash: b4693c62d753c88f19cb47dba63fc3709c6b0048
+      body: |
+        Update @types/node from 24.13.5 to 24.13.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.284
+  title: ""
+  date: 2026-09-26T02:15:27.909Z
+- commits:
     - subject: Update dependency dotenv to v18.0.3
       hash: 019cea54bd759e32071420b18feaf2088fb732bc
       body: |
