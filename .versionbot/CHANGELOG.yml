@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency supertest to v7.3.0
+      hash: 8d67f8feb38954ced124ded8477fe7798af8d4c8
+      body: |
+        Update supertest from 7.2.2 to 7.3.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.285
+  title: ""
+  date: 2026-09-26T03:22:01.781Z
+- commits:
     - subject: Update dependency @types/node to v24.13.6
       hash: b4693c62d753c88f19cb47dba63fc3709c6b0048
       body: |
