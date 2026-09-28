@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: 81b78047124858dde4e47b690073cc9ffb851a4e
+      body: |
+        Update 
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.286
+  title: ""
+  date: 2026-09-28T01:48:31.116Z
+- commits:
     - subject: Update dependency supertest to v7.3.0
       hash: 8d67f8feb38954ced124ded8477fe7798af8d4c8
       body: |
