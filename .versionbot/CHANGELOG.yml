@@ -1,4 +1,32 @@
 - commits:
+    - subject: Update balena/open-balena-base to 22.0.0
+      hash: 6919c687197067167014093c5c4b713da5abe24a
+      body: |
+        Update balena/open-balena-base from 21.0.37 to 22.0.0
+
+        https://balena.fibery.io/Work/Project/2985
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested:
+        - commits:
+            - subject: Update nodejs to 26.x
+              hash: c8c1938ee9c3e9d6ed02ddbe8ace6f6700284d40
+              body: |
+                https://balena.fibery.io/Work/Project/2985
+              footer:
+                Change-type: major
+                change-type: major
+              author: Pagan Gazzard
+              nested: []
+          version: open-balena-base-22.0.0
+          title: ""
+          date: 2026-09-23T15:17:14.355Z
+  version: 5.0.287
+  title: ""
+  date: 2026-09-28T12:13:34.509Z
+- commits:
     - subject: Lock file maintenance
       hash: 81b78047124858dde4e47b690073cc9ffb851a4e
       body: |
