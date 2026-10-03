@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dotenv to v18.0.5
+      hash: 2cc50f324c065cfc7b3a87f3bed36ea8445c1a5d
+      body: |
+        Update dotenv from 18.0.4 to 18.0.5
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.292
+  title: ""
+  date: 2026-10-03T17:20:36.281Z
+- commits:
     - subject: Update dependency lint-staged to v17.6.0
       hash: 4159d8d7016e3dc1738954a958a24c453c6eb1d3
       body: |
