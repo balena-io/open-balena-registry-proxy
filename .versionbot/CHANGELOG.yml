@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency chai to v6.3.0
+      hash: b67f664d183dbe88566c7ad50657d0adad6c8837
+      body: |
+        Update chai from 6.2.2 to 6.3.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.293
+  title: ""
+  date: 2026-10-03T19:59:34.142Z
+- commits:
     - subject: Update dependency dotenv to v18.0.5
       hash: 2cc50f324c065cfc7b3a87f3bed36ea8445c1a5d
       body: |
