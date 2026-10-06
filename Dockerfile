@@ -1,4 +1,4 @@
-FROM balena/open-balena-base:22.0.0-no-init@sha256:a28519993f5d5ddc6c68cd3d43e65658ad6241aca70532ebc027403ab21b6ce3
+FROM balena/open-balena-base:22.0.1-no-init@sha256:1f0df821f157f7b998507e078af9fc58b490afdfb315c1bf715f22ab66205e8d
 
 WORKDIR /usr/src/app
 
