@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dotenv to v18.0.6
+      hash: 9259c3cf6a8c7791307726187c03eb0ee4434d1e
+      body: |
+        Update dotenv from 18.0.5 to 18.0.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.301
+  title: ""
+  date: 2026-10-10T00:07:37.709Z
+- commits:
     - subject: Update docker Docker tag to v29.9.0
       hash: e3d79a30a82400f538db5f269ac67e2830d4b9d6
       body: |
