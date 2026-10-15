@@ -1,10 +1,10 @@
 import 'dotenv/config';
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../../src/app.js';
-import registry from '../test-lib/registry.js';
+import app from '../../src/app.ts';
+import registry from '../test-lib/registry.ts';
 import access from '../fixtures/access.json' with { type: 'json' };
-import { generateToken } from '../test-lib/token.js';
+import { generateToken } from '../test-lib/token.ts';
 import type http from 'http';
 
 let mockRegistry: http.Server;

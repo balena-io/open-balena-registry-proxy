@@ -5,12 +5,10 @@ WORKDIR /usr/src/app
 COPY docker-hc ./
 RUN chmod +x docker-hc
 
-COPY *.json ./
-COPY src/ src/
-
-RUN npm ci --ignore-scripts && \
-    npm run build && \
-    npm prune --omit=dev && \
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --ignore-scripts && \
     npm cache clean --force
+
+COPY src/ src/
 
 CMD [ "npm", "start" ]

@@ -1,7 +1,7 @@
 import express from 'express';
 import * as authorization from 'auth-header';
 import jsonwebtoken from 'jsonwebtoken';
-import { ERROR_DENIED } from '../../src/errors.js';
+import { ERROR_DENIED } from '../../src/errors.ts';
 import access from '../fixtures/access.json' with { type: 'json' };
 
 // listen on /v2 for version, manifest, and blobs requests

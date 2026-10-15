@@ -2,8 +2,8 @@ import express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import * as authorization from 'auth-header';
 import jsonwebtoken from 'jsonwebtoken';
-import { ERROR_DENIED } from './errors.js';
-import { TRUST_PROXY, REGISTRY_URL } from './config.js';
+import { ERROR_DENIED } from './errors.ts';
+import { TRUST_PROXY, REGISTRY_URL } from './config.ts';
 
 /*
  * Group 1: version
