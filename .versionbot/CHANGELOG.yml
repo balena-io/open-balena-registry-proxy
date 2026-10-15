@@ -1,4 +1,24 @@
 - commits:
+    - subject: Switch from ts-node to node's built-in type stripping
+      hash: f157fa43530b9e2d5489afad6bbea09c44b47547
+      body: |
+        Node now runs the typescript sources directly everywhere. This means
+        the build script has been removed and replaced with a purely type
+        checking/test stages.
+
+        Type stripping only supports erasable syntax and does not rewrite import
+        specifiers so tsconfig has been updated to enable/enforce that
+
+        https://balena.fibery.io/Work/Project/3059
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.305
+  title: ""
+  date: 2026-10-15T16:21:03.673Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v22.0.3
       hash: 41900dc53ca2b037d6a9d81d2bb291d3610cf3a2
       body: |
