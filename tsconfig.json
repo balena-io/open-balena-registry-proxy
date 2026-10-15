@@ -2,8 +2,11 @@
 	"compilerOptions": {
 		"module": "NodeNext",
 		"target": "es2025",
-		"rootDir": "src",
-		"outDir": "dist",
+		"noEmit": true,
+		"allowImportingTsExtensions": true,
+		"erasableSyntaxOnly": true,
+		"verbatimModuleSyntax": true,
+		"types": ["node"],
 		"strict": true,
 		"useUnknownInCatchVariables": false,
 		"noImplicitThis": false,
@@ -11,10 +14,7 @@
 		"strictPropertyInitialization": false,
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
-		"preserveConstEnums": true,
-		"removeComments": true,
 		"resolveJsonModule": true,
-		"sourceMap": true,
 		"skipLibCheck": true
 	},
 	"include": [
