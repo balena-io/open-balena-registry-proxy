@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v29.9.1
+      hash: 5dfdb7f34d97bd2e8311c29bfbd68d04eefeac8a
+      body: |
+        Update docker from 29.9.0 to 29.9.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.306
+  title: ""
+  date: 2026-10-16T23:13:48.391Z
+- commits:
     - subject: Switch from ts-node to node's built-in type stripping
       hash: f157fa43530b9e2d5489afad6bbea09c44b47547
       body: |
