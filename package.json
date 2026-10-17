@@ -39,7 +39,7 @@
     "@balena/lint": "^9.4.9",
     "@types/auth-header": "1.0.6",
     "@types/chai": "5.2.3",
-    "@types/dockerode": "4.0.1",
+    "@types/dockerode": "4.0.2",
     "@types/express": "5.0.6",
     "@types/jsonwebtoken": "9.0.10",
     "@types/mocha": "10.0.10",
