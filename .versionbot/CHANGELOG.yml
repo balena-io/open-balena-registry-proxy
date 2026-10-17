@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @balena/lint to ^9.4.10
+      hash: d42e867dd620a79cec4c69f5a04afdd98eae0531
+      body: |
+        Update @balena/lint from 9.4.10 to 9.4.11
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.310
+  title: ""
+  date: 2026-10-17T07:29:32.497Z
+- commits:
     - subject: Update dependency dotenv to v18.0.7
       hash: 34126a81d4a14346c894e239986e69064280e680
       body: |
