@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/node to v26.6.5
+      hash: 2a66ba8a0149c34b1c0f3ad173a41f5b1a2163d5
+      body: |
+        Update @types/node from 26.6.4 to 26.6.5
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.308
+  title: ""
+  date: 2026-10-17T02:17:49.749Z
+- commits:
     - subject: Update dependency @types/dockerode to v4.0.2
       hash: 30e413a52247eeb3a4549b10d5645875acfa3d8d
       body: |
