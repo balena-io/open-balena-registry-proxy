@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update alpine:3.21 Docker digest to fbea4ca
+      hash: 6e44626f42116ff68c2ea2a890e1a610fca31a38
+      body: |
+        Update alpine
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.316
+  title: ""
+  date: 2026-10-21T23:32:52.184Z
+- commits:
     - subject: Update docker Docker tag to v29.9.2
       hash: f73a424adf2abb2c2d327127aa870bec65c0ce15
       body: |
