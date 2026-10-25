@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dotenv to v18.0.9
+      hash: 9cb754d685a43251de99b68b690a9aaa5d25081a
+      body: |
+        Update dotenv from 18.0.8 to 18.0.9
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.320
+  title: ""
+  date: 2026-10-25T19:15:01.828Z
+- commits:
     - subject: Update alpine:3.21 Docker digest to ee16d92
       hash: e9fc823d081e29a2bc98c91334046a1214648490
       body: |
