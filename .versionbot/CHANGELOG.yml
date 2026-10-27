@@ -1,4 +1,31 @@
 - commits:
+    - subject: Update balena/open-balena-base Docker tag to v22.0.6
+      hash: d094397b743b7b7b75c4a7b7432589d128bd51eb
+      body: |
+        Update balena/open-balena-base from 22.0.5 to 22.0.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested:
+        - commits:
+            - subject: Rebuild to pick up libbrotli1 fix for CVE-2026-111497
+              hash: 30cc6f6cc6e198188d2ea672622133a26fa3a0c1
+              body: >
+                Add a test that fails if libbrotli1 or Node.js's bundled brotli
+                is older than the fixed version.
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Harald Fischer
+              nested: []
+          version: open-balena-base-22.0.6
+          title: ""
+          date: 2026-10-27T13:13:24.264Z
+  version: 5.0.322
+  title: ""
+  date: 2026-10-27T14:32:36.783Z
+- commits:
     - subject: Lock file maintenance
       hash: 5e573c3e98d5e2f19a2e0ac1433c359abc06eea5
       body: |
