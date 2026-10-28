@@ -2,6 +2,8 @@ FROM balena/open-balena-base:22.0.9-no-init@sha256:f4ed07d68fed8e32274377572794c
 
 WORKDIR /usr/src/app
 
+ENV NODE_ENV=production
+
 COPY docker-hc ./
 RUN chmod +x docker-hc
 
