@@ -23,7 +23,8 @@ function rewriteRepository(
 
 	if (matches == null) {
 		// the url could not be parsed
-		return res.status(403).json(ERROR_DENIED);
+		res.status(403).json(ERROR_DENIED);
+		return;
 	}
 
 	if (matches[4] == null) {
@@ -47,7 +48,8 @@ function rewriteRepository(
 
 	if (auth.params.error || !auth.token || auth.scheme !== 'Bearer') {
 		// bail out if the auth header is not in the expected bearer format
-		return res.status(403).json(ERROR_DENIED);
+		res.status(403).json(ERROR_DENIED);
+		return;
 	}
 
 	// https://docs.docker.com/registry/spec/auth/jwt/
@@ -60,7 +62,8 @@ function rewriteRepository(
 		!Array.isArray(jwt.access)
 	) {
 		// bail out if the provided jwt contents are invalid
-		return res.status(403).json(ERROR_DENIED);
+		res.status(403).json(ERROR_DENIED);
+		return;
 	}
 
 	// API should have added an 'alias' field to the access list of the JWT
@@ -80,7 +83,8 @@ function rewriteRepository(
 
 	if (access?.name == null || typeof access.name !== 'string') {
 		// bail out if we could not match this request to an alias in the JWT
-		return res.status(403).json(ERROR_DENIED);
+		res.status(403).json(ERROR_DENIED);
+		return;
 	}
 
 	// rewrite the request and replace the alias with the real repo path
