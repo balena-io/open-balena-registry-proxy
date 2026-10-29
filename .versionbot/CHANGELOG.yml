@@ -1,4 +1,22 @@
 - commits:
+    - subject: Enable the full strict mode in tsconfig
+      hash: 08cf7c96a7d6137795ef7e88db0dc39efd90ff4b
+      body: |
+        The strict sub-options that were disabled (strictFunctionTypes,
+        noImplicitThis, useUnknownInCatchVariables and
+        strictPropertyInitialization) no longer cause any errors so re-enable
+        them. Also enable noUncheckedIndexedAccess, as eg the optional regex
+        match groups can be undefined, and noImplicitReturns, which only needed
+        the request handler to consistently not return the response.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.326
+  title: ""
+  date: 2026-10-29T04:30:36.291Z
+- commits:
     - subject: Update balena/open-balena-base Docker tag to v22.0.9
       hash: 3ff30d5265b58e8d287d53fafd22932be57851ef
       body: |
