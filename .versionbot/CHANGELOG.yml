@@ -1,4 +1,18 @@
 - commits:
+    - subject: Set NODE_ENV=production in the image
+      hash: 5ba55f0ed4451f1412717fef173125a759eecb4d
+      body: |
+        NODE_ENV isn't set by open-balena-base so express runs in development
+        mode, eg its default error handler includes stack traces in responses.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 5.0.327
+  title: ""
+  date: 2026-10-29T13:25:54.828Z
+- commits:
     - subject: Enable the full strict mode in tsconfig
       hash: 08cf7c96a7d6137795ef7e88db0dc39efd90ff4b
       body: |
