@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update docker Docker tag to v29.9.3
+      hash: 685c404d4a2cd04911a9903ce6dcb9787c00bcd4
+      body: |
+        Update docker from 29.9.2 to 29.9.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.332
+  title: ""
+  date: 2026-11-05T01:11:22.887Z
+- commits:
     - subject: Stop skipping type checks of declaration files
       hash: 78b7fde0d5ddc2fb65e78ca94d01ebdc04376843
       body: >
