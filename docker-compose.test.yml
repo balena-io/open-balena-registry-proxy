@@ -17,7 +17,7 @@ services:
       - proxy
 
   sut:
-    image: alpine:3.21@sha256:ee16d92f96db08d9d2d07da48555a27f3a69d8f0759021dbc601195ed0d2b5bd
+    image: alpine:3.21@sha256:155e506202349dd8193e2c484254f519aa7fd2c8359bec199952eb840a8920bf
     entrypoint:
       - /bin/sh
       - -c
