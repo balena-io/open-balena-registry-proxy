@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/node to v26.6.6
+      hash: 18744255731bea9498783e048986b32c5fa55988
+      body: |
+        Update @types/node from 26.6.5 to 26.6.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.338
+  title: ""
+  date: 2026-11-07T00:08:51.720Z
+- commits:
     - subject: Update docker:29.9.3-dind Docker digest to 08a9801
       hash: e2f5e80224903aa0257a184feb3c653eb5cadf7c
       body: |
