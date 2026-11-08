@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update alpine:3.21 Docker digest to bc21487
+      hash: 6d796b487dbf4b19c6de667fcaefb9f3851a62d7
+      body: |
+        Update alpine
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.339
+  title: ""
+  date: 2026-11-08T15:14:55.743Z
+- commits:
     - subject: Update dependency @types/node to v26.6.6
       hash: 18744255731bea9498783e048986b32c5fa55988
       body: |
