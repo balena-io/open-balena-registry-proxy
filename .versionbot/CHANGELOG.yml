@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: d30bf2e180bb6801e63856e7b26d39613696d02b
+      body: |
+        Update 
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.340
+  title: ""
+  date: 2026-11-09T01:17:38.936Z
+- commits:
     - subject: Update alpine:3.21 Docker digest to bc21487
       hash: 6d796b487dbf4b19c6de667fcaefb9f3851a62d7
       body: |
