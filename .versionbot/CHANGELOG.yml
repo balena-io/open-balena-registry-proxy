@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency dotenv to v18.0.10
+      hash: 37fedacac70e7da460514b808b5b1187fe9bcf36
+      body: |
+        Update dotenv from 18.0.9 to 18.0.10
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.343
+  title: ""
+  date: 2026-11-14T01:35:49.611Z
+- commits:
     - subject: Update docker:29.9.3-dind Docker digest to 7bf70dc
       hash: 38310a6a9d2f85b8bb9f5ad607106b540257756e
       body: |
