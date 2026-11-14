@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency supertest to v7.3.2
+      hash: 9d94c0ae930316fb368158ec2a8e485868f7d61f
+      body: |
+        Update supertest from 7.3.1 to 7.3.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.344
+  title: ""
+  date: 2026-11-14T04:15:20.865Z
+- commits:
     - subject: Update dependency dotenv to v18.0.10
       hash: 37fedacac70e7da460514b808b5b1187fe9bcf36
       body: |
