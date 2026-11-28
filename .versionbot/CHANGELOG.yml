@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @balena/lint to ^11.1.0
+      hash: ddc5b20aea29f25b20ab1f54c97359bc40d8646a
+      body: |
+        Update @balena/lint from 11.1.0 to 11.1.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 5.0.354
+  title: ""
+  date: 2026-11-28T05:07:33.746Z
+- commits:
     - subject: Update docker:29.10.1-dind Docker digest to fbbc96e
       hash: 96df0f4e1bbda89e040e2fd8d14bdb31c0170d10
       body: |
